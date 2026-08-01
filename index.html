@@ -30,9 +30,19 @@
 }
 
 *{box-sizing:border-box}
+/* text people may actually want to copy */
+input, textarea, select, address, .verse p, .slot-body p{
+  -webkit-user-select:text; user-select:text;
+}
 html{scroll-behavior:smooth}
 body{
   margin:0;
+  /* no double-tap zoom, and no text selection or callout when holding to blow
+     bubbles — pinch zoom and normal scrolling still work */
+  touch-action:manipulation;
+  -webkit-user-select:none; user-select:none;
+  -webkit-touch-callout:none;
+  -webkit-tap-highlight-color:transparent;
   background:var(--ink);
   color:var(--jasmine);
   font-family:var(--sans);
@@ -1528,7 +1538,7 @@ function loop(now){
       const now = performance.now();
       if (now - holdAt > 110 && !trail() && now - lastBlow > 150){
         lastBlow = now; ex = hx;                     // held still: a trickle of big ones
-        blow(hx, 1);
+        blow(hx, hy, 1);
       }
     }
   }
@@ -1587,14 +1597,15 @@ function bakeBubbles(){
 }
 bakeBubbles();
 
-function blow(x, scale){
+const BLOW_DROP = 6 * 37.8;                     // 6cm below the finger, in CSS px
+function blow(x, y, scale){
   if (bubbles.length >= BUBCAP) return;
   const r = Math.max(7, (9 + Math.pow(Math.random(), 1.7) * 34) * (scale || 1));
   bubbles.push({
-    // they lift off the bottom edge; only the pointer's x is used.
+    // they lift off below the finger, so the pointer's y matters too.
     // y is kept against the page, so a bubble holds its place when you scroll
     x: x + (Math.random()-.5)*26,
-    y: scrollY + B.h + 22 + Math.random()*40, r,
+    y: scrollY + y + BLOW_DROP + Math.random()*34, r,
     vx: (Math.random()-.5)*.5,
     vy: -(.35 + Math.random()*.5) - r*.004,
     ph: Math.random()*6.283, sw: .02 + Math.random()*.03,
@@ -1609,7 +1620,7 @@ function trail(){
   let dx = hx - ex, made = 0;
   while (Math.abs(dx) >= 15 && made < 8){       // one every 15px swept sideways
     ex += Math.sign(dx) * 15;
-    blow(ex, .5 + Math.random() * .35);
+    blow(ex, hy, .5 + Math.random() * .35);
     dx = hx - ex;
     made++;
   }
