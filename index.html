@@ -61,7 +61,7 @@ body::before{ /* ambient depth behind the rain */
 }
 #rain{position:fixed; inset:0; z-index:1; pointer-events:none}
 #burst{position:fixed; inset:0; z-index:60; pointer-events:none}
-.page{position:relative; z-index:2; touch-action:pan-y pinch-zoom}
+.page{position:relative; z-index:2}
 
 /* ─────────────────────────────────────────────
    Type
@@ -1118,7 +1118,11 @@ function makeWhite(ctx, secs){                  // bright, for the popper crack
 }
 
 function startAudio(){
-  if (audioReady || !soundOn) return;
+  if (!soundOn) return;
+  if (audioReady){                                   // already built — just wake it
+    if (actx && actx.state !== 'running') actx.resume();
+    return;
+  }
   const AC = window.AudioContext || window.webkitAudioContext;
   if (!AC) return;
   audioReady = true;
@@ -1441,6 +1445,11 @@ function pop(power){
   POPPERS[i](t, loud);
 }
 
+// Safari is picky about which event counts as the unlocking gesture, so try
+// on several of them; startAudio is idempotent
+['click','touchend','keydown'].forEach(evt =>
+  addEventListener(evt, () => startAudio(), { passive:true }));
+
 document.addEventListener('visibilitychange', () => {          // never play to an empty tab
   if (!actx) return;
   if (document.hidden) actx.suspend(); else if (soundOn) actx.resume();
@@ -1568,6 +1577,7 @@ addEventListener('resize', () => {
 const bubbles = [], mist = [], rings = [];
 const BUBCAP = small ? 48 : 96;
 let holding = false, holdAt = 0, hx = 0, hy = 0, lastBlow = 0, ex = 0, ey = 0;
+let down = false, sx0 = 0, sy0 = 0, holdTimer = 0, lockScroll = false;
 
 const BUB = [];
 function bakeBubbles(){
@@ -1785,12 +1795,19 @@ hexes.forEach(h => {
 addEventListener('pointerup',     () => { sliding = false; lastHex = null; });
 addEventListener('pointercancel', () => { sliding = false; lastHex = null; });
 addEventListener('pointermove', e => {
-  if (!holding) return;
+  if (!down) return;
   hx = e.clientX; hy = e.clientY;
-  if (performance.now() - holdAt > 80) trail();
+  if (holding && performance.now() - holdAt > 60) trail();
 }, { passive:true });
-addEventListener('pointerup',     () => holding = false);
-addEventListener('pointercancel', () => holding = false);
+
+// once the gesture is ours, stop the page moving under it
+addEventListener('touchmove', e => { if (lockScroll) e.preventDefault(); }, { passive:false });
+function releasePress(){
+  down = false; holding = false; lockScroll = false;
+  clearTimeout(holdTimer);
+}
+addEventListener('pointerup', releasePress);
+addEventListener('pointercancel', releasePress);
 
 /* ── Interaction ─────────────────────────────── */
 let hinted = false;
@@ -1805,9 +1822,23 @@ addEventListener('pointerdown', e => {
 
   // holding anywhere blows more of them
   if (!reduced){
-    holding = true; hx = e.clientX; hy = e.clientY;
+    down = true;
+    hx = sx0 = e.clientX; hy = sy0 = e.clientY;
     ex = hx; ey = hy;
     holdAt = performance.now(); lastBlow = 0;
+    clearTimeout(holdTimer);
+    if (e.pointerType === 'touch'){
+      // a finger that moves straight away is scrolling; one that stays put for
+      // a moment is blowing bubbles, and from then on we block the scroll
+      holding = false;
+      holdTimer = setTimeout(() => {
+        if (down && Math.hypot(hx - sx0, hy - sy0) < 14){
+          holding = true; lockScroll = true; holdAt = performance.now();
+        }
+      }, 170);
+    } else {
+      holding = true;                              // a mouse drag never scrolls
+    }
   }
 
   burst(e.clientX, e.clientY, mobile ? 16 : 24, 7);
