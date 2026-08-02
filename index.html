@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ann Maria & Joel — 12 December 2026</title>
-<meta name="description" content="Wedding of Ann Maria and Joel. Saturday 12 December 2026, Changanacherry, Kerala. Programme, venues and RSVP.">
+<meta name="description" content="Wedding of Ann Maria and Joel. Saturday 12 December 2026, Changanacherry, Kerala. Programme and venues.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
 
 *{box-sizing:border-box}
 /* text people may actually want to copy */
-input, textarea, select, address, .verse p, .slot-body p{
+address, .verse p, .slot-body p{
   -webkit-user-select:text; user-select:text;
 }
 html{scroll-behavior:smooth}
@@ -247,37 +247,6 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
   display:block; font-size:.66rem; letter-spacing:.26em; color:var(--brass); margin-bottom:.9rem;
 }
 
-/* RSVP */
-.rsvp{
-  border:1px solid var(--hair); border-radius:2px; padding:clamp(2rem,5vw,3.5rem);
-  background:linear-gradient(150deg, rgba(18,57,61,.6), rgba(5,22,26,.4));
-}
-.field{margin-bottom:1.4rem}
-.field label{display:block; font-size:.66rem; letter-spacing:.24em; text-transform:uppercase; color:var(--muted); margin-bottom:.6rem}
-.field input,.field textarea,.field select{
-  width:100%; padding:.85rem 0; background:transparent; color:var(--jasmine);
-  border:0; border-bottom:1px solid rgba(244,239,228,.22);
-  font-family:var(--sans); font-size:1rem; font-weight:300; transition:border-color .4s;
-}
-.field select{padding-right:1rem}
-.field select option{background:var(--deep); color:var(--jasmine)}
-.field input:focus,.field textarea:focus,.field select:focus{outline:none; border-bottom-color:var(--brass)}
-.two{display:grid; grid-template-columns:1fr 1fr; gap:1.4rem}
-@media (max-width:560px){.two{grid-template-columns:1fr}}
-
-.btn{
-  margin-top:.8rem; padding:1.05rem 2.6rem; cursor:pointer;
-  background:var(--brass); color:var(--ink); border:0; border-radius:2px;
-  font-family:var(--sans); font-weight:500; font-size:.74rem;
-  letter-spacing:.24em; text-transform:uppercase;
-  transition:transform .3s cubic-bezier(.2,.9,.3,1.4), box-shadow .3s;
-}
-.btn:hover{transform:translateY(-2px); box-shadow:0 10px 30px -12px rgba(217,164,65,.8)}
-.btn:active{transform:translateY(0)}
-.form-note{margin-top:1.1rem; font-size:.78rem; color:rgba(244,239,228,.42)}
-.done{margin-top:1.2rem; color:var(--brass); font-family:var(--display); font-style:italic; font-size:1.15rem; display:none}
-.done.show{display:block}
-
 /* Footer */
 .foot{text-align:center; padding:var(--band) var(--pad) 8rem; border-top:1px solid var(--hair)}
 .foot p{font-family:var(--display); font-style:italic; font-size:clamp(1.4rem,4vw,2.2rem); margin:0 0 1.2rem}
@@ -448,6 +417,156 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 </head>
 <body>
 
+<!-- ══════════════════════════════════════════════════════════════════════
+     EVERYTHING YOU NEED TO EDIT IS IN THIS ONE BLOCK.
+     Change the text between the quote marks. Keep the quotes, colons
+     and commas exactly where they are. Nothing below this block needs
+     touching to change names, dates, times, venues or wording.
+     ══════════════════════════════════════════════════════════════════════ -->
+<script>
+const WEDDING = {
+
+  /* ── The couple, the day, the place ─────────────────────────────── */
+  monogram : "A & J",
+  eyebrow  : "The wedding of",
+  couple   : { one: "Ann Maria", joiner: "and", two: "Joel" },
+
+  date: {
+    display : "Saturday, 12 December 2026",
+    // used by the countdown. Format: YYYY-MM-DDTHH:MM:SS+05:30
+    iso     : "2026-12-12T08:45:00+05:30"
+  },
+
+  place : "Changanacherry, Kerala",
+  hint  : "Tap for petals — hold to blow bubbles",
+
+  /* ── The line under the hero ────────────────────────────────────── */
+  verse : {
+    text   : "Two are better than one, because they have a good reward for their labour.",
+    source : "Ecclesiastes 4:9"
+  },
+
+  /* ── Order of the day ───────────────────────────────────────────── */
+  programme : {
+    eyebrow : "Order of the day",
+    title   : "The programme",
+    intro   : "Two days, one long celebration. Times are when things begin, so please arrive a little before.",
+
+    // add or remove days, and events inside them, freely
+    days : [
+      {
+        name : "Friday",
+        when : "11 December · Evening",
+        events : [
+          { time  : "6:30 pm",
+            title : "Welcome &amp; family dinner",
+            text  : "An open evening for guests travelling in. Come as you are, eat well, meet everyone before the rush of Saturday.",
+            venue : "Bride's home, Vazhappally" },
+
+          { time  : "8:30 pm",
+            title : "Music and blessing",
+            text  : "Songs from both families, followed by a short prayer service led by Fr. Thomas.",
+            venue : "Bride's home, Vazhappally" }
+        ]
+      },
+      {
+        name : "Saturday",
+        when : "12 December · The wedding day",
+        events : [
+          { time  : "8:00 am",
+            title : "Guests arrive",
+            text  : "Tea and coffee under the portico. Ushers will seat you — the bride's family to the left, the groom's to the right.",
+            venue : "St. Mary's Forane Church" },
+
+          { time  : "8:45 am",
+            title : "Nuptial mass and vows",
+            text  : "The ceremony runs about ninety minutes, including the exchange of rings and the tying of the <span class='figure'>minnu</span>.",
+            venue : "St. Mary's Forane Church" },
+
+          { time  : "10:30 am",
+            title : "Photographs on the steps",
+            text  : "Family groups first, then everyone. Please stay — we would like a picture with every single person who came.",
+            venue : "Church courtyard" },
+
+          { time  : "12:00 pm",
+            title : "Reception and lunch",
+            text  : "A full sadhya on banana leaf, with a separate counter for those who prefer non-vegetarian.",
+            venue : "Hotel Casino Hall" },
+
+          { time  : "1:30 pm",
+            title : "Cake, toasts and the first dance",
+            text  : "Short speeches from both fathers. If you would like to say something, find Anoop at the head table.",
+            venue : "Hotel Casino Hall" },
+
+          { time  : "3:30 pm",
+            title : "Send-off",
+            text  : "Flowers and sparklers at the gate. Umbrellas will be handed out — December has its own ideas.",
+            venue : "Hotel Casino Hall" }
+        ]
+      }
+    ]
+  },
+
+  /* ── Where ──────────────────────────────────────────────────────── */
+  venues : {
+    eyebrow : "Getting there",
+    title   : "Two places",
+    list : [
+      { tag     : "Ceremony · 8:45 am",
+        name    : "St. Mary's Forane Church",
+        address : ["Vazhappally, Changanacherry", "Kottayam district, Kerala 686103"],
+        map     : "St Marys Forane Church Vazhappally Changanacherry" },
+
+      { tag     : "Reception · 12:00 pm",
+        name    : "Hotel Casino Hall",
+        address : ["M.C. Road, Changanacherry", "Kottayam district, Kerala 686101"],
+        map     : "Hotel Casino Changanacherry" }
+    ]
+  },
+
+  /* ── Useful things to know ──────────────────────────────────────── */
+  notes : {
+    eyebrow : "Small print, useful",
+    title   : "Things worth knowing",
+    list : [
+      { label: "What to wear", title: "Kerala formal",
+        text: "Saree, set-mundu, kurta or suit. The church floor is stone and the courtyard may be wet — flat shoes will thank you." },
+
+      { label: "If it rains", title: "It might",
+        text: "Everything moves indoors except the photographs, which move under the portico. Umbrellas are provided at both venues." },
+
+      { label: "Parking", title: "Behind the parish hall",
+        text: "Free, with attendants from 7:30 am. The reception hall has basement parking off M.C. Road." },
+
+      { label: "Staying over", title: "Rooms held nearby",
+        text: "A block of rooms is held at two hotels within a kilometre. Mention the wedding when booking, or ask us and we will arrange it." },
+
+      { label: "Children", title: "Very welcome",
+        text: "There is a quiet room beside the sacristy for feeding and naps, and a separate table at lunch." },
+
+      { label: "Gifts", title: "Your presence, honestly",
+        text: "You are travelling to be with us and that is plenty. If you would still like to give something, a note at the reception desk is perfect." }
+    ]
+  },
+
+  /* ── The chimes and note pad section ────────────────────────────── */
+  tune : {
+    eyebrow : "Before you go",
+    title   : "Play us something",
+    intro   : "Five notes, five octaves, tuned to the key this page hums in. Every row starts on the root. Tap them, or drag across — none of them can sound wrong together."
+  },
+
+  /* ── Sign-off ───────────────────────────────────────────────────── */
+  footer : {
+    line  : "See you in the rain.",
+    small : "Ann Maria &amp; Joel · 12 · 12 · 2026"
+  }
+
+};
+</script>
+<!-- ═══════════════ END OF THE EDITABLE BLOCK ═══════════════ -->
+
+
 <canvas id="rain" aria-hidden="true"></canvas>
 <canvas id="burst" aria-hidden="true"></canvas>
 
@@ -456,13 +575,12 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
     <button class="cog" id="cog" aria-expanded="false" aria-controls="settings" aria-label="Settings">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
-    <span class="mono">A &amp; J</span>
+    <span class="mono" id="monogram">A &amp; J</span>
   </div>
   <nav>
     <a href="#programme">Programme</a>
     <a href="#venues">Venues</a>
-    <a href="#notes">Notes</a>
-    <a href="#rsvp" class="last">RSVP</a>
+    <a href="#notes" class="last">Notes</a>
   </nav>
 
   <div class="settings" id="settings" hidden>
@@ -478,8 +596,8 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
   <section class="hero">
     <canvas id="glass" aria-hidden="true"></canvas>
     <div class="hero-inner">
-      <p class="eyebrow">The wedding of</p>
-      <h1 class="names">Ann Maria<span class="amp">and</span>Joel</h1>
+      <p class="eyebrow" id="heroEyebrow"></p>
+      <h1 class="names"><span id="nameOne"></span><span class="amp" id="joiner"></span><span id="nameTwo"></span></h1>
       <div class="chimes" id="chimes" role="group" aria-label="Bar chimes — sweep across to play">
         <svg viewBox="0 0 480 122" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -626,8 +744,8 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
           </g>
         </svg>
       </div>
-      <p class="when">Saturday, 12 December 2026</p>
-      <p class="where">Changanacherry, Kerala</p>
+      <p class="when" id="dateLine"></p>
+      <p class="where" id="placeLine"></p>
 
       <div class="count" id="count" aria-label="Time remaining until the wedding">
         <div><b data-c="d">—</b><span>Days</span></div>
@@ -636,216 +754,42 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
         <div><b data-c="s">—</b><span>Seconds</span></div>
       </div>
 
-      <p class="hint" id="hint">Tap for petals — hold to blow bubbles</p>
+      <p class="hint" id="hint"></p>
     </div>
   </section>
 
   <!-- VERSE ────────────────────────────────────── -->
   <section class="band verse reveal">
-    <p>Two are better than one, because they have a good reward for their labour.</p>
-    <cite>Ecclesiastes 4:9</cite>
+    <p id="verseText"></p>
+    <cite id="verseCite"></cite>
   </section>
 
   <!-- PROGRAMME ────────────────────────────────── -->
   <section class="band" id="programme">
     <div class="band-head reveal">
-      <p class="eyebrow">Order of the day</p>
-      <h2>The programme</h2>
-      <p class="lede" style="margin-top:1.4rem">Two days, one long celebration. Times are when things begin, so please arrive a little before.</p>
+      <p class="eyebrow" id="programmeEyebrow"></p>
+      <h2 id="programmeTitle"></h2>
+      <p class="lede" id="programmeIntro" style="margin-top:1.4rem"></p>
     </div>
-
-    <div class="day">
-      <div class="day-label reveal"><h3>Friday</h3><span>11 December · Evening</span></div>
-
-      <div class="slot">
-        <div class="slot-time">6:30 pm</div>
-        <div class="slot-line"><span class="drop"></span></div>
-        <div class="slot-body">
-          <h4>Welcome &amp; family dinner</h4>
-          <p>An open evening for guests travelling in. Come as you are, eat well, meet everyone before the rush of Saturday.</p>
-          <span class="venue">Bride's home, Vazhappally</span>
-        </div>
-      </div>
-
-      <div class="slot">
-        <div class="slot-time">8:30 pm</div>
-        <div class="slot-line"><span class="drop"></span></div>
-        <div class="slot-body">
-          <h4>Music and blessing</h4>
-          <p>Songs from both families, followed by a short prayer service led by Fr. Thomas.</p>
-          <span class="venue">Bride's home, Vazhappally</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-label reveal"><h3>Saturday</h3><span>12 December · The wedding day</span></div>
-
-      <div class="slot">
-        <div class="slot-time">8:00 am</div>
-        <div class="slot-line"><span class="drop"></span></div>
-        <div class="slot-body">
-          <h4>Guests arrive</h4>
-          <p>Tea and coffee under the portico. Ushers will seat you — the bride's family to the left, the groom's to the right.</p>
-          <span class="venue">St. Mary's Forane Church</span>
-        </div>
-      </div>
-
-      <div class="slot">
-        <div class="slot-time">8:45 am</div>
-        <div class="slot-line"><span class="drop"></span></div>
-        <div class="slot-body">
-          <h4>Nuptial mass and vows</h4>
-          <p>The ceremony runs about ninety minutes, including the exchange of rings and the tying of the <span class="figure">minnu</span>.</p>
-          <span class="venue">St. Mary's Forane Church</span>
-        </div>
-      </div>
-
-      <div class="slot">
-        <div class="slot-time">10:30 am</div>
-        <div class="slot-line"><span class="drop"></span></div>
-        <div class="slot-body">
-          <h4>Photographs on the steps</h4>
-          <p>Family groups first, then everyone. Please stay — we would like a picture with every single person who came.</p>
-          <span class="venue">Church courtyard</span>
-        </div>
-      </div>
-
-      <div class="slot">
-        <div class="slot-time">12:00 pm</div>
-        <div class="slot-line"><span class="drop"></span></div>
-        <div class="slot-body">
-          <h4>Reception and lunch</h4>
-          <p>A full sadhya on banana leaf, with a separate counter for those who prefer non-vegetarian.</p>
-          <span class="venue">Hotel Casino Hall</span>
-        </div>
-      </div>
-
-      <div class="slot">
-        <div class="slot-time">1:30 pm</div>
-        <div class="slot-line"><span class="drop"></span></div>
-        <div class="slot-body">
-          <h4>Cake, toasts and the first dance</h4>
-          <p>Short speeches from both fathers. If you would like to say something, find Anoop at the head table.</p>
-          <span class="venue">Hotel Casino Hall</span>
-        </div>
-      </div>
-
-      <div class="slot">
-        <div class="slot-time">3:30 pm</div>
-        <div class="slot-line"><span class="drop"></span></div>
-        <div class="slot-body">
-          <h4>Send-off</h4>
-          <p>Flowers and sparklers at the gate. Umbrellas will be handed out — December has its own ideas.</p>
-          <span class="venue">Hotel Casino Hall</span>
-        </div>
-      </div>
-    </div>
+    <div id="dayList"></div>
   </section>
 
   <!-- VENUES ───────────────────────────────────── -->
   <section class="band" id="venues">
     <div class="band-head reveal">
-      <p class="eyebrow">Getting there</p>
-      <h2>Two places</h2>
+      <p class="eyebrow" id="venuesEyebrow"></p>
+      <h2 id="venuesTitle"></h2>
     </div>
-    <div class="cards reveal">
-      <div class="card">
-        <span class="tag">Ceremony · 8:45 am</span>
-        <h3>St. Mary's Forane Church</h3>
-        <address>Vazhappally, Changanacherry<br>Kottayam district, Kerala 686103</address>
-        <a href="https://www.google.com/maps/search/?api=1&query=St+Marys+Forane+Church+Vazhappally+Changanacherry" target="_blank" rel="noopener">Open in maps</a>
-      </div>
-      <div class="card">
-        <span class="tag">Reception · 12:00 pm</span>
-        <h3>Hotel Casino Hall</h3>
-        <address>M.C. Road, Changanacherry<br>Kottayam district, Kerala 686101</address>
-        <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Casino+Changanacherry" target="_blank" rel="noopener">Open in maps</a>
-      </div>
-    </div>
+    <div class="cards reveal" id="venueList"></div>
   </section>
 
   <!-- NOTES ────────────────────────────────────── -->
   <section class="band" id="notes">
     <div class="band-head reveal">
-      <p class="eyebrow">Small print, useful</p>
-      <h2>Things worth knowing</h2>
+      <p class="eyebrow" id="notesEyebrow"></p>
+      <h2 id="notesTitle"></h2>
     </div>
-    <div class="notes reveal">
-      <div class="note">
-        <span class="num">What to wear</span>
-        <h4>Kerala formal</h4>
-        <p>Saree, set-mundu, kurta or suit. The church floor is stone and the courtyard may be wet — flat shoes will thank you.</p>
-      </div>
-      <div class="note">
-        <span class="num">If it rains</span>
-        <h4>It might</h4>
-        <p>Everything moves indoors except the photographs, which move under the portico. Umbrellas are provided at both venues.</p>
-      </div>
-      <div class="note">
-        <span class="num">Parking</span>
-        <h4>Behind the parish hall</h4>
-        <p>Free, with attendants from 7:30 am. The reception hall has basement parking off M.C. Road.</p>
-      </div>
-      <div class="note">
-        <span class="num">Staying over</span>
-        <h4>Rooms held nearby</h4>
-        <p>A block of rooms is held at two hotels within a kilometre. Mention the wedding when booking, or ask us and we will arrange it.</p>
-      </div>
-      <div class="note">
-        <span class="num">Children</span>
-        <h4>Very welcome</h4>
-        <p>There is a quiet room beside the sacristy for feeding and naps, and a separate table at lunch.</p>
-      </div>
-      <div class="note">
-        <span class="num">Gifts</span>
-        <h4>Your presence, honestly</h4>
-        <p>You are travelling to be with us and that is plenty. If you would still like to give something, a note at the reception desk is perfect.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- RSVP ─────────────────────────────────────── -->
-  <section class="band" id="rsvp">
-    <div class="band-head reveal">
-      <p class="eyebrow">By 15 November, please</p>
-      <h2>Tell us you're coming</h2>
-    </div>
-
-    <div class="rsvp reveal">
-      <div class="two">
-        <div class="field">
-          <label for="f-name">Your name</label>
-          <input id="f-name" type="text" autocomplete="name" placeholder="As you'd like it on the place card">
-        </div>
-        <div class="field">
-          <label for="f-phone">Phone</label>
-          <input id="f-phone" type="tel" autocomplete="tel" placeholder="+91">
-        </div>
-      </div>
-      <div class="two">
-        <div class="field">
-          <label for="f-going">Will you be there?</label>
-          <select id="f-going">
-            <option>Yes, both days</option>
-            <option>Yes, Saturday only</option>
-            <option>Sadly, no</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="f-guests">How many of you</label>
-          <input id="f-guests" type="number" min="1" max="12" value="2">
-        </div>
-      </div>
-      <div class="field">
-        <label for="f-note">Anything we should know</label>
-        <textarea id="f-note" rows="2" placeholder="Dietary needs, arrival time, a song request"></textarea>
-      </div>
-
-      <button class="btn" id="send">Send RSVP</button>
-      <p class="form-note">This opens your mail app with the details filled in, addressed to us.</p>
-      <p class="done" id="done">Thank you — we can't wait to see you.</p>
-    </div>
+    <div class="notes reveal" id="noteList"></div>
   </section>
 
   <!-- NOTE PAD ────────────────────────────────── -->
@@ -911,8 +855,8 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
   </section>
 
   <footer class="foot reveal">
-    <p>See you in the rain.</p>
-    <small>Ann Maria &amp; Joel · 12 · 12 · 2026</small>
+    <p id="footLine"></p>
+    <small id="footSmall"></small>
   </footer>
 </main>
 
@@ -974,11 +918,75 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 (() => {
 'use strict';
 
+/* ── Page content ────────────────────────────
+   Everything visible is built from the WEDDING block at the top of this file.
+   This runs before anything else so the rest of the script sees a full page. */
+function renderContent(){
+  const W = WEDDING, $ = id => document.getElementById(id);
+  const set = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
+
+  document.title = W.couple.one + ' & ' + W.couple.two + ' — ' + W.date.display;
+  set('monogram', W.monogram);
+  set('heroEyebrow', W.eyebrow);
+  set('nameOne', W.couple.one);
+  set('joiner',  W.couple.joiner);
+  set('nameTwo', W.couple.two);
+  set('dateLine', W.date.display);
+  set('placeLine', W.place);
+  set('hint', W.hint);
+  set('verseText', W.verse.text);
+  set('verseCite', W.verse.source);
+
+  const head = (key, o) => {
+    set(key + 'Eyebrow', o.eyebrow || '');
+    set(key + 'Title',   o.title || '');
+    if (o.intro !== undefined) set(key + 'Intro', o.intro);
+  };
+  head('programme', W.programme);
+  head('venues', W.venues);
+  head('notes', W.notes);
+  head('tune', W.tune);
+
+  set('dayList', W.programme.days.map(d => `
+      <div class="day">
+        <div class="day-label reveal"><h3>${d.name}</h3><span>${d.when}</span></div>` +
+        d.events.map(e => `
+        <div class="slot">
+          <div class="slot-time">${e.time}</div>
+          <div class="slot-line"><span class="drop"></span></div>
+          <div class="slot-body">
+            <h4>${e.title}</h4>
+            <p>${e.text}</p>` +
+            (e.venue ? `<span class="venue">${e.venue}</span>` : '') + `
+          </div>
+        </div>`).join('') + `
+      </div>`).join(''));
+
+  set('venueList', W.venues.list.map(v => `
+      <div class="card">
+        <span class="tag">${v.tag}</span>
+        <h3>${v.name}</h3>
+        <address>${v.address.join('<br>')}</address>
+        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.map)}" target="_blank" rel="noopener">Open in maps</a>
+      </div>`).join(''));
+
+  set('noteList', W.notes.list.map(n => `
+      <div class="note">
+        <span class="num">${n.label}</span>
+        <h4>${n.title}</h4>
+        <p>${n.text}</p>
+      </div>`).join(''));
+
+  set('footLine', W.footer.line);
+  set('footSmall', W.footer.small);
+}
+renderContent();
+
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mobile  = innerWidth < 700;
 
 /* ── Countdown ───────────────────────────────── */
-const TARGET = new Date('2026-12-12T08:45:00+05:30').getTime();
+const TARGET = new Date(WEDDING.date.iso).getTime();
 const cells = {};
 document.querySelectorAll('#count b').forEach(b => cells[b.dataset.c] = b);
 const pad = n => String(n).padStart(2,'0');
@@ -2116,7 +2124,7 @@ addEventListener('pointerdown', e => {
   }
 }, { passive:true });
 
-document.querySelectorAll('.card, .btn').forEach(el => {
+document.querySelectorAll('.card').forEach(el => {
   el.addEventListener('mouseenter', () => {
     const r = el.getBoundingClientRect();
     burst(r.left + r.width/2, r.top + 12, 8, 4);
@@ -2149,27 +2157,6 @@ document.addEventListener('pointerdown', e => {
 });
 addEventListener('keydown', e => { if (e.key === 'Escape') closeSettings(); });
 
-/* ── RSVP ────────────────────────────────────── */
-document.getElementById('send').addEventListener('click', () => {
-  const v = id => document.getElementById(id).value.trim();
-  const name = v('f-name') || 'A guest';
-  const body =
-    'Name: ' + name +
-    '\nPhone: ' + (v('f-phone') || '—') +
-    '\nAttending: ' + v('f-going') +
-    '\nNumber of guests: ' + v('f-guests') +
-    '\nNotes: ' + (v('f-note') || '—');
-
-  const r = document.getElementById('send').getBoundingClientRect();
-  burst(r.left + r.width/2, r.top, 70, 12);
-  pop(14);
-  document.getElementById('done').classList.add('show');
-
-  // ↓ change this address to your own
-  location.href = 'mailto:rsvp@example.com'
-    + '?subject=' + encodeURIComponent('RSVP — Ann Maria & Joel — ' + name)
-    + '&body=' + encodeURIComponent(body);
-});
 })();
 </script>
 </body>
