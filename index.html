@@ -553,7 +553,7 @@ const WEDDING = {
   tune : {
     eyebrow : "Before you go",
     title   : "Play us something",
-    intro   : "Five notes, five octaves, tuned to the key this page hums in. Every row starts on the root. Tap them, or drag across — none of them can sound wrong together."
+    intro   : "Five notes, mirrored about the middle row, tuned to the key this page hums in. Tap them, or drag across — none of them can sound wrong together."
   },
 
   /* ── Sign-off ───────────────────────────────────────────────────── */
@@ -817,7 +817,7 @@ const WEDDING = {
         <button class="cell hex" data-n="86" aria-label="Play D6"><span>D</span></button>
         <button class="cell hex" data-n="89" aria-label="Play F6"><span>F</span></button>
       </div>
-      <div class="krow o4">
+      <div class="krow o3">
         <button class="cell half l" data-n="62" aria-label="Play D4"><span>D</span></button>
         <button class="cell hex" data-n="65" aria-label="Play F4"><span>F</span></button>
         <button class="cell hex" data-n="67" aria-label="Play G4"><span>G</span></button>
@@ -826,7 +826,7 @@ const WEDDING = {
         <button class="cell hex" data-n="74" aria-label="Play D5"><span>D</span></button>
         <button class="cell half r" data-n="77" aria-label="Play F5"><span>F</span></button>
       </div>
-      <div class="krow o3">
+      <div class="krow o1">
         <button class="cell hex" data-n="53" aria-label="Play F3"><span>F</span></button>
         <button class="cell hex" data-n="55" aria-label="Play G3"><span>G</span></button>
         <button class="cell hex" data-n="57" aria-label="Play A3"><span>A</span></button>
@@ -834,22 +834,22 @@ const WEDDING = {
         <button class="cell hex" data-n="62" aria-label="Play D4"><span>D</span></button>
         <button class="cell hex" data-n="65" aria-label="Play F4"><span>F</span></button>
       </div>
-      <div class="krow o2">
-        <button class="cell half l" data-n="38" aria-label="Play D2"><span>D</span></button>
-        <button class="cell hex" data-n="41" aria-label="Play F2"><span>F</span></button>
-        <button class="cell hex" data-n="43" aria-label="Play G2"><span>G</span></button>
-        <button class="cell hex" data-n="45" aria-label="Play A2"><span>A</span></button>
-        <button class="cell hex" data-n="48" aria-label="Play C3"><span>C</span></button>
-        <button class="cell hex" data-n="50" aria-label="Play D3"><span>D</span></button>
-        <button class="cell half r" data-n="53" aria-label="Play F3"><span>F</span></button>
+      <div class="krow o3">
+        <button class="cell half l" data-n="62" aria-label="Play D4"><span>D</span></button>
+        <button class="cell hex" data-n="65" aria-label="Play F4"><span>F</span></button>
+        <button class="cell hex" data-n="67" aria-label="Play G4"><span>G</span></button>
+        <button class="cell hex" data-n="69" aria-label="Play A4"><span>A</span></button>
+        <button class="cell hex" data-n="72" aria-label="Play C5"><span>C</span></button>
+        <button class="cell hex" data-n="74" aria-label="Play D5"><span>D</span></button>
+        <button class="cell half r" data-n="77" aria-label="Play F5"><span>F</span></button>
       </div>
-      <div class="krow o1">
-        <button class="cell hex" data-n="29" aria-label="Play F1"><span>F</span></button>
-        <button class="cell hex" data-n="31" aria-label="Play G1"><span>G</span></button>
-        <button class="cell hex" data-n="33" aria-label="Play A1"><span>A</span></button>
-        <button class="cell hex" data-n="36" aria-label="Play C2"><span>C</span></button>
-        <button class="cell hex" data-n="38" aria-label="Play D2"><span>D</span></button>
-        <button class="cell hex" data-n="41" aria-label="Play F2"><span>F</span></button>
+      <div class="krow o5">
+        <button class="cell hex" data-n="77" aria-label="Play F5"><span>F</span></button>
+        <button class="cell hex" data-n="79" aria-label="Play G5"><span>G</span></button>
+        <button class="cell hex" data-n="81" aria-label="Play A5"><span>A</span></button>
+        <button class="cell hex" data-n="84" aria-label="Play C6"><span>C</span></button>
+        <button class="cell hex" data-n="86" aria-label="Play D6"><span>D</span></button>
+        <button class="cell hex" data-n="89" aria-label="Play F6"><span>F</span></button>
       </div>
     </div>
   </section>
@@ -2032,7 +2032,7 @@ function swayChimes(){
 }
 
 /* ── Note pad ────────────────────────────────
-   F major pentatonic across five octaves, so anything tapped sits in key with
+   F major pentatonic, mirrored about the middle row, so anything tapped sits in key with
    the backing music. Drag across the hexes to run a phrase. */
 const hexes = [...document.querySelectorAll('.cell')];
 let sliding = false, lastHex = null;
