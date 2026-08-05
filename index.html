@@ -147,6 +147,53 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 .tube .hit{fill:transparent}
 @media (hover:hover){ .tube:hover .pipe{stroke:var(--brass)} }
 .tube{will-change:transform}
+.key{cursor:pointer}
+.bar-key .face{
+  stroke:rgba(0,0,0,.28); stroke-width:.5;
+  transform-box:fill-box; transform-origin:50% 50%;
+}
+.xylophone .face{fill:url(#woodX)}
+.marimba   .face{fill:url(#woodM)}
+.pin{fill:rgba(5,22,26,.5)}
+.fascia{fill:var(--brass); opacity:.75}
+.nat .face{fill:url(#ivory); stroke:rgba(5,22,26,.55); stroke-width:.7}
+.acc .face{fill:url(#ebony); stroke:rgba(217,164,65,.45); stroke-width:.7}
+.nat .face, .acc .face{transform-box:fill-box; transform-origin:50% 0%}
+@media (hover:hover){
+  .nat:hover .face{fill:#fffdf6}
+  .acc:hover .face{stroke:var(--brass)}
+}
+.nat.struck .face{animation:pressN .4s ease-out}
+.acc.struck .face{animation:pressA .4s ease-out}
+@keyframes pressN{
+  0%  {transform:translateY(3px) scaleY(.985); filter:brightness(.8)}
+  100%{transform:translateY(0) scaleY(1);      filter:brightness(1)}
+}
+@keyframes pressA{
+  0%  {transform:translateY(2.5px) scaleY(.98); filter:brightness(2.4)}
+  100%{transform:translateY(0) scaleY(1);       filter:brightness(1)}
+}
+.reso{fill:url(#tubeGrad); opacity:.8}
+.rail{stroke:var(--hair); stroke-width:1.4; fill:none}
+@media (hover:hover){ .bar-key:hover .face{stroke:var(--brass); stroke-width:1} }
+.key.struck .face{animation:strike .5s ease-out}
+@keyframes strike{
+  0%  {transform:translateY(0);   filter:brightness(2.1)}
+  22% {transform:translateY(2.6px); filter:brightness(1.3)}
+  100%{transform:translateY(0);   filter:brightness(1)}
+}
+
+/* instrument picker */
+.seg{display:flex; flex-wrap:wrap; gap:.25rem}
+.seg-b{
+  flex:1 1 44%; cursor:pointer; padding:.5rem .15rem;
+  border:1px solid var(--hair); border-radius:2px; background:transparent;
+  color:var(--muted); font-family:var(--sans);
+  font-size:.53rem; letter-spacing:.1em; text-transform:uppercase;
+  transition:color .3s, border-color .3s, background .3s;
+}
+.seg-b:hover{color:var(--jasmine)}
+.seg-b.on{background:rgba(217,164,65,.18); color:var(--jasmine); border-color:var(--brass)}
 
 /* ─────────────────────────────────────────────
    Bands
@@ -266,7 +313,7 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 .settings{
   position:absolute; left:var(--pad); top:calc(100% - .15rem);
   display:flex; flex-direction:column; gap:.45rem;
-  min-width:11.5rem; padding:.95rem 1rem 1rem;
+  min-width:14rem; padding:.95rem 1rem 1rem;
   border:1px solid var(--hair); border-radius:3px;
   background:rgba(5,22,26,.96);
   box-shadow:0 20px 45px -25px rgba(0,0,0,.9);
@@ -584,7 +631,14 @@ const WEDDING = {
   </nav>
 
   <div class="settings" id="settings" hidden>
-    <p class="set-title">Settings</p>
+    <p class="set-title">Instrument</p>
+    <div class="seg" id="instPick" role="radiogroup" aria-label="Instrument">
+      <button class="seg-b on" data-inst="chimes" role="radio" aria-checked="true">Chimes</button>
+      <button class="seg-b" data-inst="xylophone" role="radio" aria-checked="false">Xylo</button>
+      <button class="seg-b" data-inst="marimba" role="radio" aria-checked="false">Marimba</button>
+      <button class="seg-b" data-inst="keyboard" role="radio" aria-checked="false">Keys</button>
+    </div>
+    <p class="set-title" style="margin-top:.6rem">Sound</p>
     <button class="switch" id="sound" aria-pressed="true"><span>Sound</span><i></i></button>
     <button class="switch" id="switch" aria-pressed="true"><span>Rain</span><i></i></button>
   </div>
@@ -598,152 +652,7 @@ const WEDDING = {
     <div class="hero-inner">
       <p class="eyebrow" id="heroEyebrow"></p>
       <h1 class="names"><span id="nameOne"></span><span class="amp" id="joiner"></span><span id="nameTwo"></span></h1>
-      <div class="chimes" id="chimes" role="group" aria-label="Bar chimes — sweep across to play">
-        <svg viewBox="0 0 480 122" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="tubeGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0"   stop-color="#7d5f22"/>
-              <stop offset=".3"  stop-color="#eac378"/>
-              <stop offset=".58" stop-color="#c8922f"/>
-              <stop offset="1"   stop-color="#63491c"/>
-            </linearGradient>
-            <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#1d4a4c"/>
-              <stop offset="1" stop-color="#0c2b2e"/>
-            </linearGradient>
-          </defs>
-          <path class="bar" d="M196 4 h88 v8 h176 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-440 a4 4 0 0 1 -4 -4 v-10 a4 4 0 0 1 4 -4 h176 z"/>
-          <circle class="bar-hole" cx="240" cy="19" r="3.2"/>
-          <g id="chimeSway">
-          <g class="tube" data-n="48" role="button" tabindex="0" aria-label="Chime C3">
-            <rect class="hit" x="13.4" y="30" width="25.2" height="94"/>
-            <path class="string" d="M26.0 27 L26.0 44"/>
-            <circle class="loop" cx="26.0" cy="45" r="2.1"/>
-            <rect class="pipe" x="22.4" y="46" width="7.2" height="70.0" rx="3.6"/>
-            <path class="sheen" d="M24.7 53 L24.7 108.0"/>
-          </g>
-          <g class="tube" data-n="50" role="button" tabindex="0" aria-label="Chime D3">
-            <rect class="hit" x="38.6" y="30" width="25.2" height="94"/>
-            <path class="string" d="M51.2 27 L51.2 44"/>
-            <circle class="loop" cx="51.2" cy="45" r="2.1"/>
-            <rect class="pipe" x="47.6" y="46" width="7.2" height="68.9" rx="3.6"/>
-            <path class="sheen" d="M49.9 53 L49.9 106.9"/>
-          </g>
-          <g class="tube" data-n="53" role="button" tabindex="0" aria-label="Chime F3">
-            <rect class="hit" x="63.8" y="30" width="25.2" height="94"/>
-            <path class="string" d="M76.4 27 L76.4 44"/>
-            <circle class="loop" cx="76.4" cy="45" r="2.1"/>
-            <rect class="pipe" x="72.8" y="46" width="7.2" height="67.9" rx="3.6"/>
-            <path class="sheen" d="M75.1 53 L75.1 105.9"/>
-          </g>
-          <g class="tube" data-n="55" role="button" tabindex="0" aria-label="Chime G3">
-            <rect class="hit" x="88.9" y="30" width="25.2" height="94"/>
-            <path class="string" d="M101.5 27 L101.5 44"/>
-            <circle class="loop" cx="101.5" cy="45" r="2.1"/>
-            <rect class="pipe" x="97.9" y="46" width="7.2" height="66.8" rx="3.6"/>
-            <path class="sheen" d="M100.2 53 L100.2 104.8"/>
-          </g>
-          <g class="tube" data-n="57" role="button" tabindex="0" aria-label="Chime A3">
-            <rect class="hit" x="114.1" y="30" width="25.2" height="94"/>
-            <path class="string" d="M126.7 27 L126.7 44"/>
-            <circle class="loop" cx="126.7" cy="45" r="2.1"/>
-            <rect class="pipe" x="123.1" y="46" width="7.2" height="65.8" rx="3.6"/>
-            <path class="sheen" d="M125.4 53 L125.4 103.8"/>
-          </g>
-          <g class="tube" data-n="60" role="button" tabindex="0" aria-label="Chime C4">
-            <rect class="hit" x="139.3" y="30" width="25.2" height="94"/>
-            <path class="string" d="M151.9 27 L151.9 44"/>
-            <circle class="loop" cx="151.9" cy="45" r="2.1"/>
-            <rect class="pipe" x="148.3" y="46" width="7.2" height="64.7" rx="3.6"/>
-            <path class="sheen" d="M150.6 53 L150.6 102.7"/>
-          </g>
-          <g class="tube" data-n="62" role="button" tabindex="0" aria-label="Chime D4">
-            <rect class="hit" x="164.5" y="30" width="25.2" height="94"/>
-            <path class="string" d="M177.1 27 L177.1 44"/>
-            <circle class="loop" cx="177.1" cy="45" r="2.1"/>
-            <rect class="pipe" x="173.5" y="46" width="7.2" height="63.6" rx="3.6"/>
-            <path class="sheen" d="M175.8 53 L175.8 101.6"/>
-          </g>
-          <g class="tube" data-n="65" role="button" tabindex="0" aria-label="Chime F4">
-            <rect class="hit" x="189.6" y="30" width="25.2" height="94"/>
-            <path class="string" d="M202.2 27 L202.2 44"/>
-            <circle class="loop" cx="202.2" cy="45" r="2.1"/>
-            <rect class="pipe" x="198.6" y="46" width="7.2" height="62.6" rx="3.6"/>
-            <path class="sheen" d="M200.9 53 L200.9 100.6"/>
-          </g>
-          <g class="tube" data-n="67" role="button" tabindex="0" aria-label="Chime G4">
-            <rect class="hit" x="214.8" y="30" width="25.2" height="94"/>
-            <path class="string" d="M227.4 27 L227.4 44"/>
-            <circle class="loop" cx="227.4" cy="45" r="2.1"/>
-            <rect class="pipe" x="223.8" y="46" width="7.2" height="61.5" rx="3.6"/>
-            <path class="sheen" d="M226.1 53 L226.1 99.5"/>
-          </g>
-          <g class="tube" data-n="69" role="button" tabindex="0" aria-label="Chime A4">
-            <rect class="hit" x="240.0" y="30" width="25.2" height="94"/>
-            <path class="string" d="M252.6 27 L252.6 44"/>
-            <circle class="loop" cx="252.6" cy="45" r="2.1"/>
-            <rect class="pipe" x="249.0" y="46" width="7.2" height="60.5" rx="3.6"/>
-            <path class="sheen" d="M251.3 53 L251.3 98.5"/>
-          </g>
-          <g class="tube" data-n="72" role="button" tabindex="0" aria-label="Chime C5">
-            <rect class="hit" x="265.2" y="30" width="25.2" height="94"/>
-            <path class="string" d="M277.8 27 L277.8 44"/>
-            <circle class="loop" cx="277.8" cy="45" r="2.1"/>
-            <rect class="pipe" x="274.2" y="46" width="7.2" height="59.4" rx="3.6"/>
-            <path class="sheen" d="M276.5 53 L276.5 97.4"/>
-          </g>
-          <g class="tube" data-n="74" role="button" tabindex="0" aria-label="Chime D5">
-            <rect class="hit" x="290.4" y="30" width="25.2" height="94"/>
-            <path class="string" d="M302.9 27 L302.9 44"/>
-            <circle class="loop" cx="302.9" cy="45" r="2.1"/>
-            <rect class="pipe" x="299.3" y="46" width="7.2" height="58.4" rx="3.6"/>
-            <path class="sheen" d="M301.6 53 L301.6 96.4"/>
-          </g>
-          <g class="tube" data-n="77" role="button" tabindex="0" aria-label="Chime F5">
-            <rect class="hit" x="315.5" y="30" width="25.2" height="94"/>
-            <path class="string" d="M328.1 27 L328.1 44"/>
-            <circle class="loop" cx="328.1" cy="45" r="2.1"/>
-            <rect class="pipe" x="324.5" y="46" width="7.2" height="57.3" rx="3.6"/>
-            <path class="sheen" d="M326.8 53 L326.8 95.3"/>
-          </g>
-          <g class="tube" data-n="79" role="button" tabindex="0" aria-label="Chime G5">
-            <rect class="hit" x="340.7" y="30" width="25.2" height="94"/>
-            <path class="string" d="M353.3 27 L353.3 44"/>
-            <circle class="loop" cx="353.3" cy="45" r="2.1"/>
-            <rect class="pipe" x="349.7" y="46" width="7.2" height="56.2" rx="3.6"/>
-            <path class="sheen" d="M352.0 53 L352.0 94.2"/>
-          </g>
-          <g class="tube" data-n="81" role="button" tabindex="0" aria-label="Chime A5">
-            <rect class="hit" x="365.9" y="30" width="25.2" height="94"/>
-            <path class="string" d="M378.5 27 L378.5 44"/>
-            <circle class="loop" cx="378.5" cy="45" r="2.1"/>
-            <rect class="pipe" x="374.9" y="46" width="7.2" height="55.2" rx="3.6"/>
-            <path class="sheen" d="M377.2 53 L377.2 93.2"/>
-          </g>
-          <g class="tube" data-n="84" role="button" tabindex="0" aria-label="Chime C6">
-            <rect class="hit" x="391.1" y="30" width="25.2" height="94"/>
-            <path class="string" d="M403.6 27 L403.6 44"/>
-            <circle class="loop" cx="403.6" cy="45" r="2.1"/>
-            <rect class="pipe" x="400.0" y="46" width="7.2" height="54.1" rx="3.6"/>
-            <path class="sheen" d="M402.3 53 L402.3 92.1"/>
-          </g>
-          <g class="tube" data-n="86" role="button" tabindex="0" aria-label="Chime D6">
-            <rect class="hit" x="416.2" y="30" width="25.2" height="94"/>
-            <path class="string" d="M428.8 27 L428.8 44"/>
-            <circle class="loop" cx="428.8" cy="45" r="2.1"/>
-            <rect class="pipe" x="425.2" y="46" width="7.2" height="53.1" rx="3.6"/>
-            <path class="sheen" d="M427.5 53 L427.5 91.1"/>
-          </g>
-          <g class="tube" data-n="89" role="button" tabindex="0" aria-label="Chime F6">
-            <rect class="hit" x="441.4" y="30" width="25.2" height="94"/>
-            <path class="string" d="M454.0 27 L454.0 44"/>
-            <circle class="loop" cx="454.0" cy="45" r="2.1"/>
-            <rect class="pipe" x="450.4" y="46" width="7.2" height="52.0" rx="3.6"/>
-            <path class="sheen" d="M452.7 53 L452.7 90.0"/>
-          </g>
-          </g>
-        </svg>
-      </div>
+      <div class="chimes" id="instrument" role="group" aria-label="Instrument — tap or sweep to play"></div>
       <p class="when" id="dateLine"></p>
       <p class="where" id="placeLine"></p>
 
@@ -1925,23 +1834,163 @@ function bubblePop(r){
   }
 }
 
-/* ── Chimes ──────────────────────────────────
-   Same F pentatonic as the backing music. Struck tubes ring inharmonically —
-   that's what separates a chime from a bell or a piano. */
-const tubes = [...document.querySelectorAll('.tube')];
-const chimeSway = document.getElementById('chimeSway');
-let chiming = false, lastTube = null, swayA = 0;
+/* ── The instrument under the names ──────────
+   Chimes, xylophone or marimba — same slot, same scale, different bodies.
+   Each is drawn from the same note list and struck with its own voice. */
+const SCALE = [48,50,53,55,57,60,62,65,67,69,72,74,77,79,81,84,86,89];
+const NOTE_NAME = {0:'C',2:'D',5:'F',7:'G',9:'A'};
+const label = m => NOTE_NAME[m % 12] + (Math.floor(m / 12) - 1);
 
-function chime(midi, vel){
+const instEl = document.getElementById('instrument');
+let instKind = 'chimes', keys = [], PEND = [], chimeSway = null;
+let chiming = false, lastKey = null, swayA = 0, prevSV = 0;
+
+const DEFS = `<defs>
+  <linearGradient id="tubeGrad" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#7d5f22"/><stop offset=".3" stop-color="#eac378"/>
+    <stop offset=".58" stop-color="#c8922f"/><stop offset="1" stop-color="#63491c"/>
+  </linearGradient>
+  <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#1d4a4c"/><stop offset="1" stop-color="#0c2b2e"/>
+  </linearGradient>
+  <linearGradient id="woodX" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#b5813a"/><stop offset=".32" stop-color="#f0d091"/>
+    <stop offset=".7" stop-color="#d9a95c"/><stop offset="1" stop-color="#9c6d2e"/>
+  </linearGradient>
+  <linearGradient id="ivory" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fbf7ee"/><stop offset=".78" stop-color="#e7dfcd"/>
+    <stop offset="1" stop-color="#c3b79c"/>
+  </linearGradient>
+  <linearGradient id="ebony" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#123338"/><stop offset=".8" stop-color="#061417"/>
+    <stop offset="1" stop-color="#0b2226"/>
+  </linearGradient>
+  <linearGradient id="woodM" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#5b3320"/><stop offset=".32" stop-color="#a4643c"/>
+    <stop offset=".7" stop-color="#7d472a"/><stop offset="1" stop-color="#4a2917"/>
+  </linearGradient>
+</defs>`;
+
+function svgChimes(){
+  const n = SCALE.length, x0 = 26, x1 = 454, step = (x1 - x0) / (n - 1), top = 44;
+  let g = '';
+  SCALE.forEach((m, i) => {
+    const x = x0 + step * i, len = 70 - i * (18 / (n - 1));
+    g += `<g class="key tube" data-n="${m}" role="button" tabindex="0" aria-label="Chime ${label(m)}">
+      <rect class="hit" x="${(x - step/2).toFixed(1)}" y="30" width="${step.toFixed(1)}" height="94"/>
+      <path class="string" d="M${x.toFixed(1)} 27 L${x.toFixed(1)} ${top}"/>
+      <circle class="loop" cx="${x.toFixed(1)}" cy="${top+1}" r="2.1"/>
+      <rect class="pipe" x="${(x-3.6).toFixed(1)}" y="${top+2}" width="7.2" height="${len.toFixed(1)}" rx="3.6"/>
+      <path class="sheen" d="M${(x-1.3).toFixed(1)} ${top+9} L${(x-1.3).toFixed(1)} ${(top+len-6).toFixed(1)}"/>
+    </g>`;
+  });
+  return `<svg viewBox="0 0 480 122" xmlns="http://www.w3.org/2000/svg">${DEFS}
+    <path class="bar" d="M196 4 h88 v8 h176 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-440 a4 4 0 0 1 -4 -4 v-10 a4 4 0 0 1 4 -4 h176 z"/>
+    <circle class="bar-hole" cx="240" cy="19" r="3.2"/>
+    <g id="chimeSway">${g}</g></svg>`;
+}
+
+function svgBars(kind){
+  const n = SCALE.length, x0 = 26, x1 = 454, step = (x1 - x0) / (n - 1);
+  const w = Math.min(21, step - 4.5);
+  const marimba = kind === 'marimba';
+  const cy = marimba ? 46 : 58;
+  const L0 = marimba ? 62 : 76, L1 = marimba ? 36 : 44;
+  let bars = '', res = '';
+  SCALE.forEach((m, i) => {
+    const x = x0 + step * i;
+    const len = L0 - (L0 - L1) * i / (n - 1);
+    const y = cy - len / 2;
+    bars += `<g class="key bar-key" data-n="${m}" role="button" tabindex="0" aria-label="${marimba?'Marimba':'Xylophone'} ${label(m)}">
+      <rect class="hit" x="${(x-step/2).toFixed(1)}" y="6" width="${step.toFixed(1)}" height="112"/>
+      <rect class="face" x="${(x-w/2).toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${len.toFixed(1)}" rx="3"/>
+      <circle class="pin" cx="${x.toFixed(1)}" cy="${(y+len*.22).toFixed(1)}" r="1.3"/>
+      <circle class="pin" cx="${x.toFixed(1)}" cy="${(y+len*.78).toFixed(1)}" r="1.3"/>
+    </g>`;
+    if (marimba){
+      const rl = 27 - 14 * i / (n - 1);
+      res += `<rect class="reso" x="${(x-4.5).toFixed(1)}" y="84" width="9" height="${rl.toFixed(1)}" rx="4.5"/>`;
+    }
+  });
+  const r1 = (cy - L0 * .28).toFixed(1), r2 = (cy + L0 * .28).toFixed(1);
+  return `<svg viewBox="0 0 480 122" xmlns="http://www.w3.org/2000/svg">${DEFS}
+    <path class="rail" d="M16 ${r1} H464"/><path class="rail" d="M16 ${r2} H464"/>
+    ${marimba ? '<path class="rail" d="M16 82 H464"/>' + res : ''}
+    <g id="chimeSway">${bars}</g></svg>`;
+}
+
+const CHROMA = ['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const chrom = m => CHROMA[m % 12] + (Math.floor(m / 12) - 1);
+
+function svgKeyboard(){
+  const first = 60, octaves = 2;               // C4 up to C6
+  const NAT = [0,2,4,5,7,9,11];
+  const whites = [];
+  for (let o = 0; o < octaves; o++) for (const n of NAT) whites.push(first + o*12 + n);
+  whites.push(first + octaves*12);             // the closing C
+  const x0 = 18, x1 = 462, w = (x1 - x0) / whites.length;
+  const top = 14, wh = 90, bh = 56, bw = w * .62;
+  let nat = '', acc = '';
+  whites.forEach((m, i) => {
+    const x = x0 + w * i;
+    nat += `<g class="key nat" data-n="${m}" role="button" tabindex="0" aria-label="${chrom(m)}">
+      <rect class="face" x="${(x+.6).toFixed(1)}" y="${top}" width="${(w-1.2).toFixed(1)}" height="${wh}" rx="2.5"/>
+    </g>`;
+    // a sharp follows C, D, F, G and A
+    if ([0,2,5,7,9].indexOf(m % 12) > -1 && i < whites.length - 1){
+      const bx = x + w - bw/2;
+      acc += `<g class="key acc" data-n="${m+1}" role="button" tabindex="0" aria-label="${chrom(m+1)}">
+        <rect class="face" x="${bx.toFixed(1)}" y="${top}" width="${bw.toFixed(1)}" height="${bh}" rx="2"/>
+      </g>`;
+    }
+  });
+  return `<svg viewBox="0 0 480 122" xmlns="http://www.w3.org/2000/svg">${DEFS}
+    <rect class="fascia" x="14" y="3" width="452" height="8" rx="3"/>
+    <g id="chimeSway">${nat}${acc}</g></svg>`;
+}
+
+function mountInstrument(kind){
+  instKind = kind;
+  instEl.innerHTML = kind === 'chimes' ? svgChimes()
+                   : kind === 'keyboard' ? svgKeyboard()
+                   : svgBars(kind);
+  instEl.className = 'chimes ' + kind;
+  keys = [...instEl.querySelectorAll('.key')];
+  keys.forEach((el, i) => el.__i = i);
+  chimeSway = instEl.querySelector('#chimeSway');
+  swayA = 0;
+  // only the hanging chimes swing as pendulums
+  PEND = kind !== 'chimes' ? [] : keys.map((el, i) => {
+    const len = 70 - i * (18 / (keys.length - 1));
+    const w0  = 7.4 * Math.sqrt(70 / len) * (.93 + Math.random() * .14);
+    return { el, a:0, w:0, k:w0*w0, c:1.75*(.9+Math.random()*.2),
+             g:.85+Math.random()*.3, tp:Math.random()*6.283, tf:1.4+Math.random()*1.6 };
+  });
+}
+
+/* Voices. The partial ratios are what actually separate these three:
+   a chime rings on inharmonic modes, a xylophone bar is tuned so its first
+   overtone is three times the fundamental, a marimba bar four times — which
+   is why a marimba sounds round and a xylophone sounds bright and dry. */
+function voice(midi, vel){
   if (!actx || actx.state !== 'running' || !notes) return;
-  const f = hz(midi), t = actx.currentTime, tail = 4.2;
+  const f = hz(midi), t = actx.currentTime;
+  let partials, tail;
+  if (instKind === 'chimes'){
+    partials = [[1,1],[2.76,.4],[5.40,.18],[8.93,.07]]; tail = 4.2;
+  } else if (instKind === 'xylophone'){
+    partials = [[1,1],[3,.55],[6,.22],[9.2,.08]];       tail = .8;
+  } else if (instKind === 'keyboard'){
+    partials = [[1,1],[2,.24],[3,.1],[4.18,.04]];       tail = 2.9;
+  } else {
+    partials = [[1,1],[4,.3],[9.2,.07]];                tail = 2.2;
+  }
   const g = actx.createGain();
   g.gain.setValueAtTime(0, t);
-  g.gain.linearRampToValueAtTime(vel, t + .006);
+  g.gain.linearRampToValueAtTime(vel, t + .005);
   g.gain.exponentialRampToValueAtTime(.0001, t + tail);
   g.connect(notes);
-  // free-free bar partials — deliberately not whole-number ratios
-  for (const [ratio, amp] of [[1,1],[2.76,.4],[5.40,.18],[8.93,.07]]){
+  for (const [ratio, amp] of partials){
     const o = actx.createOscillator(), og = actx.createGain();
     o.type = 'sine';
     o.frequency.value = f * ratio * (1 + (Math.random()-.5) * .004);
@@ -1950,70 +1999,66 @@ function chime(midi, vel){
     o.connect(og); og.connect(g);
     o.start(t); o.stop(t + tail + .1);
   }
-  nz(t, .02, vel * .45, 4200, null, 'highpass');      // the tap of the striker
+  // the contact sound: a metal tap, a hard mallet on wood, a soft one
+  if (instKind === 'chimes')          nz(t, .02,  vel*.45, 4200, null, 'highpass');
+  else if (instKind === 'xylophone')  nz(t, .022, vel*.6,  1900, 700,  'bandpass', 1.1);
+  else if (instKind === 'keyboard')   nz(t, .018, vel*.35, f*4,  null, 'bandpass', .9);
+  else                                nz(t, .045, vel*.4,  760,  240,  'lowpass');
 }
 
 function ring(el, vel){
-  if (el === lastTube && chiming) return;
-  lastTube = el;
+  if (el === lastKey && chiming) return;
+  lastKey = el;
   startAudio();
-  chime(+el.dataset.n, vel || .3);
-  const ph = PEND[el.__i];                    // a struck tube gets a shove, not a keyframe
-  if (ph) ph.w += (Math.random() < .5 ? -1 : 1) * (.75 + (vel || .3) * 2.2);
+  voice(+el.dataset.n, vel || .3);
+  if (instKind === 'chimes'){
+    const ph = PEND[el.__i];                  // a struck tube gets a shove
+    if (ph) ph.w += (Math.random() < .5 ? -1 : 1) * (.75 + (vel || .3) * 2.2);
+  } else {
+    el.classList.remove('struck');            // a bar dips and rebounds
+    void el.getBoundingClientRect();
+    el.classList.add('struck');
+  }
 }
 
-tubes.forEach(el => {
-  el.addEventListener('pointerdown', e => {
-    e.preventDefault();
-    if (el.hasPointerCapture && el.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
-    chiming = true; lastTube = null;
-    lockScroll = true;                       // the page mustn't slide under a sweep
-    ring(el, .28);
-  });
-  el.addEventListener('pointerenter', () => { if (chiming) ring(el, .22); });
-  el.addEventListener('keydown', e => {
-    if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); lastTube = null; ring(el, .3); }
-  });
+instEl.addEventListener('pointerdown', e => {
+  const k = e.target.closest && e.target.closest('.key');
+  if (!k) return;
+  e.preventDefault();
+  if (instEl.hasPointerCapture && instEl.hasPointerCapture(e.pointerId))
+    instEl.releasePointerCapture(e.pointerId);
+  chiming = true; lastKey = null;
+  lockScroll = true;                          // the page mustn't slide under a sweep
+  ring(k, .28);
 });
-// sweeping: find whatever tube is under the finger on every move. pointerenter
+instEl.addEventListener('keydown', e => {
+  const k = e.target.closest && e.target.closest('.key');
+  if (k && (e.key === ' ' || e.key === 'Enter')){ e.preventDefault(); lastKey = null; ring(k, .3); }
+});
+// sweeping: find whatever key is under the finger on every move. pointerenter
 // alone isn't enough — touch devices capture the pointer to the first element
 addEventListener('pointermove', e => {
   if (!chiming) return;
   const el = document.elementFromPoint(e.clientX, e.clientY);
-  const t = el && el.closest ? el.closest('.tube') : null;
-  if (t) ring(t, .22);
+  const k = el && el.closest ? el.closest('.key') : null;
+  if (k) ring(k, .22);
 }, { passive:true });
-function endSweep(){ chiming = false; lastTube = null; lockScroll = false; }
+function endSweep(){ chiming = false; lastKey = null; lockScroll = false; }
 addEventListener('pointerup', endSweep);
 addEventListener('pointercancel', endSweep);
 
-/* Each tube is its own damped pendulum. They share the buffeting but not the
-   phase, and shorter tubes swing faster — which is why the rack ripples
-   instead of turning as one rigid block. */
-const PEND = tubes.map((el, i) => {
-  el.__i = i;
-  const len = 70 - i * (18 / (tubes.length - 1));
-  const w0  = 7.4 * Math.sqrt(70 / len) * (.93 + Math.random() * .14);
-  return {
-    el, a:0, w:0,
-    k: w0 * w0,                       // stiffness sets the natural period
-    c: 1.75 * (.9 + Math.random()*.2),// damping sets how long it rings on
-    g: .85 + Math.random()*.3,        // how much of the buffeting this one catches
-    tp: Math.random()*6.283,
-    tf: 1.4 + Math.random()*1.6
-  };
-});
-let prevSV = 0;
-
+/* Weather. Each chime tube is its own damped pendulum — they share the
+   buffeting but not the phase, so the rack ripples instead of turning as one
+   rigid block. Bars just lean with their frame. */
 function swayChimes(){
   if (!heroVisible || !chimeSway) return;
   const dts = Math.min(dt / 60, .05);
 
-  // the bar itself only leans with the wind; the tubes do the rest
-  swayA += ((wind - WIND0) * 4 - swayA) * (1 - Math.pow(.94, dt));
+  swayA += ((wind - WIND0) * (instKind === 'chimes' ? 4 : 1.6) - swayA) * (1 - Math.pow(.94, dt));
   chimeSway.style.transform = 'rotate(' + swayA.toFixed(2) + 'deg)';
 
-  // a jolt when the scroll speed changes, plus turbulence while it's moving
+  if (!PEND.length){ prevSV = scrollV; return; }
+
   const acc  = (scrollV - prevSV) / Math.max(dts, .004);
   prevSV = scrollV;
   const kick = Math.max(-7, Math.min(7, acc * .009));
@@ -2028,8 +2073,10 @@ function swayChimes(){
   }
 
   if (gust > .35 && Math.random() < .013 * gust * dt)
-    ring(tubes[(Math.random()*tubes.length)|0], .08 + gust * .1);
+    ring(keys[(Math.random() * keys.length) | 0], .08 + gust * .1);
 }
+
+mountInstrument('chimes');
 
 /* ── Note pad ────────────────────────────────
    F major pentatonic, mirrored about the middle row, so anything tapped sits in key with
@@ -2156,6 +2203,17 @@ document.addEventListener('pointerdown', e => {
   if (!settings.hidden && !settings.contains(e.target) && !cog.contains(e.target)) closeSettings();
 });
 addEventListener('keydown', e => { if (e.key === 'Escape') closeSettings(); });
+
+document.getElementById('instPick').addEventListener('click', e => {
+  const b = e.target.closest('.seg-b');
+  if (!b || b.classList.contains('on')) return;
+  document.querySelectorAll('.seg-b').forEach(x => {
+    const on = x === b;
+    x.classList.toggle('on', on);
+    x.setAttribute('aria-checked', String(on));
+  });
+  mountInstrument(b.dataset.inst);
+});
 
 })();
 </script>
