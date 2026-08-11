@@ -1,13 +1,2216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting to Google Maps...</title>
-    
-    <!-- Method 1: Instant Meta Redirect -->
-    <meta http-equiv="refresh" content="0;url=https://maps.app.goo.gl/35pZkwBkywW15C9V6">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ann Maria & Joel — 12 December 2026</title>
+<meta name="description" content="Wedding of Ann Maria and Joel. Saturday 12 December 2026, Changanacherry, Kerala. Programme and venues.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   Tokens
+   ───────────────────────────────────────────── */
+:root{
+  --ink:      #05161a;   /* wet slate, near-black teal        */
+  --deep:     #0a2a2e;   /* backwater at dusk                 */
+  --slate:    #12393d;   /* raised surfaces                   */
+  --jasmine:  #f4efe4;   /* warm white — primary text         */
+  --brass:    #d9a441;   /* lamp glow — accent                */
+  --blush:    #e5a6a0;   /* petal                             */
+  --muted:    rgba(244,239,228,.60);
+  --hair:     rgba(217,164,65,.28);
+
+  --display: "Bodoni Moda", "Didot", Georgia, serif;
+  --sans:    "Jost", "Avenir Next", system-ui, sans-serif;
+
+  --pad: clamp(1.25rem, 5vw, 4rem);
+  --band: clamp(4.5rem, 11vw, 9rem);
+}
+
+*{box-sizing:border-box}
+/* text people may actually want to copy */
+address, .verse p, .slot-body p{
+  -webkit-user-select:text; user-select:text;
+}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  /* no double-tap zoom, and no text selection or callout when holding to blow
+     bubbles — pinch zoom and normal scrolling still work */
+  touch-action:manipulation;
+  -webkit-user-select:none; user-select:none;
+  -webkit-touch-callout:none;
+  -webkit-tap-highlight-color:transparent;
+  background:var(--ink);
+  color:var(--jasmine);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{ /* ambient depth behind the rain */
+  content:"";
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(60vw 50vh at 78% 8%,  rgba(217,164,65,.16), transparent 62%),
+    radial-gradient(50vw 45vh at 12% 32%, rgba(46,124,110,.20), transparent 66%),
+    radial-gradient(70vw 60vh at 50% 108%,rgba(229,166,160,.10), transparent 60%);
+}
+#rain{position:fixed; inset:0; z-index:1; pointer-events:none}
+#burst{position:fixed; inset:0; z-index:60; pointer-events:none}
+.page{position:relative; z-index:2}
+
+/* ─────────────────────────────────────────────
+   Type
+   ───────────────────────────────────────────── */
+h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02}
+.eyebrow{
+  font-size:.7rem; letter-spacing:.34em; text-transform:uppercase;
+  color:var(--brass); font-weight:400; margin:0 0 1.4rem;
+}
+.lede{font-size:clamp(1rem,1.7vw,1.15rem); color:var(--muted); max-width:46ch}
+.figure{font-family:var(--display); font-style:italic}
+
+/* ─────────────────────────────────────────────
+   Nav
+   ───────────────────────────────────────────── */
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1rem var(--pad);
+  background:linear-gradient(rgba(5,22,26,.86), rgba(5,22,26,0));
+  backdrop-filter:blur(3px);
+}
+.mono{font-family:var(--display); font-style:italic; font-size:1.15rem; letter-spacing:.02em}
+.topbar nav{display:flex; gap:1.6rem}
+.topbar a{
+  color:var(--muted); text-decoration:none; font-size:.74rem;
+  letter-spacing:.2em; text-transform:uppercase; transition:color .3s;
+}
+.topbar a:hover,.topbar a:focus-visible{color:var(--jasmine)}
+@media (max-width:720px){ .topbar nav a:not(.last){display:none} }
+
+/* ─────────────────────────────────────────────
+   Hero — the rain window
+   ───────────────────────────────────────────── */
+.hero{
+  position:relative; min-height:100svh;
+  display:grid; place-items:center; text-align:center;
+  padding:7rem var(--pad) 4rem;
+  isolation:isolate;
+}
+#glass{position:absolute; inset:0; z-index:-1; pointer-events:none}
+.hero-inner{max-width:60rem}
+.names{
+  font-size:clamp(3.4rem, 15vw, 11rem);
+  font-style:italic; letter-spacing:-.015em;
+  margin:0; text-wrap:balance;
+}
+.names .amp{
+  display:block; font-style:normal; color:var(--brass);
+  font-size:.3em; letter-spacing:.1em; margin:.15em 0;
+}
+.hero .rule{
+  width:1px; height:clamp(2.5rem,7vw,4.5rem); margin:2.2rem auto 1.6rem;
+  background:linear-gradient(var(--brass), transparent);
+}
+.when{font-size:clamp(.82rem,2.4vw,1rem); letter-spacing:.32em; text-transform:uppercase}
+.where{color:var(--muted); letter-spacing:.16em; font-size:.82rem; text-transform:uppercase; margin-top:.6rem}
+
+.count{display:flex; gap:clamp(1.2rem,5vw,3rem); justify-content:center; margin-top:3rem}
+.count div{min-width:3.2rem}
+.count b{
+  display:block; font-family:var(--display); font-weight:400;
+  font-size:clamp(1.7rem,5vw,2.6rem); font-variant-numeric:tabular-nums;
+}
+.count span{font-size:.6rem; letter-spacing:.26em; text-transform:uppercase; color:var(--muted)}
+
+.hint{
+  margin-top:3.4rem; font-size:.7rem; letter-spacing:.24em; text-transform:uppercase;
+  color:rgba(244,239,228,.42); animation:breathe 3.6s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{opacity:.35}50%{opacity:.85}}
+
+/* Bar chimes, hanging under the names — kept under 3cm tall */
+.chimes{display:flex; justify-content:center; margin:clamp(1.2rem,3.5vw,2rem) auto clamp(.9rem,2.2vw,1.5rem)}
+.chimes svg{height:clamp(62px, 13vh, 112px); width:auto; max-width:100%; overflow:visible; display:block}
+.bar{fill:url(#barGrad); stroke:var(--hair); stroke-width:1}
+.bar-hole{fill:rgba(5,22,26,.9); stroke:rgba(217,164,65,.35); stroke-width:.8}
+.string{stroke:rgba(217,164,65,.55); stroke-width:.8; fill:none}
+.loop{fill:none; stroke:rgba(244,239,228,.5); stroke-width:.8}
+.tube{cursor:pointer; transform-box:fill-box; transform-origin:50% 0%}
+.tube .pipe{fill:url(#tubeGrad); stroke:rgba(244,239,228,.22); stroke-width:.5; transition:stroke .3s}
+.tube .sheen{stroke:rgba(255,255,255,.45); stroke-width:.7; stroke-linecap:round}
+.tube .hit{fill:transparent}
+@media (hover:hover){ .tube:hover .pipe{stroke:var(--brass)} }
+.tube{will-change:transform}
+.key{cursor:pointer}
+.bar-key .face{
+  stroke:rgba(0,0,0,.28); stroke-width:.5;
+  transform-box:fill-box; transform-origin:50% 50%;
+}
+.xylophone .face{fill:url(#woodX)}
+.marimba   .face{fill:url(#woodM)}
+.pin{fill:rgba(5,22,26,.5)}
+.fascia{fill:var(--brass); opacity:.75}
+.nat .face{fill:url(#ivory); stroke:rgba(5,22,26,.55); stroke-width:.7}
+.acc .face{fill:url(#ebony); stroke:rgba(217,164,65,.45); stroke-width:.7}
+.nat .face, .acc .face{transform-box:fill-box; transform-origin:50% 0%}
+@media (hover:hover){
+  .nat:hover .face{fill:#fffdf6}
+  .acc:hover .face{stroke:var(--brass)}
+}
+.nat.struck .face{animation:pressN .4s ease-out}
+.acc.struck .face{animation:pressA .4s ease-out}
+@keyframes pressN{
+  0%  {transform:translateY(3px) scaleY(.985); filter:brightness(.8)}
+  100%{transform:translateY(0) scaleY(1);      filter:brightness(1)}
+}
+@keyframes pressA{
+  0%  {transform:translateY(2.5px) scaleY(.98); filter:brightness(2.4)}
+  100%{transform:translateY(0) scaleY(1);       filter:brightness(1)}
+}
+.reso{fill:url(#tubeGrad); opacity:.8}
+.rail{stroke:var(--hair); stroke-width:1.4; fill:none}
+@media (hover:hover){ .bar-key:hover .face{stroke:var(--brass); stroke-width:1} }
+.key.struck .face{animation:strike .5s ease-out}
+@keyframes strike{
+  0%  {transform:translateY(0);   filter:brightness(2.1)}
+  22% {transform:translateY(2.6px); filter:brightness(1.3)}
+  100%{transform:translateY(0);   filter:brightness(1)}
+}
+
+/* instrument picker */
+.seg{display:flex; flex-wrap:wrap; gap:.25rem}
+.seg-b{
+  flex:1 1 44%; cursor:pointer; padding:.5rem .15rem;
+  border:1px solid var(--hair); border-radius:2px; background:transparent;
+  color:var(--muted); font-family:var(--sans);
+  font-size:.53rem; letter-spacing:.1em; text-transform:uppercase;
+  transition:color .3s, border-color .3s, background .3s;
+}
+.seg-b:hover{color:var(--jasmine)}
+.seg-b.on{background:rgba(217,164,65,.18); color:var(--jasmine); border-color:var(--brass)}
+
+/* ─────────────────────────────────────────────
+   Bands
+   ───────────────────────────────────────────── */
+.band{padding:var(--band) var(--pad); max-width:74rem; margin-inline:auto}
+.band-head{margin-bottom:clamp(2.5rem,6vw,4.5rem)}
+.band-head h2{font-size:clamp(2.1rem,6vw,3.6rem); font-style:italic}
+
+.verse{text-align:center; max-width:38rem; margin-inline:auto}
+.verse p{font-family:var(--display); font-style:italic; font-size:clamp(1.35rem,4vw,2rem); line-height:1.45; margin:0}
+.verse cite{display:block; margin-top:1.6rem; font-family:var(--sans); font-style:normal;
+  font-size:.68rem; letter-spacing:.28em; text-transform:uppercase; color:var(--brass)}
+
+/* Programme — the rainline */
+.day{margin-bottom:clamp(3rem,7vw,5rem)}
+.day-label{
+  display:flex; align-items:baseline; gap:1rem; margin-bottom:2.2rem;
+  border-bottom:1px solid var(--hair); padding-bottom:.9rem;
+}
+.day-label h3{font-size:clamp(1.3rem,3.4vw,1.8rem); font-style:italic}
+.day-label span{font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; color:var(--muted)}
+
+.slot{
+  display:grid; grid-template-columns:7.5rem 2.5rem 1fr; align-items:start;
+  gap:0; position:relative; padding-bottom:2.6rem;
+}
+.slot-time{
+  text-align:right; padding-right:1.2rem; padding-top:.1rem;
+  font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--brass);
+  font-variant-numeric:tabular-nums;
+}
+.slot-line{position:relative; justify-self:center; width:2.5rem; align-self:stretch}
+.slot-line::before{ /* the falling rainline */
+  content:""; position:absolute; left:50%; top:.45rem; bottom:-.3rem; width:1px;
+  transform:translateX(-.5px) scaleY(var(--grow,0)); transform-origin:top;
+  background:linear-gradient(rgba(217,164,65,.55), rgba(217,164,65,.08));
+  transition:transform 1s cubic-bezier(.4,0,.2,1) .15s;
+}
+.slot:last-child .slot-line::before{display:none}
+.drop{
+  position:absolute; left:50%; top:.15rem; width:11px; height:14px;
+  transform:translateX(-50%) scale(0);
+  background:var(--brass);
+  border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;
+  clip-path:path("M5.5 0 C5.5 0 11 7 11 9.4 A5.5 5.5 0 0 1 0 9.4 C0 7 5.5 0 5.5 0 Z");
+  transition:transform .6s cubic-bezier(.2,1.5,.4,1);
+  box-shadow:0 0 12px rgba(217,164,65,.55);
+}
+.drop::after{ /* ripple on arrival */
+  content:""; position:absolute; left:50%; top:60%; width:34px; height:34px; margin:-17px 0 0 -17px;
+  border:1px solid rgba(217,164,65,.5); border-radius:50%; opacity:0;
+}
+.slot.in .drop{transform:translateX(-50%) scale(1)}
+.slot.in .drop::after{animation:ripple 1.4s ease-out .35s}
+.slot.in .slot-line::before{--grow:1}
+@keyframes ripple{0%{transform:scale(.2); opacity:.9}100%{transform:scale(1.6); opacity:0}}
+
+.slot-body{padding-left:1.2rem; opacity:0; transform:translateY(14px); transition:all .8s ease .25s}
+.slot.in .slot-body{opacity:1; transform:none}
+.slot-body h4{
+  margin:0 0 .35rem; font-family:var(--display); font-weight:400;
+  font-size:clamp(1.15rem,3vw,1.5rem);
+}
+.slot-body p{margin:0; color:var(--muted); font-size:.95rem; max-width:44ch}
+.slot-body .venue{
+  display:inline-block; margin-top:.5rem; font-size:.68rem; letter-spacing:.2em;
+  text-transform:uppercase; color:rgba(244,239,228,.45);
+}
+@media (max-width:640px){
+  .slot{grid-template-columns:4.4rem 1.8rem 1fr}
+  .slot-time{font-size:.68rem; padding-right:.7rem}
+  .slot-body{padding-left:.8rem}
+}
+
+/* Venues */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr)); gap:1.25rem}
+.card{
+  border:1px solid var(--hair); border-radius:2px; padding:2.2rem 1.9rem;
+  background:linear-gradient(160deg, rgba(18,57,61,.55), rgba(10,42,46,.25));
+  transition:transform .5s cubic-bezier(.2,.8,.3,1), border-color .5s, background .5s;
+}
+.card:hover{transform:translateY(-6px); border-color:rgba(217,164,65,.6)}
+.card .tag{font-size:.66rem; letter-spacing:.26em; text-transform:uppercase; color:var(--brass)}
+.card h3{margin:1rem 0 .5rem; font-size:1.5rem}
+.card address{font-style:normal; color:var(--muted); font-size:.92rem}
+.card a{
+  display:inline-block; margin-top:1.3rem; color:var(--jasmine); text-decoration:none;
+  font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+  border-bottom:1px solid var(--brass); padding-bottom:.3rem;
+}
+.card a:hover{color:var(--brass)}
+
+/* Notes */
+.notes{display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:2.5rem 2rem}
+.note h4{margin:0 0 .6rem; font-family:var(--display); font-weight:400; font-size:1.25rem}
+.note p{margin:0; color:var(--muted); font-size:.93rem}
+.note .num{
+  display:block; font-size:.66rem; letter-spacing:.26em; color:var(--brass); margin-bottom:.9rem;
+}
+
+/* Footer */
+.foot{text-align:center; padding:var(--band) var(--pad) 8rem; border-top:1px solid var(--hair)}
+.foot p{font-family:var(--display); font-style:italic; font-size:clamp(1.4rem,4vw,2.2rem); margin:0 0 1.2rem}
+.foot small{font-size:.66rem; letter-spacing:.26em; text-transform:uppercase; color:var(--muted)}
+
+/* Rain switch */
+/* Settings menu, top left */
+.brand{display:flex; align-items:center; gap:.85rem}
+.cog{
+  width:34px; height:34px; display:grid; place-items:center; cursor:pointer;
+  border:1px solid var(--hair); border-radius:50%;
+  background:rgba(5,22,26,.55); color:var(--muted);
+  transition:color .3s, border-color .3s;
+}
+.cog:hover, .cog[aria-expanded="true"]{color:var(--jasmine); border-color:var(--brass)}
+.cog svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round}
+.settings{
+  position:absolute; left:var(--pad); top:calc(100% - .15rem);
+  display:flex; flex-direction:column; gap:.45rem;
+  min-width:14rem; padding:.95rem 1rem 1rem;
+  border:1px solid var(--hair); border-radius:3px;
+  background:rgba(5,22,26,.96);
+  box-shadow:0 20px 45px -25px rgba(0,0,0,.9);
+  animation:setdrop .28s cubic-bezier(.2,.8,.3,1);
+}
+.settings[hidden]{display:none}
+@keyframes setdrop{from{opacity:0; transform:translateY(-6px)} to{opacity:1; transform:none}}
+.set-title{
+  margin:0 0 .35rem; font-size:.58rem; letter-spacing:.26em;
+  text-transform:uppercase; color:var(--brass);
+}
+.switch{
+  display:flex; align-items:center; justify-content:space-between; gap:1.2rem;
+  width:100%; cursor:pointer;
+  padding:.55rem .7rem; border-radius:2px;
+  background:transparent; border:1px solid transparent;
+  color:var(--muted); font-family:var(--sans);
+  font-size:.62rem; letter-spacing:.2em; text-transform:uppercase;
+  transition:color .3s, border-color .3s, background .3s;
+}
+.switch:hover{color:var(--jasmine); border-color:var(--hair); background:rgba(217,164,65,.06)}
+.switch i{
+  width:26px; height:8px; border-radius:99px; flex:none;
+  background:var(--brass); position:relative; transition:background .3s;
+}
+.switch i::after{
+  content:""; position:absolute; top:-3px; right:-2px;
+  width:14px; height:14px; border-radius:50%;
+  background:var(--jasmine); transition:transform .3s cubic-bezier(.2,.9,.3,1.4);
+}
+.switch.off i{background:rgba(244,239,228,.18)}
+.switch.off i::after{transform:translateX(-12px); background:var(--muted)}
+
+/* ─────────────────────────────────────────────
+   Scroll progress — the wedding cycle
+   ───────────────────────────────────────────── */
+.progress{
+  position:fixed; left:0; right:0; bottom:0; height:88px; z-index:65; pointer-events:none;
+}
+.progress::before{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(rgba(5,22,26,0), rgba(5,22,26,.55) 45%, rgba(5,22,26,.9));
+}
+.road{
+  position:absolute; left:0; right:0; bottom:28px; height:1px;
+  background:rgba(244,239,228,.13);
+}
+.road-done{
+  position:absolute; left:0; top:0; height:100%; width:0;
+  background:linear-gradient(90deg, rgba(217,164,65,.08), rgba(217,164,65,.9));
+}
+.rider{
+  position:absolute; left:0; bottom:24px; width:104px; height:72px;
+  will-change:transform;
+}
+.rider svg{width:100%; height:100%; overflow:visible; display:block}
+
+.tyre{fill:none; stroke:var(--brass); stroke-width:1.6}
+.spokes line{stroke:rgba(217,164,65,.42); stroke-width:.9}
+.frame{fill:none; stroke:var(--brass); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round}
+.thin{fill:none; stroke:var(--brass); stroke-width:1.1; stroke-linecap:round}
+.limb{fill:none; stroke:var(--jasmine); stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round}
+.skull{fill:var(--jasmine)}
+.sari{fill:none; stroke:var(--blush); stroke-width:1.5; stroke-linecap:round}
+.far{opacity:.4}
+
+@keyframes sariwave{from{transform:rotate(-5deg) scaleY(.92)} to{transform:rotate(6deg) scaleY(1.08)}}
+@keyframes legsway{from{transform:rotate(-7deg)} to{transform:rotate(8deg)}}
+#sari{transform-box:view-box; transform-origin:18px 28px; animation:sariwave .8s ease-in-out infinite alternate}
+#brideLegs{transform-box:view-box; transform-origin:21px 42px; animation:legsway 1.05s ease-in-out infinite alternate}
+.rider.idle #sari, .rider.idle #brideLegs{animation-play-state:paused}
+
+@media (max-width:640px){
+  .progress{height:74px}
+  .rider{width:80px; height:55px; bottom:22px}
+  .road{bottom:26px}
+}
+
+/* ─────────────────────────────────────────────
+   Note pad — F major pentatonic, so nothing lands wrong
+   ───────────────────────────────────────────── */
+.clips{position:absolute; width:0; height:0; overflow:hidden}
+.notepad{
+  /* every row is six cells wide, so the block is a clean rectangle */
+  --hex:clamp(40px, calc((min(100vw, 62rem) - 2 * var(--pad)) / 6.1), 118px);
+  width:100%;
+  display:flex; flex-direction:column; align-items:center;
+  margin-top:clamp(2rem,5vw,3.5rem);
+}
+.krow{display:flex}
+.krow + .krow{margin-top:calc(var(--hex) * -.2887)}   /* rows interlock, no gaps */
+.krow.o1{--tint:.11}
+.krow.o2{--tint:.16}
+.krow.o3{--tint:.21}
+.krow.o4{--tint:.26}
+.krow.o5{--tint:.31}
+.cell{
+  position:relative;
+  height:calc(var(--hex) * 1.1547);
+  border:0; padding:0; cursor:pointer;
+  color:var(--jasmine);
+  font-family:var(--sans); font-weight:400;
+  font-size:calc(var(--hex) * .19); letter-spacing:.06em;
+  display:grid; place-items:center; touch-action:none;
+  /* the darker rim is what separates one cell from the next without a gap */
+  background:radial-gradient(circle calc(var(--hex) * .56) at var(--cx,50%) 46%,
+    rgba(217,164,65,var(--tint)) 34%,
+    rgba(217,164,65,calc(var(--tint) * .35)) 68%,
+    rgba(5,22,26,.72) 100%);
+  transition:transform .18s cubic-bezier(.2,.9,.3,1.5);
+}
+/* rounded joins, so the corners read soft rather than cut */
+.hex{width:var(--hex); clip-path:url(#hexFull)}
+.half{width:calc(var(--hex) * .5); font-size:calc(var(--hex) * .15)}
+.half.l{--cx:0%;   clip-path:url(#hexCapL); text-indent:calc(var(--hex) * -.1)}
+.half.r{--cx:100%; clip-path:url(#hexCapR); text-indent:calc(var(--hex) * .1)}
+.cell span{position:relative; z-index:1}
+.cell::after{
+  content:""; position:absolute; inset:0;
+  background:var(--brass); opacity:0;
+}
+@media (hover:hover){ .cell:hover{transform:scale(1.05)} }
+.cell.lit{z-index:2}
+.cell.lit::after{animation:hexlit .6s ease-out}
+@keyframes hexlit{0%{opacity:.92} 100%{opacity:0}}
+
+/* Backdrop blur is cheap on a Mac and expensive on tablets/phones, where it
+   forces the whole page to recomposite over the animating canvases. */
+@media (hover: none){
+  .topbar{backdrop-filter:none; background:linear-gradient(rgba(5,22,26,.94), rgba(5,22,26,0))}
+  .switch{backdrop-filter:none; background:rgba(5,22,26,.9)}
+}
+
+/* Reveal */
+.reveal{opacity:0; transform:translateY(22px); transition:opacity 1s ease, transform 1s cubic-bezier(.2,.8,.3,1)}
+.reveal.in{opacity:1; transform:none}
+
+:focus-visible{outline:2px solid var(--brass); outline-offset:4px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important; transition:none !important}
+  .reveal,.slot-body{opacity:1; transform:none}
+  .drop{transform:translateX(-50%) scale(1)}
+  .slot-line::before{--grow:1}
+}
+</style>
 </head>
+<body>
 
+<!-- ══════════════════════════════════════════════════════════════════════
+     EVERYTHING YOU NEED TO EDIT IS IN THIS ONE BLOCK.
+     Change the text between the quote marks. Keep the quotes, colons
+     and commas exactly where they are. Nothing below this block needs
+     touching to change names, dates, times, venues or wording.
+     ══════════════════════════════════════════════════════════════════════ -->
+<script>
+const WEDDING = {
+
+  /* ── The couple, the day, the place ─────────────────────────────── */
+  monogram : "K & S",
+  eyebrow  : "The wedding of",
+  couple   : { one: "Kesia", joiner: "and", two: "Sachin" },
+
+  date: {
+    display : "Saturday, 16 September 2026",
+    // used by the countdown. Format: YYYY-MM-DDTHH:MM:SS+05:30
+    iso     : "2026-09-16T08:45:00+05:30"
+  },
+
+  place : "Ernakulam, Kerala",
+  hint  : "Tap for petals — hold to blow bubbles",
+
+  /* ── The line under the hero ────────────────────────────────────── */
+  verse : {
+    text   : "Two are better than one, because they have a good reward for their labour.",
+    source : "Ecclesiastes 4:9"
+  },
+
+  /* ── Order of the day ───────────────────────────────────────────── */
+  programme : {
+    eyebrow : "Order of the day",
+    title   : "The programme",
+    intro   : "Two days, one long celebration. Times are when things begin, so please arrive a little before.",
+
+    // add or remove days, and events inside them, freely
+    days : [
+      {
+        name : "Saturday",
+        when : "12 September · Evening",
+        events : [
+          { time  : "7:30 pm",
+            title : "Welcome &amp; family dinner",
+            text  : "An open evening for guests travelling in. Come as you are, eat well, meet everyone before the rush of Saturday.",
+            venue : "Parish Hall, Varappuzha" }
+        ]
+      },
+      {
+        name : "Saturday",
+        when : "16 September · The wedding day",
+        events : [
+          { time  : "8:00 am",
+            title : "Guests arrive",
+            text  : "Tea and coffee under the portico. Ushers will seat you — the bride's family to the left, the groom's to the right.",
+            venue : "St. Mary's Forane Church" },
+
+          { time  : "8:45 am",
+            title : "Nuptial mass and vows",
+            text  : "The ceremony runs about ninety minutes, including the exchange of rings and the tying of the <span class='figure'>minnu</span>.",
+            venue : "St. Mary's Forane Church" },
+
+          { time  : "10:30 am",
+            title : "Photographs on the steps",
+            text  : "Family groups first, then everyone. Please stay — we would like a picture with every single person who came.",
+            venue : "Church courtyard" },
+
+          { time  : "12:00 pm",
+            title : "Reception and lunch",
+            text  : "A full sadhya on banana leaf, with a separate counter for those who prefer non-vegetarian.",
+            venue : "Parish Hall, Varappuzha" },
+
+          { time  : "1:30 pm",
+            title : "Cake, toasts and the first dance",
+            text  : "Short speeches from both fathers. If you would like to say something, find Anoop at the head table.",
+            venue : "Parish Hall, Varappuzha" },
+
+          { time  : "3:30 pm",
+            title : "Send-off",
+            text  : "Flowers and sparklers at the gate. Umbrellas will be handed out — December has its own ideas.",
+            venue : "Parish Hall, Varappuzha" }
+        ]
+      }
+    ]
+  },
+
+  /* ── Where ──────────────────────────────────────────────────────── */
+  venues : {
+    eyebrow : "Getting there",
+    title   : "Two places",
+    list : [
+      { tag     : "Ceremony · 8:45 am",
+        name    : "St Joseph's and Mount Carmel Church",
+        address : ["Varapuzha", "Ernakulam district, Kerala 683517"],
+        map     : "Roman-Latin Catholic Basilica Of our Lady of Mount Carmel & St. Joseph Varapuzha" },
+
+      { tag     : "Reception · 12:00 pm",
+        name    : "Parish Hall, Varappuzha",
+        address : ["M.C. Road, Changanacherry", "Kottayam district, Kerala 686101"],
+        map     : "Hotel Casino Changanacherry" }
+    ]
+  },
+
+  /* ── Useful things to know ──────────────────────────────────────── */
+  notes : {
+    eyebrow : "Small print, useful",
+    title   : "Things worth knowing",
+    list : [
+      { label: "What to wear", title: "Kerala formal",
+        text: "Saree, set-mundu, kurta or suit. The church floor is stone and the courtyard may be wet — flat shoes will thank you." },
+
+      { label: "If it rains", title: "It might",
+        text: "Everything moves indoors except the photographs, which move under the portico. Umbrellas are provided at both venues." },
+
+      { label: "Parking", title: "Behind the parish hall",
+        text: "Free, with attendants from 7:30 am. The reception hall has basement parking off M.C. Road." },
+
+      { label: "Staying over", title: "Rooms held nearby",
+        text: "A block of rooms is held at two hotels within a kilometre. Mention the wedding when booking, or ask us and we will arrange it." },
+
+      { label: "Children", title: "Very welcome",
+        text: "There is a quiet room beside the sacristy for feeding and naps, and a separate table at lunch." },
+
+      { label: "Gifts", title: "Your presence, honestly",
+        text: "You are travelling to be with us and that is plenty. If you would still like to give something, a note at the reception desk is perfect." }
+    ]
+  },
+
+  /* ── The chimes and note pad section ────────────────────────────── */
+  tune : {
+    eyebrow : "Before you go",
+    title   : "Play us something",
+    intro   : "Five notes, mirrored about the middle row, tuned to the key this page hums in. Tap them, or drag across — none of them can sound wrong together."
+  },
+
+  /* ── Sign-off ───────────────────────────────────────────────────── */
+  footer : {
+    line  : "See you in the rain.",
+    small : "Kesia &amp; Sachin · 16 · 09 · 2026"
+  }
+
+};
+</script>
+<!-- ═══════════════ END OF THE EDITABLE BLOCK ═══════════════ -->
+
+
+<canvas id="rain" aria-hidden="true"></canvas>
+<canvas id="burst" aria-hidden="true"></canvas>
+
+<header class="topbar">
+  <div class="brand">
+    <button class="cog" id="cog" aria-expanded="false" aria-controls="settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <span class="mono" id="monogram">A &amp; J</span>
+  </div>
+  <nav>
+    <a href="#programme">Programme</a>
+    <a href="#venues">Venues</a>
+    <a href="#notes" class="last">Notes</a>
+  </nav>
+
+  <div class="settings" id="settings" hidden>
+    <p class="set-title">Instrument</p>
+    <div class="seg" id="instPick" role="radiogroup" aria-label="Instrument">
+      <button class="seg-b on" data-inst="chimes" role="radio" aria-checked="true">Chimes</button>
+      <button class="seg-b" data-inst="xylophone" role="radio" aria-checked="false">Xylo</button>
+      <button class="seg-b" data-inst="marimba" role="radio" aria-checked="false">Marimba</button>
+      <button class="seg-b" data-inst="keyboard" role="radio" aria-checked="false">Keys</button>
+    </div>
+    <p class="set-title" style="margin-top:.6rem">Sound</p>
+    <button class="switch" id="sound" aria-pressed="true"><span>Sound</span><i></i></button>
+    <button class="switch" id="switch" aria-pressed="true"><span>Rain</span><i></i></button>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- HERO ─────────────────────────────────────── -->
+  <section class="hero">
+    <canvas id="glass" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <p class="eyebrow" id="heroEyebrow"></p>
+      <h1 class="names"><span id="nameOne"></span><span class="amp" id="joiner"></span><span id="nameTwo"></span></h1>
+      <div class="chimes" id="instrument" role="group" aria-label="Instrument — tap or sweep to play"></div>
+      <p class="when" id="dateLine"></p>
+      <p class="where" id="placeLine"></p>
+
+      <div class="count" id="count" aria-label="Time remaining until the wedding">
+        <div><b data-c="d">—</b><span>Days</span></div>
+        <div><b data-c="h">—</b><span>Hours</span></div>
+        <div><b data-c="m">—</b><span>Minutes</span></div>
+        <div><b data-c="s">—</b><span>Seconds</span></div>
+      </div>
+
+      <p class="hint" id="hint"></p>
+    </div>
+  </section>
+
+  <!-- VERSE ────────────────────────────────────── -->
+  <section class="band verse reveal">
+    <p id="verseText"></p>
+    <cite id="verseCite"></cite>
+  </section>
+
+  <!-- PROGRAMME ────────────────────────────────── -->
+  <section class="band" id="programme">
+    <div class="band-head reveal">
+      <p class="eyebrow" id="programmeEyebrow"></p>
+      <h2 id="programmeTitle"></h2>
+      <p class="lede" id="programmeIntro" style="margin-top:1.4rem"></p>
+    </div>
+    <div id="dayList"></div>
+  </section>
+
+  <!-- VENUES ───────────────────────────────────── -->
+  <section class="band" id="venues">
+    <div class="band-head reveal">
+      <p class="eyebrow" id="venuesEyebrow"></p>
+      <h2 id="venuesTitle"></h2>
+    </div>
+    <div class="cards reveal" id="venueList"></div>
+  </section>
+
+  <!-- NOTES ────────────────────────────────────── -->
+  <section class="band" id="notes">
+    <div class="band-head reveal">
+      <p class="eyebrow" id="notesEyebrow"></p>
+      <h2 id="notesTitle"></h2>
+    </div>
+    <div class="notes reveal" id="noteList"></div>
+  </section>
+
+  <!-- NOTE PAD ────────────────────────────────── -->
+  <section class="band" id="tune">
+    <div class="band-head reveal" style="text-align:center">
+      <p class="eyebrow">Before you go</p>
+      <h2>Play us something</h2>
+      <p class="lede" style="margin:1.4rem auto 0">Five notes running up three octaves, tuned to the key this page hums in. Tap them, or drag across — none of them can sound wrong together.</p>
+    </div>
+
+    <svg class="clips" aria-hidden="true" focusable="false">
+      <defs>
+        <clipPath id="hexFull" clipPathUnits="objectBoundingBox"><path d="M 0.575 0.0375 L 0.925 0.2125 Q 1 0.25 1 0.325 L 1 0.675 Q 1 0.75 0.925 0.7875 L 0.575 0.9625 Q 0.5 1 0.425 0.9625 L 0.075 0.7875 Q 0 0.75 0 0.675 L 0 0.325 Q 0 0.25 0.075 0.2125 L 0.425 0.0375 Q 0.5 0 0.575 0.0375 Z"/></clipPath>
+        <clipPath id="hexCapL" clipPathUnits="objectBoundingBox"><path d="M 0.13 0.0325 L 0.87 0.2175 Q 1 0.25 1 0.315 L 1 0.685 Q 1 0.75 0.87 0.7825 L 0.13 0.9675 Q 0 1 0 0.87 L 0 0.13 Q 0 0 0.13 0.0325 Z"/></clipPath>
+        <clipPath id="hexCapR" clipPathUnits="objectBoundingBox"><path d="M 1 0.13 L 1 0.87 Q 1 1 0.87 0.9675 L 0.13 0.7825 Q 0 0.75 0 0.685 L 0 0.315 Q 0 0.25 0.13 0.2175 L 0.87 0.0325 Q 1 0 1 0.13 Z"/></clipPath>
+      </defs>
+    </svg>
+
+    <div class="notepad reveal" id="notepad">
+      <div class="krow o5">
+        <button class="cell hex" data-n="77" aria-label="Play F5"><span>F</span></button>
+        <button class="cell hex" data-n="79" aria-label="Play G5"><span>G</span></button>
+        <button class="cell hex" data-n="81" aria-label="Play A5"><span>A</span></button>
+        <button class="cell hex" data-n="84" aria-label="Play C6"><span>C</span></button>
+        <button class="cell hex" data-n="86" aria-label="Play D6"><span>D</span></button>
+        <button class="cell hex" data-n="89" aria-label="Play F6"><span>F</span></button>
+      </div>
+      <div class="krow o3">
+        <button class="cell half l" data-n="62" aria-label="Play D4"><span>D</span></button>
+        <button class="cell hex" data-n="65" aria-label="Play F4"><span>F</span></button>
+        <button class="cell hex" data-n="67" aria-label="Play G4"><span>G</span></button>
+        <button class="cell hex" data-n="69" aria-label="Play A4"><span>A</span></button>
+        <button class="cell hex" data-n="72" aria-label="Play C5"><span>C</span></button>
+        <button class="cell hex" data-n="74" aria-label="Play D5"><span>D</span></button>
+        <button class="cell half r" data-n="77" aria-label="Play F5"><span>F</span></button>
+      </div>
+      <div class="krow o1">
+        <button class="cell hex" data-n="53" aria-label="Play F3"><span>F</span></button>
+        <button class="cell hex" data-n="55" aria-label="Play G3"><span>G</span></button>
+        <button class="cell hex" data-n="57" aria-label="Play A3"><span>A</span></button>
+        <button class="cell hex" data-n="60" aria-label="Play C4"><span>C</span></button>
+        <button class="cell hex" data-n="62" aria-label="Play D4"><span>D</span></button>
+        <button class="cell hex" data-n="65" aria-label="Play F4"><span>F</span></button>
+      </div>
+      <div class="krow o3">
+        <button class="cell half l" data-n="62" aria-label="Play D4"><span>D</span></button>
+        <button class="cell hex" data-n="65" aria-label="Play F4"><span>F</span></button>
+        <button class="cell hex" data-n="67" aria-label="Play G4"><span>G</span></button>
+        <button class="cell hex" data-n="69" aria-label="Play A4"><span>A</span></button>
+        <button class="cell hex" data-n="72" aria-label="Play C5"><span>C</span></button>
+        <button class="cell hex" data-n="74" aria-label="Play D5"><span>D</span></button>
+        <button class="cell half r" data-n="77" aria-label="Play F5"><span>F</span></button>
+      </div>
+      <div class="krow o5">
+        <button class="cell hex" data-n="77" aria-label="Play F5"><span>F</span></button>
+        <button class="cell hex" data-n="79" aria-label="Play G5"><span>G</span></button>
+        <button class="cell hex" data-n="81" aria-label="Play A5"><span>A</span></button>
+        <button class="cell hex" data-n="84" aria-label="Play C6"><span>C</span></button>
+        <button class="cell hex" data-n="86" aria-label="Play D6"><span>D</span></button>
+        <button class="cell hex" data-n="89" aria-label="Play F6"><span>F</span></button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot reveal">
+    <p id="footLine"></p>
+    <small id="footSmall"></small>
+  </footer>
+</main>
+
+<div class="progress" aria-hidden="true">
+  <div class="road"><span class="road-done" id="roadDone"></span></div>
+
+  <div class="rider idle" id="rider">
+    <svg viewBox="0 0 104 72" xmlns="http://www.w3.org/2000/svg">
+      <g id="bob">
+
+        <!-- wheels -->
+        <circle class="tyre" cx="20" cy="56" r="12"/>
+        <circle class="tyre" cx="78" cy="56" r="12"/>
+        <g class="spokes" id="spokeR">
+          <line x1="-11" y1="0" x2="11" y2="0"/><line x1="0" y1="-11" x2="0" y2="11"/>
+          <line x1="-7.8" y1="-7.8" x2="7.8" y2="7.8"/><line x1="7.8" y1="-7.8" x2="-7.8" y2="7.8"/>
+        </g>
+        <g class="spokes" id="spokeF">
+          <line x1="-11" y1="0" x2="11" y2="0"/><line x1="0" y1="-11" x2="0" y2="11"/>
+          <line x1="-7.8" y1="-7.8" x2="7.8" y2="7.8"/><line x1="7.8" y1="-7.8" x2="-7.8" y2="7.8"/>
+        </g>
+
+        <!-- carrier seat -->
+        <path class="thin" d="M20 56 L17 44 M20 56 L27 44 M13.5 44 L28 44"/>
+
+        <!-- frame -->
+        <path class="frame" d="M48 55 L20 56 M48 55 L37 33 M37 33 L20 56 M37 33 L73 33 M48 55 L76 35 M76 35 L78 56 M73 33 L79.5 29"/>
+        <path class="frame" d="M32.5 32 L41.5 32"/>
+
+        <!-- far leg, then crank, then near leg -->
+        <polyline class="limb far" id="legFar" points="38,33 50,40 44,58"/>
+
+        <g id="crank">
+          <line x1="-5" y1="0" x2="5" y2="0" stroke="#d9a441" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="5" cy="0" r="1.7" fill="#d9a441"/>
+          <circle cx="-5" cy="0" r="1.7" fill="#d9a441"/>
+        </g>
+
+        <polyline class="limb" id="legNear" points="38,33 51,40 52,55"/>
+
+        <!-- bride, riding side-saddle on the carrier -->
+        <path class="sari" id="sari" d="M16 26 C8 25 5 31 -1 29 M16.5 29.5 C9 30 5 36 -2 34"/>
+        <polyline class="limb" id="brideLegs" points="21,42 26,50 23.5,56"/>
+        <path class="limb" d="M21 43 L19 31"/>
+        <path class="limb" d="M19 31 L33 31.5"/>
+        <circle class="skull" cx="18" cy="25.5" r="4.6"/>
+
+        <!-- groom -->
+        <path class="limb" d="M38 33 L54 22"/>
+        <path class="limb" d="M54 22 L72.5 32"/>
+        <circle class="skull" cx="58" cy="17.5" r="5"/>
+
+      </g>
+    </svg>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+
+/* ── Page content ────────────────────────────
+   Everything visible is built from the WEDDING block at the top of this file.
+   This runs before anything else so the rest of the script sees a full page. */
+function renderContent(){
+  const W = WEDDING, $ = id => document.getElementById(id);
+  const set = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
+
+  document.title = W.couple.one + ' & ' + W.couple.two + ' — ' + W.date.display;
+  set('monogram', W.monogram);
+  set('heroEyebrow', W.eyebrow);
+  set('nameOne', W.couple.one);
+  set('joiner',  W.couple.joiner);
+  set('nameTwo', W.couple.two);
+  set('dateLine', W.date.display);
+  set('placeLine', W.place);
+  set('hint', W.hint);
+  set('verseText', W.verse.text);
+  set('verseCite', W.verse.source);
+
+  const head = (key, o) => {
+    set(key + 'Eyebrow', o.eyebrow || '');
+    set(key + 'Title',   o.title || '');
+    if (o.intro !== undefined) set(key + 'Intro', o.intro);
+  };
+  head('programme', W.programme);
+  head('venues', W.venues);
+  head('notes', W.notes);
+  head('tune', W.tune);
+
+  set('dayList', W.programme.days.map(d => `
+      <div class="day">
+        <div class="day-label reveal"><h3>${d.name}</h3><span>${d.when}</span></div>` +
+        d.events.map(e => `
+        <div class="slot">
+          <div class="slot-time">${e.time}</div>
+          <div class="slot-line"><span class="drop"></span></div>
+          <div class="slot-body">
+            <h4>${e.title}</h4>
+            <p>${e.text}</p>` +
+            (e.venue ? `<span class="venue">${e.venue}</span>` : '') + `
+          </div>
+        </div>`).join('') + `
+      </div>`).join(''));
+
+  set('venueList', W.venues.list.map(v => `
+      <div class="card">
+        <span class="tag">${v.tag}</span>
+        <h3>${v.name}</h3>
+        <address>${v.address.join('<br>')}</address>
+        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.map)}" target="_blank" rel="noopener">Open in maps</a>
+      </div>`).join(''));
+
+  set('noteList', W.notes.list.map(n => `
+      <div class="note">
+        <span class="num">${n.label}</span>
+        <h4>${n.title}</h4>
+        <p>${n.text}</p>
+      </div>`).join(''));
+
+  set('footLine', W.footer.line);
+  set('footSmall', W.footer.small);
+}
+renderContent();
+
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile  = innerWidth < 700;
+
+/* ── Countdown ───────────────────────────────── */
+const TARGET = new Date(WEDDING.date.iso).getTime();
+const cells = {};
+document.querySelectorAll('#count b').forEach(b => cells[b.dataset.c] = b);
+const pad = n => String(n).padStart(2,'0');
+function tick(){
+  let t = TARGET - Date.now();
+  if (t < 0) t = 0;
+  const d = Math.floor(t/864e5);
+  cells.d.textContent = d;
+  cells.h.textContent = pad(Math.floor(t/36e5)%24);
+  cells.m.textContent = pad(Math.floor(t/6e4)%60);
+  cells.s.textContent = pad(Math.floor(t/1e3)%60);
+}
+tick(); setInterval(tick, 1000);
+
+/* ── Reveal on scroll ────────────────────────── */
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold:.15, rootMargin:'0px 0px -8% 0px' });
+document.querySelectorAll('.reveal, .slot').forEach(el => io.observe(el));
+
+if (reduced) document.getElementById('switch').style.display = 'none';
+
+/* ── Timing ──────────────────────────────────
+   Everything advances by dt, where dt = 1 at 60fps.
+   Without this, a 120Hz screen runs the whole page at double speed. */
+let dt = 1, tPrev = performance.now();
+function beat(now){
+  dt = Math.min((now - tPrev) / 16.667, 3);   // cap protects against tab-switch jumps
+  tPrev = now;
+}
+
+/* ── Canvas plumbing ─────────────────────────── */
+const touch = matchMedia('(hover: none)').matches;
+const small = innerWidth < 700;
+const DPR   = Math.min(devicePixelRatio || 1, touch ? 1.5 : 2);
+
+function fit(cv){
+  const w = cv === glassC ? cv.parentElement.offsetWidth  : innerWidth;
+  const h = cv === glassC ? cv.parentElement.offsetHeight : innerHeight;
+  cv.width = Math.round(w * DPR); cv.height = Math.round(h * DPR);
+  cv.style.width = w+'px'; cv.style.height = h+'px';
+  cv.getContext('2d').setTransform(DPR,0,0,DPR,0,0);
+  return { w, h };
+}
+const rainC  = document.getElementById('rain');
+const burstC = document.getElementById('burst');
+const glassC = document.getElementById('glass');
+const rx = rainC.getContext('2d'), bx = burstC.getContext('2d'), gx = glassC.getContext('2d');
+let R = fit(rainC), B = fit(burstC), G = fit(glassC);
+
+/* ── Quality governor ────────────────────────
+   Samples the real frame rate and steps detail down on slower devices. */
+let quality = touch ? .8 : 1, accum = 0, frames = 0, settles = 0;
+function governor(){
+  accum += dt; frames++;
+  if (frames < 90) return;
+  const fps = 60 / (accum / frames);
+  accum = 0; frames = 0;
+  if (settles > 8) return;
+  settles++;
+  if (fps < 42)      quality = Math.max(.3, quality - .22);
+  else if (fps > 56) quality = Math.min(1, quality + .08);
+}
+
+/* ── Wind: driven by scroll ──────────────────
+   Scrolling down leans the rain forward and thickens it, like riding into it.
+   Scrolling up pushes it back the other way. */
+const WIND0 = .42;
+let wind = WIND0, windTo = WIND0, gust = 0, gustTo = 0, gustA = 0;
+let lastY = scrollY, scrollV = 0;
+
+function readScroll(){
+  const y = scrollY;
+  scrollV += (((y - lastY) / Math.max(dt,.2)) - scrollV) * (1 - Math.pow(.75, dt));
+  lastY = y;
+  const s = Math.max(-1, Math.min(1, scrollV / 48));
+  windTo = WIND0 + s * .95;
+  gustTo = Math.min(1, Math.abs(s) * 1.2);
+  wind += (windTo - wind) * (1 - Math.pow(.94, dt));
+  gust += (gustTo - gust) * (1 - Math.pow(.95, dt));
+
+  // The sound gets its own envelope: it catches up with the rain quickly, then
+  // takes several seconds to fall away, so it fades out rather than stopping.
+  gustA += (gust - gustA) * (gust > gustA ? 1 - Math.pow(.90, dt) : 1 - Math.pow(.9955, dt));
+}
+
+/* ── Rain ────────────────────────────────────── */
+let rainOn = !reduced;
+const N = small ? 110 : (touch ? 150 : 240);
+const drops = [], splash = [];
+
+function newDrop(seed){
+  const depth = Math.random();
+  return {
+    x: Math.random() * (R.w + 320) - 160,
+    y: seed ? Math.random() * R.h : -30,
+    len: 9 + depth * 26,
+    v: 5.5 + depth * 13,
+    a: .08 + depth * .30,
+    w: depth > .75 ? 1.4 : 1
+  };
+}
+for (let i=0;i<N;i++) drops.push(newDrop(true));
+
+function drawRain(){
+  rx.clearRect(0,0,R.w,R.h);
+  if (!rainOn) return;
+  const shown = Math.round(N * quality * (.55 + .45*gust));
+  const rush  = .88 + gust * .6;
+  rx.lineCap = 'round';
+  for (let i=0;i<drops.length;i++){
+    const d = drops[i];
+    if (i < shown){
+      rx.strokeStyle = 'rgba(200,232,238,'+Math.min(.5, d.a * (.8 + gust*.55))+')';
+      rx.lineWidth = d.w;
+      rx.beginPath();
+      rx.moveTo(d.x, d.y);
+      rx.lineTo(d.x + wind*d.len*1.15, d.y + d.len);
+      rx.stroke();
+    }
+    d.x += wind * d.v * rush * dt;
+    d.y += d.v * rush * dt;
+    if (d.y > R.h || d.x < -180 || d.x > R.w + 180){
+      if (i < shown && d.y > R.h && Math.random() < .30)
+        splash.push({ x:d.x, y:R.h - Math.random()*R.h*.14, r:1, a:.5 });
+      Object.assign(d, newDrop(false));
+    }
+  }
+  for (let i=splash.length-1;i>=0;i--){
+    const s = splash[i];
+    rx.strokeStyle = 'rgba(217,164,65,'+s.a+')';
+    rx.lineWidth = 1;
+    rx.beginPath(); rx.arc(s.x, s.y, s.r, 0, 6.283); rx.stroke();
+    s.r += .9*dt; s.a -= .028*dt;
+    if (s.a <= 0) splash.splice(i,1);
+  }
+}
+
+/* ── Window droplets over the hero ───────────
+   Sprites are baked once. Drawing a cached bitmap is many times cheaper than
+   building a radial gradient per droplet per frame — that was the iPad stall. */
+const SPRITES = [];
+function bakeSprites(){
+  SPRITES.length = 0;
+  for (let i=0;i<10;i++){
+    const r = 1.5 + i*1.5;
+    const box = Math.ceil((r + 2) * 2);
+    const c = document.createElement('canvas');
+    c.width = c.height = Math.ceil(box * DPR);
+    const g = c.getContext('2d');
+    g.setTransform(DPR,0,0,DPR,0,0);
+    const m = box/2;
+    const grd = g.createRadialGradient(m - r*.3, m - r*.35, r*.05, m, m, r);
+    grd.addColorStop(0,   'rgba(255,255,255,.30)');
+    grd.addColorStop(.55, 'rgba(180,220,225,.07)');
+    grd.addColorStop(.88, 'rgba(255,255,255,.16)');
+    grd.addColorStop(1,   'rgba(255,255,255,.02)');
+    g.fillStyle = grd;
+    g.beginPath(); g.arc(m, m, r, 0, 6.283); g.fill();
+    g.fillStyle = 'rgba(255,255,255,.5)';
+    g.beginPath(); g.arc(m - r*.34, m - r*.4, Math.max(.6, r*.13), 0, 6.283); g.fill();
+    SPRITES.push({ c, r, box });
+  }
+}
+bakeSprites();
+
+function bead(c, x, y, r){
+  const sp = SPRITES[Math.max(0, Math.min(9, Math.round((r - 1.5) / 1.5)))];
+  const w = sp.box * (r / sp.r);
+  c.drawImage(sp.c, x - w/2, y - w/2, w, w);
+}
+
+const beads = [];
+const beadCap = () => Math.round((small ? 20 : 44) * quality);
+function makeBead(y){
+  return {
+    x: Math.random()*G.w, y,
+    r: 2 + Math.pow(Math.random(), 2.2) * 13,
+    v: 0,
+    hold: 90 + Math.random()*420
+  };
+}
+function seedBeads(){
+  beads.length = 0;
+  const n = beadCap();
+  for (let i=0;i<n;i++) beads.push(makeBead(Math.random()*G.h));
+}
+function trimBeads(){
+  const lim = beadCap() * 2;
+  if (beads.length > lim) beads.splice(0, beads.length - lim);
+}
+
+function drawGlass(){
+  gx.clearRect(0,0,G.w,G.h);
+  if (!rainOn) return;
+  gx.globalCompositeOperation = 'lighter';
+  const room = beadCap() * 2;                       // hard ceiling, trails included
+  for (let i=beads.length-1;i>=0;i--){
+    const b = beads[i];
+    bead(gx, b.x, b.y, b.r);
+    if (b.hold > 0){ b.hold -= (1 + b.r*.35) * dt; continue; }
+    b.v = Math.min(b.v + (.05 + b.r*.012)*dt, 3.4);
+    b.y += b.v * dt;
+    b.x += wind * b.v * .3 * dt;                    // beads streak sideways with the wind
+    if (b.r > 5 && beads.length < room && Math.random() < .10*dt){
+      beads.push({
+        x: b.x + (Math.random()-.5)*2, y: b.y - b.r,
+        r: Math.max(1.2, b.r*.22), v: 0,
+        hold: 70 + Math.random()*140                // finite — this is the fix
+      });
+      b.r *= Math.pow(.985, dt);
+    }
+    if (b.y - b.r > G.h || b.x < -20 || b.x > G.w + 20 || b.r < 1) beads.splice(i,1);
+  }
+  gx.globalCompositeOperation = 'source-over';
+  if (beads.length < beadCap()) beads.push(makeBead(-20 - Math.random()*120));
+}
+
+/* ── Petals & confetti ───────────────────────── */
+const bits = [];
+const BITCAP = small ? 130 : 260;
+const PETAL = ['#f4efe4','#e5a6a0','#f7d9c4','#d9a441'];
+function burst(x, y, count, power){
+  if (reduced) return;
+  count = Math.round(count * (small ? .7 : 1));
+  if (bits.length > BITCAP) bits.splice(0, bits.length - BITCAP);
+  for (let i=0;i<count;i++){
+    const a = Math.random() * 6.283;
+    const s = (0.4 + Math.random()) * power;
+    bits.push({
+      x, y,
+      vx: Math.cos(a) * s + wind * 1.6,
+      vy: Math.sin(a) * s - power * .55,
+      w: 5 + Math.random()*9,
+      h: 4 + Math.random()*7,
+      rot: Math.random()*6.283,
+      vr: (Math.random()-.5)*.24,
+      spin: Math.random()*6.283,
+      vs: .07 + Math.random()*.13,
+      c: PETAL[(Math.random()*PETAL.length)|0],
+      life: 1,
+      petal: Math.random() < .6
+    });
+  }
+}
+function drawBits(){
+  bx.clearRect(0,0,B.w,B.h);
+  const drag = Math.pow(.992, dt);
+  for (let i=bits.length-1;i>=0;i--){
+    const p = bits[i];
+    p.vy += .12*dt; p.vx *= drag; p.vy *= drag;
+    p.vx += (wind - WIND0) * .05 * dt;             // the gust catches the petals too
+    p.x += (p.vx + Math.sin(p.spin)*.8) * dt;
+    p.y += p.vy * dt;
+    p.rot += p.vr*dt; p.spin += p.vs*dt;
+    if (p.y > B.h + 40) p.life = 0; else if (p.y > B.h * .82) p.life -= .012*dt;
+    if (p.life <= 0){ bits.splice(i,1); continue; }
+    bx.save();
+    bx.translate(p.x, p.y);
+    bx.rotate(p.rot);
+    bx.globalAlpha = Math.max(0, p.life);
+    bx.fillStyle = p.c;
+    const sq = Math.abs(Math.cos(p.spin));               // flutter
+    if (p.petal){
+      bx.beginPath();
+      bx.ellipse(0, 0, p.w*.5, p.h*.5*sq + .8, 0, 0, 6.283);
+      bx.fill();
+    } else {
+      bx.fillRect(-p.w/2, -p.h/2*sq, p.w, p.h*sq + .8);
+    }
+    bx.restore();
+  }
+}
+
+/* ── Sound ───────────────────────────────────
+   All synthesised in the browser — no audio files to load. Nothing plays until
+   the visitor's first tap, because browsers block audio before a gesture. */
+let actx = null, master = null, rainGain = null, rainLP = null, noiseBuf = null, whiteBuf = null;
+let soundOn = true, audioReady = false, lastPop = 0, tuneTick = 0;
+
+function makeNoise(ctx, secs){
+  const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate*secs), ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  let last = 0;
+  for (let i=0;i<d.length;i++){                 // brown-ish noise: softer than white
+    last = (last + (Math.random()*2 - 1) * .045) / 1.02;
+    d[i] = last * 3.2;
+  }
+  return buf;
+}
+function makeWhite(ctx, secs){                  // bright, for the popper crack
+  const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate*secs), ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i=0;i<d.length;i++) d[i] = (Math.random()*2 - 1) * .7;
+  return buf;
+}
+
+function startAudio(){
+  if (!soundOn) return;
+  if (audioReady){                                   // already built — just wake it
+    if (actx && actx.state !== 'running') actx.resume();
+    return;
+  }
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return;
+  audioReady = true;
+  actx = new AC();
+  noiseBuf = makeNoise(actx, 3);
+  whiteBuf = makeWhite(actx, 1);
+
+  master = actx.createGain();
+  master.gain.value = 0;
+  master.connect(actx.destination);
+
+  const src = actx.createBufferSource();
+  src.buffer = noiseBuf; src.loop = true;
+
+  const hp = actx.createBiquadFilter();
+  hp.type = 'highpass'; hp.frequency.value = 760;     // trims the heavy downpour rumble
+
+  rainLP = actx.createBiquadFilter();
+  rainLP.type = 'lowpass'; rainLP.frequency.value = 1400; rainLP.Q.value = .5;
+
+  rainGain = actx.createGain();
+  rainGain.gain.value = .006;
+
+  src.connect(hp); hp.connect(rainLP); rainLP.connect(rainGain); rainGain.connect(master);
+  src.start();
+
+  const lfo = actx.createOscillator(), lfoG = actx.createGain();   // slow natural swell
+  lfo.frequency.value = .045; lfoG.gain.value = 620;
+  lfo.connect(lfoG); lfoG.connect(rainLP.frequency); lfo.start();
+
+  // music buses: keys and strings share a room, the bass stays dry and low
+  music = actx.createGain(); music.gain.value = 0;
+  music.connect(master);
+
+  piano = actx.createGain();
+  const pLP = actx.createBiquadFilter();
+  pLP.type = 'lowpass'; pLP.frequency.value = 3000;
+  piano.connect(pLP); pLP.connect(music);
+
+  const dl = actx.createDelay(1);      dl.delayTime.value = .29;
+  const fb = actx.createGain();        fb.gain.value = .33;
+  const dLP = actx.createBiquadFilter(); dLP.type = 'lowpass'; dLP.frequency.value = 1700;
+  const wet = actx.createGain();       wet.gain.value = .30;
+  pLP.connect(dl); dl.connect(dLP); dLP.connect(fb); fb.connect(dl);
+  dLP.connect(wet); wet.connect(music);
+
+  bass = actx.createGain();
+  const bLP = actx.createBiquadFilter();
+  bLP.type = 'lowpass'; bLP.frequency.value = 420; bLP.Q.value = .7;
+  bass.connect(bLP); bLP.connect(music);
+
+  // the note pad runs on its own bus — it must stay audible even when the
+  // backing music is ducked away down the page
+  notes = actx.createGain(); notes.gain.value = .55;
+  const nLP = actx.createBiquadFilter();
+  nLP.type = 'lowpass'; nLP.frequency.value = 3600;
+  notes.connect(nLP); nLP.connect(master);
+  const nd  = actx.createDelay(1);      nd.delayTime.value = .33;
+  const nfb = actx.createGain();        nfb.gain.value = .3;
+  const nlp = actx.createBiquadFilter(); nlp.type = 'lowpass'; nlp.frequency.value = 2100;
+  const nwet= actx.createGain();        nwet.gain.value = .3;
+  nLP.connect(nd); nd.connect(nlp); nlp.connect(nfb); nfb.connect(nd);
+  nlp.connect(nwet); nwet.connect(master);
+
+  vibG = actx.createGain(); vibG.gain.value = 4.5;          // cents, for the strings
+  const vib = actx.createOscillator();
+  vib.frequency.value = 4.6;
+  vib.connect(vibG); vib.start();
+
+  nextNote = actx.currentTime + .4;
+  setInterval(scheduler, 180);
+
+  actx.resume();
+  master.gain.setTargetAtTime(.85, actx.currentTime, .6);          // fade in gently
+}
+
+// rain volume and brightness follow the slow envelope — close to silent at
+// rest, swelling as the page moves, then taking its time to fade back down
+function tuneRain(){
+  if (!actx || actx.state !== 'running') return;
+  const t = actx.currentTime;
+  const live = (rainOn || reduced) ? 1 : 0;
+  rainGain.gain.setTargetAtTime(live * (.006 + gustA*.07), t, .9);
+  rainLP.frequency.setTargetAtTime(900 + gustA*2300, t, 1.1);
+}
+
+// occasional droplet striking the window
+function plink(){
+  if (!actx || actx.state !== 'running' || !rainOn) return;
+  const t = actx.currentTime;
+  const o = actx.createOscillator(), g = actx.createGain();
+  o.type = 'sine';
+  o.frequency.setValueAtTime(700 + Math.random()*1300, t);
+  o.frequency.exponentialRampToValueAtTime(260, t + .18);
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(.011 + Math.random()*.013, t + .005);
+  g.gain.exponentialRampToValueAtTime(.0001, t + .26);
+  o.connect(g); g.connect(master);
+  o.start(t); o.stop(t + .3);
+}
+
+/* ── Music ───────────────────────────────────
+   Piano, strings and bass. Plays at the top of the page when nothing is moving.
+   Scrolling ducks it out and brings the rain up; stopping brings it back. */
+let music = null, piano = null, bass = null, notes = null, vibG = null;
+let pianoWant = 0, pianoWas = -1, nextNote = 0, step = 0;
+
+const BPM = 52, EIGHTH = 30 / BPM;
+const hz = m => 440 * Math.pow(2, (m - 69) / 12);
+
+// F major, eight bars so the loop doesn't close on itself too quickly
+const CHORDS = [
+  { bass: 41, up: [57, 60, 64] },   // Fmaj7
+  { bass: 36, up: [55, 59, 64] },   // Cmaj7
+  { bass: 38, up: [57, 60, 65] },   // Dm7
+  { bass: 46, up: [53, 57, 62] },   // Bbmaj7
+  { bass: 41, up: [57, 60, 65] },   // Fmaj7 — reopened
+  { bass: 45, up: [52, 57, 60] },   // Am7
+  { bass: 46, up: [53, 57, 62] },   // Bbmaj7
+  { bass: 36, up: [55, 60, 64] }    // Csus — leaves the door open
+];
+const MELODY = [69, 72, 74, 76, 77];
+
+function key(t, midi, vel, dur, dest){
+  dest = dest || piano;
+  const f = hz(midi);
+  const g = actx.createGain();
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(vel, t + .012);
+  g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  g.connect(dest);
+
+  // a few partials, the upper ones dying away first — that decay is what
+  // makes it read as a struck string rather than an organ
+  const partials = [[1, 1], [2, .21], [3, .085], [4.18, .035]];
+  for (const [mult, amp] of partials){
+    const o = actx.createOscillator(), og = actx.createGain();
+    o.type = 'sine';
+    o.frequency.value = f * mult * (1 + (Math.random() - .5) * .0012);
+    og.gain.setValueAtTime(amp, t);
+    og.gain.exponentialRampToValueAtTime(.0001, t + dur * (mult > 1 ? .4 : 1));
+    o.connect(og); og.connect(g);
+    o.start(t); o.stop(t + dur + .05);
+  }
+  // hammer
+  const n = actx.createBufferSource(); n.buffer = whiteBuf; n.loop = true;
+  const nf = actx.createBiquadFilter(); nf.type = 'bandpass';
+  nf.frequency.value = f * 4; nf.Q.value = .8;
+  const ng = actx.createGain();
+  ng.gain.setValueAtTime(vel * .06, t);
+  ng.gain.exponentialRampToValueAtTime(.0001, t + .05);
+  n.connect(nf); nf.connect(ng); ng.connect(dest);
+  n.start(t); n.stop(t + .07);
+}
+
+// strings: three detuned saws per note, bowed in slowly, filter opening as it swells
+function strings(t, midi, vel, dur){
+  const f = hz(midi);
+  const g = actx.createGain();
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(vel, t + 1.7);
+  g.gain.setValueAtTime(vel, t + dur - 1.9);
+  g.gain.linearRampToValueAtTime(0, t + dur);
+  const lp = actx.createBiquadFilter();
+  lp.type = 'lowpass'; lp.Q.value = .5;
+  lp.frequency.setValueAtTime(520, t);
+  lp.frequency.linearRampToValueAtTime(1550, t + 2.4);
+  lp.frequency.linearRampToValueAtTime(700, t + dur);
+  g.connect(lp); lp.connect(piano);
+  for (const cents of [-7, 0, 8]){
+    const o = actx.createOscillator(), og = actx.createGain();
+    o.type = 'sawtooth';
+    o.frequency.value = f;
+    o.detune.value = cents;
+    vibG.connect(o.detune);
+    og.gain.value = .33;
+    o.connect(og); og.connect(g);
+    o.start(t); o.stop(t + dur + .1);
+  }
+}
+
+// bass: round and fingered, a triangle with a touch of octave on top
+function bassNote(t, midi, vel, dur){
+  const f = hz(midi);
+  const g = actx.createGain();
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(vel, t + .035);
+  g.gain.exponentialRampToValueAtTime(vel * .38, t + .55);
+  g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  g.connect(bass);
+  const o = actx.createOscillator();
+  o.type = 'triangle'; o.frequency.value = f;
+  const h = actx.createOscillator(), hg = actx.createGain();
+  h.type = 'sine'; h.frequency.value = f * 2; hg.gain.value = .2;
+  o.connect(g); h.connect(hg); hg.connect(g);
+  o.start(t); o.stop(t + dur + .05);
+  h.start(t); h.stop(t + dur + .05);
+}
+
+function playStep(t, i){
+  const bar = Math.floor(i / 8) % 8;
+  const c   = CHORDS[bar];
+  const pos = i % 8;
+  const at  = t + (Math.random() - .5) * .022;        // no two bars land identically
+
+  if (pos === 0){
+    bassNote(at, c.bass, .30, 3.0);
+    for (const n of c.up) strings(t, n, .042, EIGHTH * 8 + .9);
+    key(at + .01, c.up[0] - 12, .16, 3.4);
+  }
+  else if (pos === 2) key(at, c.up[1], .20, 2.6);
+  else if (pos === 3) key(at, c.up[2], .17, 2.4);
+  else if (pos === 4){
+    bassNote(at, c.bass + (Math.random() < .35 ? 7 : 12), .16, 1.6);
+    key(at, c.up[0], .19, 2.8);
+  }
+  else if (pos === 6 && Math.random() < .75) key(at, c.up[1], .14, 2.2);
+  else if (pos === 7 && Math.random() < .45)
+    key(at, MELODY[(Math.random() * MELODY.length) | 0], .15, 3.2);
+}
+
+function scheduler(){
+  if (!actx || actx.state !== 'running' || !music) return;
+  const ahead = actx.currentTime + .6;
+  if (nextNote < actx.currentTime) nextNote = actx.currentTime + .05;   // after a suspend
+  while (nextNote < ahead){
+    if (pianoWant > .02) playStep(nextNote, step);
+    nextNote += EIGHTH;
+    step++;
+  }
+}
+
+function tunePiano(){
+  if (!actx || actx.state !== 'running' || !music) return;
+  const top = scrollY < innerHeight * .8 ? 1 : 0;      // hero and just past it
+  pianoWant = top * Math.max(0, 1 - Math.min(1, gust * 2.4));
+  if (Math.abs(pianoWant - pianoWas) < .01) return;
+  const rising = pianoWant > pianoWas;
+  pianoWas = pianoWant;
+  // ducks away quickly under scroll, returns slowly and gently
+  music.gain.setTargetAtTime(pianoWant * .22, actx.currentTime, rising ? 1.6 : .45);
+}
+
+/* Two small building blocks the poppers are assembled from. */
+function nz(t, dur, gain, f0, f1, type, Q){          // a shaped burst of noise
+  const s = actx.createBufferSource();
+  s.buffer = whiteBuf; s.loop = true;
+  s.playbackRate.value = .85 + Math.random()*.3;
+  const f = actx.createBiquadFilter();
+  f.type = type; f.frequency.setValueAtTime(f0, t);
+  if (f1) f.frequency.exponentialRampToValueAtTime(f1, t + dur);
+  if (Q) f.Q.value = Q;
+  const g = actx.createGain();
+  g.gain.setValueAtTime(.0001, t);
+  g.gain.exponentialRampToValueAtTime(Math.max(.0005, gain), t + Math.min(.008, dur*.2));
+  g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  s.connect(f); f.connect(g); g.connect(master);
+  s.start(t); s.stop(t + dur + .03);
+}
+function tone(t, dur, gain, f0, f1, type){           // a pitch dropping away
+  const o = actx.createOscillator(), g = actx.createGain();
+  o.type = type || 'triangle';
+  o.frequency.setValueAtTime(f0, t);
+  o.frequency.exponentialRampToValueAtTime(f1, t + dur*.5);
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(gain, t + .004);
+  g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  o.connect(g); g.connect(master);
+  o.start(t); o.stop(t + dur + .03);
+}
+
+/* Five poppers. Each is a crack, a body and a paper tail in different balance. */
+const POPPERS = [
+  // classic party popper — cardboard tube and streamers
+  (t,L) => {
+    nz(t, .04, L*.75, 2400, null, 'highpass');
+    tone(t, .12, L, 300 + Math.random()*80, 72);
+    nz(t + .012, .30, L*.38, 3600, 850, 'bandpass', .55);
+  },
+  // champagne cork — hollow, deeper, a long fizz
+  (t,L) => {
+    nz(t, .03, L*.42, 1600, null, 'highpass');
+    tone(t, .17, L*1.05, 175 + Math.random()*50, 46, 'sine');
+    nz(t + .03, .5, L*.2, 5200, 2200, 'bandpass', .9);
+  },
+  // paper cracker — sharp and bright, mostly rustle
+  (t,L) => {
+    nz(t, .025, L*.85, 3400, null, 'highpass');
+    tone(t, .07, L*.55, 440 + Math.random()*90, 120);
+    nz(t + .01, .42, L*.46, 2600, 600, 'bandpass', .4);
+  },
+  // soft confetti puff — airy, the quiet one
+  (t,L) => {
+    nz(t, .06, L*.45, 1200, 420, 'bandpass', .5);
+    tone(t, .10, L*.5, 230 + Math.random()*50, 60);
+    nz(t + .02, .45, L*.34, 1800, 500, 'lowpass');
+  },
+  // two poppers a beat apart
+  (t,L) => {
+    const d = .07 + Math.random()*.05;
+    nz(t, .03, L*.7, 2600, null, 'highpass');
+    tone(t, .09, L*.8, 330, 80);
+    nz(t + d, .03, L*.55, 2200, null, 'highpass');
+    tone(t + d, .10, L*.65, 280, 64);
+    nz(t + .02, .34, L*.36, 3400, 800, 'bandpass', .55);
+  }
+];
+let lastPopper = -1;
+
+// the confetti: a different popper each time
+function pop(power){
+  if (!actx || actx.state !== 'running') return;
+  const t = actx.currentTime;
+  if (t - lastPop < .05) return;
+  lastPop = t;
+  const loud = Math.min(.15, .03 + power * .0075);
+  let i;
+  do { i = (Math.random()*POPPERS.length)|0; } while (i === lastPopper);
+  lastPopper = i;
+  POPPERS[i](t, loud);
+}
+
+// Safari is picky about which event counts as the unlocking gesture, so try
+// on several of them; startAudio is idempotent
+['click','touchend','keydown'].forEach(evt =>
+  addEventListener(evt, () => startAudio(), { passive:true }));
+
+document.addEventListener('visibilitychange', () => {          // never play to an empty tab
+  if (!actx) return;
+  if (document.hidden) actx.suspend(); else if (soundOn) actx.resume();
+});
+
+const soundBtn = document.getElementById('sound');
+soundBtn.addEventListener('click', () => {
+  soundOn = !soundOn;
+  soundBtn.classList.toggle('off', !soundOn);
+  soundBtn.setAttribute('aria-pressed', String(soundOn));
+  if (soundOn){
+    if (!audioReady) startAudio();
+    else { actx.resume(); master.gain.setTargetAtTime(.85, actx.currentTime, .5); }
+  } else if (actx){
+    master.gain.setTargetAtTime(0, actx.currentTime, .25);
+  }
+});
+
+/* ── The cycle: scroll progress ──────────────── */
+const rider   = document.getElementById('rider');
+const roadDone= document.getElementById('roadDone');
+const spokeR  = document.getElementById('spokeR');
+const spokeF  = document.getElementById('spokeF');
+const crank   = document.getElementById('crank');
+const bobG    = document.getElementById('bob');
+const legNear = document.getElementById('legNear');
+const legFar  = document.getElementById('legFar');
+
+const DEG = 180 / Math.PI, BONE = 15, CRANK_R = 5;
+let riderW = rider.offsetWidth || 104;
+let maxScroll = 1, posX = 12, lastX = 12, wheelA = 0, crankA = 0, popped = false, recount = 0;
+
+function measure(){
+  riderW = rider.offsetWidth || 104;
+  maxScroll = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+}
+measure();
+
+// two-bone IK — knee bends forward, foot stays on the pedal
+function setLeg(el, hx, hy, fx, fy){
+  const dx = fx - hx, dy = fy - hy;
+  const d  = Math.min(Math.hypot(dx, dy), BONE*2 - .02);
+  const ang = Math.atan2(dy, dx) - Math.acos(Math.min(1, d / (2*BONE)));
+  const kx = hx + Math.cos(ang)*BONE, ky = hy + Math.sin(ang)*BONE;
+  el.setAttribute('points', hx+','+hy+' '+kx.toFixed(2)+','+ky.toFixed(2)+' '+fx.toFixed(2)+','+fy.toFixed(2));
+}
+
+function ride(){
+  if (++recount > 60){ recount = 0; measure(); }
+
+  const p    = Math.min(1, Math.max(0, scrollY / maxScroll));
+  const lane = Math.max(0, innerWidth - riderW - 24);
+  posX += (12 + p*lane - posX) * (reduced ? 1 : 1 - Math.pow(.86, dt));
+
+  const moved = posX - lastX; lastX = posX;
+  rider.style.transform = 'translate3d('+posX.toFixed(2)+'px,0,0)';
+  roadDone.style.width  = (posX + riderW*.55) + 'px';
+
+  const svgUnits = moved / (riderW / 104);
+  wheelA += svgUnits / 12;          // wheels roll with the ground
+  crankA += svgUnits / 12 * .5;     // pedals turn at half cadence
+
+  spokeR.setAttribute('transform', 'translate(20 56) rotate('+(wheelA*DEG).toFixed(2)+')');
+  spokeF.setAttribute('transform', 'translate(78 56) rotate('+(wheelA*DEG).toFixed(2)+')');
+  crank .setAttribute('transform', 'translate(48 55) rotate('+(crankA*DEG).toFixed(2)+')');
+
+  const cx = Math.cos(crankA)*CRANK_R, cy = Math.sin(crankA)*CRANK_R;
+  setLeg(legNear, 38, 33, 48 + cx, 55 + cy);
+  setLeg(legFar,  38, 33, 48 - cx, 55 - cy);
+
+  bobG.setAttribute('transform', 'translate(0 '+(Math.sin(crankA*2)*.55).toFixed(2)+')');
+  rider.classList.toggle('idle', Math.abs(moved / Math.max(dt,.2)) < .06);
+
+  if (p > .995 && !popped){ popped = true; burst(posX + riderW/2, innerHeight - 74, 60, 11); pop(13); }
+  if (p < .9) popped = false;
+}
+
+/* ── One loop ────────────────────────────────── */
+let heroVisible = true;
+new IntersectionObserver(([e]) => {
+  heroVisible = e.isIntersecting;
+  if (heroVisible) trimBeads();      // clear any build-up before drawing again
+}, { threshold:0 }).observe(document.querySelector('.hero'));
+
+function loop(now){
+  beat(now || performance.now());
+  governor();
+  if (!reduced){
+    readScroll();
+    drawRain();
+    if (heroVisible) drawGlass();
+    drawBits();
+    drawBubbles();
+    swayChimes();
+    if (holding){
+      const now = performance.now();
+      if (now - holdAt > 110 && !trail() && now - lastBlow > 150){
+        lastBlow = now; ex = hx;                     // held still: a trickle of big ones
+        blow(hx, hy, 1);
+      }
+    }
+  }
+  if (++tuneTick > 12){ tuneTick = 0; tuneRain(); tunePiano(); }
+  if (heroVisible && gustA > .16 && Math.random() < .0045 * dt) plink();
+  ride();
+  requestAnimationFrame(loop);
+}
+if (!reduced) seedBeads();
+requestAnimationFrame(loop);
+
+let lastW = innerWidth, lastH = innerHeight, rzT;
+addEventListener('resize', () => {
+  // iOS fires resize every time the URL bar collapses mid-scroll — ignore those
+  if (touch && innerWidth === lastW && Math.abs(innerHeight - lastH) < 160){ measure(); return; }
+  clearTimeout(rzT);
+  rzT = setTimeout(() => {
+    lastW = innerWidth; lastH = innerHeight;
+    R = fit(rainC); B = fit(burstC); G = fit(glassC);
+    measure();
+    if (!reduced) seedBeads();
+  }, 180);
+});
+
+/* ── Bubbles ─────────────────────────────────
+   Press and hold near the top of the page to blow them; tap one to pop it. */
+const bubbles = [], mist = [], rings = [];
+const BUBCAP = small ? 48 : 96;
+let holding = false, holdAt = 0, hx = 0, hy = 0, lastBlow = 0, ex = 0, ey = 0;
+let down = false, sx0 = 0, sy0 = 0, holdTimer = 0, lockScroll = false;
+
+const BUB = [];
+function bakeBubbles(){
+  BUB.length = 0;
+  for (let i=0;i<8;i++){
+    const r = 8 + i*7;
+    const box = Math.ceil((r + 3) * 2);
+    const c = document.createElement('canvas');
+    c.width = c.height = Math.ceil(box * DPR);
+    const g = c.getContext('2d');
+    g.setTransform(DPR,0,0,DPR,0,0);
+    const m = box/2;
+    const grd = g.createRadialGradient(m, m, r*.5, m, m, r);
+    grd.addColorStop(0,   'rgba(255,255,255,0)');
+    grd.addColorStop(.74, 'rgba(150,225,230,.05)');
+    grd.addColorStop(.93, 'rgba(255,255,255,.34)');
+    grd.addColorStop(.99, 'rgba(229,166,160,.20)');
+    grd.addColorStop(1,   'rgba(255,255,255,0)');
+    g.fillStyle = grd;
+    g.beginPath(); g.arc(m, m, r, 0, 6.283); g.fill();
+    g.fillStyle = 'rgba(255,255,255,.5)';                       // specular
+    g.beginPath(); g.ellipse(m - r*.38, m - r*.42, r*.14, r*.09, -.6, 0, 6.283); g.fill();
+    g.fillStyle = 'rgba(217,164,65,.15)';                       // lamplight on the far side
+    g.beginPath(); g.arc(m + r*.32, m + r*.4, r*.17, 0, 6.283); g.fill();
+    BUB.push({ c, r, box });
+  }
+}
+bakeBubbles();
+
+const BLOW_DROP = 6 * 37.8;                     // 6cm below the finger, in CSS px
+function blow(x, y, scale){
+  if (bubbles.length >= BUBCAP) return;
+  const r = Math.max(7, (9 + Math.pow(Math.random(), 1.7) * 34) * (scale || 1));
+  bubbles.push({
+    // they lift off below the finger, so the pointer's y matters too.
+    // y is kept against the page, so a bubble holds its place when you scroll
+    x: x + (Math.random()-.5)*26,
+    y: scrollY + y + BLOW_DROP + Math.random()*34, r,
+    vx: (Math.random()-.5)*.5,
+    vy: -(.35 + Math.random()*.5) - r*.004,
+    ph: Math.random()*6.283, sw: .02 + Math.random()*.03,
+    life: 1
+  });
+}
+
+// walk from the last emission point to the finger, dropping a bubble every
+// 14px — so the count follows the distance dragged, not the time held
+function trail(){
+  if (Math.abs(scrollV) > 6) return 0;          // scrolling isn't blowing
+  let dx = hx - ex, made = 0;
+  while (Math.abs(dx) >= 15 && made < 8){       // one every 15px swept sideways
+    ex += Math.sign(dx) * 15;
+    blow(ex, hy, .5 + Math.random() * .35);
+    dx = hx - ex;
+    made++;
+  }
+  if (made) lastBlow = performance.now();
+  return made;
+}
+
+function bubbleAt(x, y){
+  const dy = y + scrollY;
+  for (let i=bubbles.length-1;i>=0;i--){
+    const b = bubbles[i];
+    if (Math.hypot(x - b.x, dy - b.y) <= b.r + 10) return b;
+  }
+  return null;
+}
+
+function popBubble(b){
+  const i = bubbles.indexOf(b);
+  if (i < 0) return;
+  bubbles.splice(i, 1);
+  const sy = b.y - scrollY;
+  if (sy < -30 || sy > B.h + 30) return;         // off screen: no sound, no spray
+  rings.push({ x:b.x, y:b.y, r:b.r*.75, a:.7 });
+  const n = 6 + (b.r/7 | 0);
+  for (let k=0;k<n;k++){
+    const a = Math.random()*6.283, s = .6 + Math.random()*1.9;
+    mist.push({
+      x: b.x + Math.cos(a)*b.r*.8, y: b.y + Math.sin(a)*b.r*.8,
+      vx: Math.cos(a)*s, vy: Math.sin(a)*s - .3,
+      s: 1 + Math.random()*2.2, life: 1
+    });
+  }
+  bubblePop(b.r);
+}
+
+function drawBubbles(){
+  const sc = scrollY, top = B.h + 60;
+  for (let i=bubbles.length-1;i>=0;i--){
+    const b = bubbles[i];
+    b.ph += b.sw * dt;
+    b.x += (b.vx + Math.sin(b.ph)*.38 + wind*.22) * dt;
+    b.y += b.vy * dt;
+    b.vy = Math.max(b.vy - .0016*dt, -2.2);
+    b.life -= .00025 * dt;
+    if (b.life <= 0){ bubbles.splice(i,1); continue; }
+    const sy = b.y - sc;
+    if (sy <= 18){ popBubble(b); continue; }      // reaches the top and bursts
+    if (sy > top) continue;                       // below the fold: rising, just not drawn
+    const sp = BUB[Math.max(0, Math.min(7, Math.round((b.r - 8) / 7)))];
+    const w  = sp.box * (b.r / sp.r);
+    bx.globalAlpha = Math.min(1, b.life * 6);
+    bx.drawImage(sp.c, b.x - w/2, sy - w/2, w, w);
+  }
+  bx.globalAlpha = 1;
+
+  for (let i=rings.length-1;i>=0;i--){
+    const g = rings[i];
+    bx.strokeStyle = 'rgba(255,255,255,'+g.a+')';
+    bx.lineWidth = 1.2;
+    bx.beginPath(); bx.arc(g.x, g.y - sc, g.r, 0, 6.283); bx.stroke();
+    g.r += 1.7*dt; g.a -= .055*dt;
+    if (g.a <= 0) rings.splice(i,1);
+  }
+  for (let i=mist.length-1;i>=0;i--){
+    const p = mist[i];
+    p.x += p.vx*dt; p.y += p.vy*dt;
+    p.vy += .07*dt; p.vx *= Math.pow(.96, dt); p.life -= .035*dt;
+    if (p.life <= 0){ mist.splice(i,1); continue; }
+    bx.fillStyle = 'rgba(236,248,250,'+p.life*.8+')';
+    bx.beginPath(); bx.arc(p.x, p.y - sc, p.s, 0, 6.283); bx.fill();
+  }
+}
+
+/* four flavours of pop, pitched by how big the bubble was */
+let lastBlip = -1, blipAt = 0;
+function bubblePop(r){
+  if (!actx || actx.state !== 'running') return;
+  const t = actx.currentTime;
+  if (t - blipAt < .035) return;
+  blipAt = t;
+  const f = Math.max(230, Math.min(1250, 1180 - (r - 8) * 26)) * (.9 + Math.random()*.24);
+  const L = .085;
+  let v; do { v = (Math.random()*4)|0; } while (v === lastBlip);
+  lastBlip = v;
+
+  const o = actx.createOscillator(), g = actx.createGain();
+  g.connect(master);
+  o.connect(g);
+
+  if (v === 0){                                   // bloop — drops away
+    o.type = 'sine';
+    o.frequency.setValueAtTime(f, t);
+    o.frequency.exponentialRampToValueAtTime(f*.42, t + .10);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(L, t + .006);
+    g.gain.exponentialRampToValueAtTime(.0001, t + .14);
+    o.start(t); o.stop(t + .16);
+  } else if (v === 1){                            // plip — flicks upward
+    o.type = 'sine';
+    o.frequency.setValueAtTime(f*.6, t);
+    o.frequency.exponentialRampToValueAtTime(f*1.6, t + .055);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(L*.9, t + .005);
+    g.gain.exponentialRampToValueAtTime(.0001, t + .085);
+    o.start(t); o.stop(t + .1);
+  } else if (v === 2){                            // pock — hollow and short
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(f*.75, t);
+    o.frequency.exponentialRampToValueAtTime(f*.5, t + .04);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(L, t + .003);
+    g.gain.exponentialRampToValueAtTime(.0001, t + .07);
+    o.start(t); o.stop(t + .09);
+    nz(t, .035, L*.5, 2600, 900, 'bandpass', 1.2);
+  } else {                                        // wet click
+    o.type = 'sine';
+    o.frequency.setValueAtTime(f*1.15, t);
+    o.frequency.exponentialRampToValueAtTime(f*.7, t + .07);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(L*.75, t + .004);
+    g.gain.exponentialRampToValueAtTime(.0001, t + .11);
+    o.start(t); o.stop(t + .13);
+    nz(t, .022, L*.65, 3400, null, 'highpass');
+  }
+}
+
+/* ── The instrument under the names ──────────
+   Chimes, xylophone or marimba — same slot, same scale, different bodies.
+   Each is drawn from the same note list and struck with its own voice. */
+const SCALE = [48,50,53,55,57,60,62,65,67,69,72,74,77,79,81,84,86,89];
+const NOTE_NAME = {0:'C',2:'D',5:'F',7:'G',9:'A'};
+const label = m => NOTE_NAME[m % 12] + (Math.floor(m / 12) - 1);
+
+const instEl = document.getElementById('instrument');
+let instKind = 'chimes', keys = [], PEND = [], chimeSway = null;
+let chiming = false, lastKey = null, swayA = 0, prevSV = 0;
+
+const DEFS = `<defs>
+  <linearGradient id="tubeGrad" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#7d5f22"/><stop offset=".3" stop-color="#eac378"/>
+    <stop offset=".58" stop-color="#c8922f"/><stop offset="1" stop-color="#63491c"/>
+  </linearGradient>
+  <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#1d4a4c"/><stop offset="1" stop-color="#0c2b2e"/>
+  </linearGradient>
+  <linearGradient id="woodX" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#b5813a"/><stop offset=".32" stop-color="#f0d091"/>
+    <stop offset=".7" stop-color="#d9a95c"/><stop offset="1" stop-color="#9c6d2e"/>
+  </linearGradient>
+  <linearGradient id="ivory" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fbf7ee"/><stop offset=".78" stop-color="#e7dfcd"/>
+    <stop offset="1" stop-color="#c3b79c"/>
+  </linearGradient>
+  <linearGradient id="ebony" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#123338"/><stop offset=".8" stop-color="#061417"/>
+    <stop offset="1" stop-color="#0b2226"/>
+  </linearGradient>
+  <linearGradient id="woodM" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#5b3320"/><stop offset=".32" stop-color="#a4643c"/>
+    <stop offset=".7" stop-color="#7d472a"/><stop offset="1" stop-color="#4a2917"/>
+  </linearGradient>
+</defs>`;
+
+function svgChimes(){
+  const n = SCALE.length, x0 = 26, x1 = 454, step = (x1 - x0) / (n - 1), top = 44;
+  let g = '';
+  SCALE.forEach((m, i) => {
+    const x = x0 + step * i, len = 70 - i * (18 / (n - 1));
+    g += `<g class="key tube" data-n="${m}" role="button" tabindex="0" aria-label="Chime ${label(m)}">
+      <rect class="hit" x="${(x - step/2).toFixed(1)}" y="30" width="${step.toFixed(1)}" height="94"/>
+      <path class="string" d="M${x.toFixed(1)} 27 L${x.toFixed(1)} ${top}"/>
+      <circle class="loop" cx="${x.toFixed(1)}" cy="${top+1}" r="2.1"/>
+      <rect class="pipe" x="${(x-3.6).toFixed(1)}" y="${top+2}" width="7.2" height="${len.toFixed(1)}" rx="3.6"/>
+      <path class="sheen" d="M${(x-1.3).toFixed(1)} ${top+9} L${(x-1.3).toFixed(1)} ${(top+len-6).toFixed(1)}"/>
+    </g>`;
+  });
+  return `<svg viewBox="0 0 480 122" xmlns="http://www.w3.org/2000/svg">${DEFS}
+    <path class="bar" d="M196 4 h88 v8 h176 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 h-440 a4 4 0 0 1 -4 -4 v-10 a4 4 0 0 1 4 -4 h176 z"/>
+    <circle class="bar-hole" cx="240" cy="19" r="3.2"/>
+    <g id="chimeSway">${g}</g></svg>`;
+}
+
+function svgBars(kind){
+  const n = SCALE.length, x0 = 26, x1 = 454, step = (x1 - x0) / (n - 1);
+  const w = Math.min(21, step - 4.5);
+  const marimba = kind === 'marimba';
+  const cy = marimba ? 46 : 58;
+  const L0 = marimba ? 62 : 76, L1 = marimba ? 36 : 44;
+  let bars = '', res = '';
+  SCALE.forEach((m, i) => {
+    const x = x0 + step * i;
+    const len = L0 - (L0 - L1) * i / (n - 1);
+    const y = cy - len / 2;
+    bars += `<g class="key bar-key" data-n="${m}" role="button" tabindex="0" aria-label="${marimba?'Marimba':'Xylophone'} ${label(m)}">
+      <rect class="hit" x="${(x-step/2).toFixed(1)}" y="6" width="${step.toFixed(1)}" height="112"/>
+      <rect class="face" x="${(x-w/2).toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${len.toFixed(1)}" rx="3"/>
+      <circle class="pin" cx="${x.toFixed(1)}" cy="${(y+len*.22).toFixed(1)}" r="1.3"/>
+      <circle class="pin" cx="${x.toFixed(1)}" cy="${(y+len*.78).toFixed(1)}" r="1.3"/>
+    </g>`;
+    if (marimba){
+      const rl = 27 - 14 * i / (n - 1);
+      res += `<rect class="reso" x="${(x-4.5).toFixed(1)}" y="84" width="9" height="${rl.toFixed(1)}" rx="4.5"/>`;
+    }
+  });
+  const r1 = (cy - L0 * .28).toFixed(1), r2 = (cy + L0 * .28).toFixed(1);
+  return `<svg viewBox="0 0 480 122" xmlns="http://www.w3.org/2000/svg">${DEFS}
+    <path class="rail" d="M16 ${r1} H464"/><path class="rail" d="M16 ${r2} H464"/>
+    ${marimba ? '<path class="rail" d="M16 82 H464"/>' + res : ''}
+    <g id="chimeSway">${bars}</g></svg>`;
+}
+
+const CHROMA = ['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const chrom = m => CHROMA[m % 12] + (Math.floor(m / 12) - 1);
+
+function svgKeyboard(){
+  const first = 60, octaves = 2;               // C4 up to C6
+  const NAT = [0,2,4,5,7,9,11];
+  const whites = [];
+  for (let o = 0; o < octaves; o++) for (const n of NAT) whites.push(first + o*12 + n);
+  whites.push(first + octaves*12);             // the closing C
+  const x0 = 18, x1 = 462, w = (x1 - x0) / whites.length;
+  const top = 14, wh = 90, bh = 56, bw = w * .62;
+  let nat = '', acc = '';
+  whites.forEach((m, i) => {
+    const x = x0 + w * i;
+    nat += `<g class="key nat" data-n="${m}" role="button" tabindex="0" aria-label="${chrom(m)}">
+      <rect class="face" x="${(x+.6).toFixed(1)}" y="${top}" width="${(w-1.2).toFixed(1)}" height="${wh}" rx="2.5"/>
+    </g>`;
+    // a sharp follows C, D, F, G and A
+    if ([0,2,5,7,9].indexOf(m % 12) > -1 && i < whites.length - 1){
+      const bx = x + w - bw/2;
+      acc += `<g class="key acc" data-n="${m+1}" role="button" tabindex="0" aria-label="${chrom(m+1)}">
+        <rect class="face" x="${bx.toFixed(1)}" y="${top}" width="${bw.toFixed(1)}" height="${bh}" rx="2"/>
+      </g>`;
+    }
+  });
+  return `<svg viewBox="0 0 480 122" xmlns="http://www.w3.org/2000/svg">${DEFS}
+    <rect class="fascia" x="14" y="3" width="452" height="8" rx="3"/>
+    <g id="chimeSway">${nat}${acc}</g></svg>`;
+}
+
+function mountInstrument(kind){
+  instKind = kind;
+  instEl.innerHTML = kind === 'chimes' ? svgChimes()
+                   : kind === 'keyboard' ? svgKeyboard()
+                   : svgBars(kind);
+  instEl.className = 'chimes ' + kind;
+  keys = [...instEl.querySelectorAll('.key')];
+  keys.forEach((el, i) => el.__i = i);
+  chimeSway = instEl.querySelector('#chimeSway');
+  swayA = 0;
+  // only the hanging chimes swing as pendulums
+  PEND = kind !== 'chimes' ? [] : keys.map((el, i) => {
+    const len = 70 - i * (18 / (keys.length - 1));
+    const w0  = 7.4 * Math.sqrt(70 / len) * (.93 + Math.random() * .14);
+    return { el, a:0, w:0, k:w0*w0, c:1.75*(.9+Math.random()*.2),
+             g:.85+Math.random()*.3, tp:Math.random()*6.283, tf:1.4+Math.random()*1.6 };
+  });
+}
+
+/* Voices. The partial ratios are what actually separate these three:
+   a chime rings on inharmonic modes, a xylophone bar is tuned so its first
+   overtone is three times the fundamental, a marimba bar four times — which
+   is why a marimba sounds round and a xylophone sounds bright and dry. */
+function voice(midi, vel){
+  if (!actx || actx.state !== 'running' || !notes) return;
+  const f = hz(midi), t = actx.currentTime;
+  let partials, tail;
+  if (instKind === 'chimes'){
+    partials = [[1,1],[2.76,.4],[5.40,.18],[8.93,.07]]; tail = 4.2;
+  } else if (instKind === 'xylophone'){
+    partials = [[1,1],[3,.55],[6,.22],[9.2,.08]];       tail = .8;
+  } else if (instKind === 'keyboard'){
+    partials = [[1,1],[2,.24],[3,.1],[4.18,.04]];       tail = 2.9;
+  } else {
+    partials = [[1,1],[4,.3],[9.2,.07]];                tail = 2.2;
+  }
+  const g = actx.createGain();
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(vel, t + .005);
+  g.gain.exponentialRampToValueAtTime(.0001, t + tail);
+  g.connect(notes);
+  for (const [ratio, amp] of partials){
+    const o = actx.createOscillator(), og = actx.createGain();
+    o.type = 'sine';
+    o.frequency.value = f * ratio * (1 + (Math.random()-.5) * .004);
+    og.gain.setValueAtTime(amp, t);
+    og.gain.exponentialRampToValueAtTime(.0001, t + tail * (ratio > 1 ? .5 / Math.sqrt(ratio) : 1));
+    o.connect(og); og.connect(g);
+    o.start(t); o.stop(t + tail + .1);
+  }
+  // the contact sound: a metal tap, a hard mallet on wood, a soft one
+  if (instKind === 'chimes')          nz(t, .02,  vel*.45, 4200, null, 'highpass');
+  else if (instKind === 'xylophone')  nz(t, .022, vel*.6,  1900, 700,  'bandpass', 1.1);
+  else if (instKind === 'keyboard')   nz(t, .018, vel*.35, f*4,  null, 'bandpass', .9);
+  else                                nz(t, .045, vel*.4,  760,  240,  'lowpass');
+}
+
+function ring(el, vel){
+  if (el === lastKey && chiming) return;
+  lastKey = el;
+  startAudio();
+  voice(+el.dataset.n, vel || .3);
+  if (instKind === 'chimes'){
+    const ph = PEND[el.__i];                  // a struck tube gets a shove
+    if (ph) ph.w += (Math.random() < .5 ? -1 : 1) * (.75 + (vel || .3) * 2.2);
+  } else {
+    el.classList.remove('struck');            // a bar dips and rebounds
+    void el.getBoundingClientRect();
+    el.classList.add('struck');
+  }
+}
+
+instEl.addEventListener('pointerdown', e => {
+  const k = e.target.closest && e.target.closest('.key');
+  if (!k) return;
+  e.preventDefault();
+  if (instEl.hasPointerCapture && instEl.hasPointerCapture(e.pointerId))
+    instEl.releasePointerCapture(e.pointerId);
+  chiming = true; lastKey = null;
+  lockScroll = true;                          // the page mustn't slide under a sweep
+  ring(k, .28);
+});
+instEl.addEventListener('keydown', e => {
+  const k = e.target.closest && e.target.closest('.key');
+  if (k && (e.key === ' ' || e.key === 'Enter')){ e.preventDefault(); lastKey = null; ring(k, .3); }
+});
+// sweeping: find whatever key is under the finger on every move. pointerenter
+// alone isn't enough — touch devices capture the pointer to the first element
+addEventListener('pointermove', e => {
+  if (!chiming) return;
+  const el = document.elementFromPoint(e.clientX, e.clientY);
+  const k = el && el.closest ? el.closest('.key') : null;
+  if (k) ring(k, .22);
+}, { passive:true });
+function endSweep(){ chiming = false; lastKey = null; lockScroll = false; }
+addEventListener('pointerup', endSweep);
+addEventListener('pointercancel', endSweep);
+
+/* Weather. Each chime tube is its own damped pendulum — they share the
+   buffeting but not the phase, so the rack ripples instead of turning as one
+   rigid block. Bars just lean with their frame. */
+function swayChimes(){
+  if (!heroVisible || !chimeSway) return;
+  const dts = Math.min(dt / 60, .05);
+
+  swayA += ((wind - WIND0) * (instKind === 'chimes' ? 4 : 1.6) - swayA) * (1 - Math.pow(.94, dt));
+  chimeSway.style.transform = 'rotate(' + swayA.toFixed(2) + 'deg)';
+
+  if (!PEND.length){ prevSV = scrollV; return; }
+
+  const acc  = (scrollV - prevSV) / Math.max(dts, .004);
+  prevSV = scrollV;
+  const kick = Math.max(-7, Math.min(7, acc * .009));
+
+  for (const t of PEND){
+    t.tp += t.tf * dts * (.4 + gust * 1.6);
+    const force = kick * t.g + gust * 3.2 * Math.sin(t.tp) * t.g;
+    t.w += (-t.k * t.a - t.c * t.w + force) * dts;
+    t.a += t.w * dts;
+    if (t.a > 1e-4 || t.a < -1e-4 || t.w > 1e-4 || t.w < -1e-4)
+      t.el.style.transform = 'rotate(' + (t.a * 57.2958).toFixed(2) + 'deg)';
+  }
+
+  if (gust > .35 && Math.random() < .013 * gust * dt)
+    ring(keys[(Math.random() * keys.length) | 0], .08 + gust * .1);
+}
+
+mountInstrument('chimes');
+
+/* ── Note pad ────────────────────────────────
+   F major pentatonic, mirrored about the middle row, so anything tapped sits in key with
+   the backing music. Drag across the hexes to run a phrase. */
+const hexes = [...document.querySelectorAll('.cell')];
+let sliding = false, lastHex = null;
+
+function strike(h){
+  if (h === lastHex && sliding) return;
+  lastHex = h;
+  startAudio();
+  if (actx && actx.state === 'running'){
+    const m = +h.dataset.n;
+    // higher notes carry further, so they're struck softer and held shorter
+    const vel = m > 72 ? .38 : m > 60 ? .46 : m > 48 ? .52 : .56;
+    const dur = m > 72 ? 3 : m > 60 ? 3.6 : 4.4;
+    key(actx.currentTime + .005, m, vel, dur, notes);
+  }
+  h.classList.remove('lit');
+  void h.offsetWidth;                       // restart the animation on rapid taps
+  h.classList.add('lit');
+}
+
+hexes.forEach(h => {
+  h.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    // release implicit capture so dragging onto the next hex still registers
+    if (h.hasPointerCapture && h.hasPointerCapture(e.pointerId)) h.releasePointerCapture(e.pointerId);
+    sliding = true; lastHex = null;
+    strike(h);
+  });
+  h.addEventListener('pointerenter', () => { if (sliding) strike(h); });
+  h.addEventListener('keydown', e => {
+    if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); lastHex = null; strike(h); }
+  });
+});
+addEventListener('pointerup',     () => { sliding = false; lastHex = null; });
+addEventListener('pointercancel', () => { sliding = false; lastHex = null; });
+addEventListener('pointermove', e => {
+  if (!down) return;
+  hx = e.clientX; hy = e.clientY;
+  if (holding && performance.now() - holdAt > 60) trail();
+}, { passive:true });
+
+// once the gesture is ours, stop the page moving under it
+addEventListener('touchmove', e => { if (lockScroll) e.preventDefault(); }, { passive:false });
+function releasePress(){
+  down = false; holding = false; lockScroll = false;
+  clearTimeout(holdTimer);
+}
+addEventListener('pointerup', releasePress);
+addEventListener('pointercancel', releasePress);
+
+/* ── Interaction ─────────────────────────────── */
+let hinted = false;
+addEventListener('pointerdown', e => {
+  startAudio();                       // first gesture unlocks audio
+  // the note pad is an instrument, not a confetti target
+  if (e.target.closest && e.target.closest('.notepad, .chimes, .settings, .cog')) return;
+
+  // a bubble under the finger takes priority over everything else
+  const hit = bubbleAt(e.clientX, e.clientY);
+  if (hit){ popBubble(hit); return; }
+
+  // holding anywhere blows more of them
+  if (!reduced){
+    down = true;
+    hx = sx0 = e.clientX; hy = sy0 = e.clientY;
+    ex = hx; ey = hy;
+    holdAt = performance.now(); lastBlow = 0;
+    clearTimeout(holdTimer);
+    if (e.pointerType === 'touch'){
+      // a finger that moves straight away is scrolling; one that stays put for
+      // a moment is blowing bubbles, and from then on we block the scroll
+      holding = false;
+      holdTimer = setTimeout(() => {
+        if (down && Math.hypot(hx - sx0, hy - sy0) < 14){
+          holding = true; lockScroll = true; holdAt = performance.now();
+        }
+      }, 170);
+    } else {
+      holding = true;                              // a mouse drag never scrolls
+    }
+  }
+
+  burst(e.clientX, e.clientY, mobile ? 16 : 24, 7);
+  if (!reduced) pop(7);
+  if (!hinted){
+    hinted = true;
+    const h = document.getElementById('hint');
+    if (h){ h.style.transition = 'opacity .8s'; h.style.opacity = '0'; }
+  }
+}, { passive:true });
+
+document.querySelectorAll('.card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    const r = el.getBoundingClientRect();
+    burst(r.left + r.width/2, r.top + 12, 8, 4);
+  });
+});
+
+/* ── Rain switch ─────────────────────────────── */
+const sw = document.getElementById('switch');
+sw.addEventListener('click', () => {
+  rainOn = !rainOn;
+  sw.classList.toggle('off', !rainOn);
+  sw.setAttribute('aria-pressed', String(rainOn));
+});
+
+/* ── Settings menu ───────────────────────────── */
+const cog = document.getElementById('cog');
+const settings = document.getElementById('settings');
+function closeSettings(){
+  settings.hidden = true;
+  cog.setAttribute('aria-expanded', 'false');
+}
+cog.addEventListener('click', e => {
+  e.stopPropagation();
+  const open = settings.hidden;
+  settings.hidden = !open;
+  cog.setAttribute('aria-expanded', String(open));
+});
+document.addEventListener('pointerdown', e => {
+  if (!settings.hidden && !settings.contains(e.target) && !cog.contains(e.target)) closeSettings();
+});
+addEventListener('keydown', e => { if (e.key === 'Escape') closeSettings(); });
+
+document.getElementById('instPick').addEventListener('click', e => {
+  const b = e.target.closest('.seg-b');
+  if (!b || b.classList.contains('on')) return;
+  document.querySelectorAll('.seg-b').forEach(x => {
+    const on = x === b;
+    x.classList.toggle('on', on);
+    x.setAttribute('aria-checked', String(on));
+  });
+  mountInstrument(b.dataset.inst);
+});
+
+})();
+</script>
+</body>
 </html>
-
