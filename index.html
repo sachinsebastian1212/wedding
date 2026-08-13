@@ -85,13 +85,33 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
   backdrop-filter:blur(3px);
 }
 .mono{font-family:var(--display); font-style:italic; font-size:1.15rem; letter-spacing:.02em}
-.topbar nav{display:flex; gap:1.6rem}
-.topbar a{
-  color:var(--muted); text-decoration:none; font-size:.74rem;
-  letter-spacing:.2em; text-transform:uppercase; transition:color .3s;
+/* a pin that opens out into a label on hover */
+.maplink{
+  display:inline-flex; align-items:center; justify-content:center;
+  height:42px; min-width:42px; padding:0 12px; border-radius:99px;
+  border:1px solid var(--hair); background:rgba(5,22,26,.55);
+  color:var(--muted); text-decoration:none;
+  font-size:.7rem; letter-spacing:.18em; text-transform:uppercase;
+  white-space:nowrap;
+  transition:color .3s, border-color .3s, background .3s;
 }
-.topbar a:hover,.topbar a:focus-visible{color:var(--jasmine)}
-@media (max-width:720px){ .topbar nav a:not(.last){display:none} }
+.maplink svg{
+  width:19px; height:19px; flex:none;
+  fill:none; stroke:var(--brass); stroke-width:1.6;
+  stroke-linecap:round; stroke-linejoin:round;
+  transition:transform .45s cubic-bezier(.2,.9,.3,1.5);
+}
+.maplink span{
+  display:block; max-width:0; margin-left:0; opacity:0; overflow:hidden;
+  transition:max-width .45s cubic-bezier(.2,.8,.3,1), margin-left .45s, opacity .3s;
+}
+.maplink:hover, .maplink:focus-visible{
+  color:var(--jasmine); border-color:var(--brass); background:rgba(217,164,65,.1);
+}
+.maplink:hover svg, .maplink:focus-visible svg{transform:translateY(-1.5px)}
+.maplink:hover span, .maplink:focus-visible span{
+  max-width:12rem; margin-left:.55rem; margin-right:.1rem; opacity:1;
+}
 
 /* ─────────────────────────────────────────────
    Hero — the rain window
@@ -303,13 +323,13 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 /* Settings menu, top left */
 .brand{display:flex; align-items:center; gap:.85rem}
 .cog{
-  width:34px; height:34px; display:grid; place-items:center; cursor:pointer;
+  width:42px; height:42px; display:grid; place-items:center; cursor:pointer;
   border:1px solid var(--hair); border-radius:50%;
   background:rgba(5,22,26,.55); color:var(--muted);
   transition:color .3s, border-color .3s;
 }
 .cog:hover, .cog[aria-expanded="true"]{color:var(--jasmine); border-color:var(--brass)}
-.cog svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round}
+.cog svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round}
 .settings{
   position:absolute; left:var(--pad); top:calc(100% - .15rem);
   display:flex; flex-direction:column; gap:.45rem;
@@ -391,6 +411,84 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
   .rider{width:80px; height:55px; bottom:22px}
   .road{bottom:26px}
 }
+
+/* ─────────────────────────────────────────────
+   The welcome gate — what a scanned QR code lands on
+   ───────────────────────────────────────────── */
+.gate{
+  position:fixed; inset:0; z-index:200;
+  display:grid; place-items:center; padding:1.5rem;
+  background:var(--ink);
+  animation:gatein .5s ease both;
+}
+.gate[hidden]{display:none}
+.gate.out{animation:gateout .55s cubic-bezier(.4,0,.2,1) both}
+@keyframes gatein{from{opacity:0} to{opacity:1}}
+@keyframes gateout{from{opacity:1} to{opacity:0; visibility:hidden}}
+.gate::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(60vw 50vh at 78% 8%,  rgba(217,164,65,.16), transparent 62%),
+    radial-gradient(50vw 45vh at 12% 32%, rgba(46,124,110,.20), transparent 66%),
+    radial-gradient(70vw 60vh at 50% 108%,rgba(229,166,160,.10), transparent 60%);
+}
+.gate-card{
+  position:relative; width:min(30rem,100%); text-align:center;
+  padding:clamp(2rem,7vw,3rem) clamp(1.4rem,6vw,2.6rem);
+  border:1px solid var(--hair); border-radius:3px;
+  background:linear-gradient(160deg, rgba(18,57,61,.55), rgba(5,22,26,.5));
+  box-shadow:0 30px 70px -40px #000;
+  animation:gaterise .9s cubic-bezier(.2,.8,.3,1) both;
+}
+@keyframes gaterise{from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none}}
+.gate-names{
+  margin:0; font-family:var(--display); font-weight:400; font-style:italic;
+  font-size:clamp(2.2rem,10vw,3.4rem); line-height:1.05; letter-spacing:-.01em;
+}
+.gate-names .amp{
+  display:block; font-style:normal; color:var(--brass);
+  font-size:.3em; letter-spacing:.1em; margin:.2em 0;
+}
+.gate-date{margin:1.5rem 0 0; font-size:.72rem; letter-spacing:.26em; text-transform:uppercase}
+.gate-rule{width:1px; height:2.4rem; margin:1.6rem auto; background:linear-gradient(var(--brass), transparent)}
+.gate-venue{margin:0; font-family:var(--display); font-size:1.3rem; font-style:italic}
+.gate-area{margin:.35rem 0 0; color:var(--muted); font-size:.82rem; letter-spacing:.1em}
+.gate-timer{position:relative; width:96px; height:96px; margin:1.9rem auto .4rem}
+.gate-timer > svg{width:100%; height:100%; transform:rotate(-90deg)}
+.trk{fill:none; stroke:rgba(244,239,228,.14); stroke-width:2}
+.arc{fill:none; stroke:var(--brass); stroke-width:2; stroke-linecap:round;
+     stroke-dasharray:289.03; stroke-dashoffset:289.03}
+.gate-pin{position:absolute; inset:0; display:grid; place-items:center}
+.gate-pin svg{
+  width:30px; height:30px; fill:none; stroke:var(--brass); stroke-width:1.5;
+  stroke-linecap:round; stroke-linejoin:round;
+  animation:gatehover 2.4s ease-in-out infinite;
+}
+@keyframes gatehover{0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)}}
+.gate-status{
+  margin:.5rem 0 0; min-height:1.4em; font-size:.68rem;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--muted);
+}
+.gate-acts{display:flex; flex-direction:column; gap:.7rem; margin-top:1.9rem}
+.btn-gate{
+  display:block; width:100%; cursor:pointer; text-decoration:none; text-align:center;
+  padding:1rem 1.5rem; border-radius:2px;
+  font-family:var(--sans); font-size:.7rem; font-weight:500;
+  letter-spacing:.22em; text-transform:uppercase;
+  transition:transform .3s cubic-bezier(.2,.9,.3,1.4), box-shadow .3s, background .3s, color .3s, border-color .3s;
+}
+.btn-gate.solid{background:var(--brass); color:var(--ink); border:1px solid var(--brass)}
+.btn-gate.solid:hover{transform:translateY(-2px); box-shadow:0 12px 30px -14px rgba(217,164,65,.9)}
+.btn-gate.ghost{background:transparent; color:var(--muted); border:1px solid var(--hair)}
+.btn-gate.ghost:hover{color:var(--jasmine); border-color:var(--brass); background:rgba(217,164,65,.08)}
+.gate-x{
+  position:absolute; top:.6rem; right:.6rem;
+  width:34px; height:34px; display:grid; place-items:center; cursor:pointer;
+  border:0; border-radius:50%; background:transparent; color:var(--muted);
+  font-size:1.2rem; line-height:1; transition:color .3s, background .3s;
+}
+.gate-x:hover{color:var(--jasmine); background:rgba(244,239,228,.07)}
+body.gated{overflow:hidden}
 
 /* ─────────────────────────────────────────────
    Note pad — F major pentatonic, so nothing lands wrong
@@ -609,6 +707,41 @@ const WEDDING = {
 <!-- ═══════════════ END OF THE EDITABLE BLOCK ═══════════════ -->
 
 
+<div class="gate" id="gate" hidden>
+  <div class="gate-card">
+    <button class="gate-x" id="gateX" aria-label="Close and view the invitation">&times;</button>
+
+    <p class="eyebrow" id="gateLine"></p>
+    <h1 class="gate-names"><span id="gateOne"></span><span class="amp">and</span><span id="gateTwo"></span></h1>
+    <p class="gate-date" id="gateDate"></p>
+
+    <div class="gate-rule"></div>
+
+    <p class="gate-venue" id="gateVenue"></p>
+    <p class="gate-area" id="gateArea"></p>
+
+    <div class="gate-timer">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="trk" cx="50" cy="50" r="46"/>
+        <circle class="arc" id="gateArc" cx="50" cy="50" r="46"/>
+      </svg>
+      <span class="gate-pin">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/>
+          <circle cx="12" cy="10" r="2.6"/>
+        </svg>
+      </span>
+    </div>
+
+    <p class="gate-status" id="gateStatus" role="status"></p>
+
+    <div class="gate-acts">
+      <button class="btn-gate solid" id="gateMore"></button>
+      <a class="btn-gate ghost" id="gateGo"></a>
+    </div>
+  </div>
+</div>
+
 <canvas id="rain" aria-hidden="true"></canvas>
 <canvas id="burst" aria-hidden="true"></canvas>
 
@@ -619,11 +752,13 @@ const WEDDING = {
     </button>
     <span class="mono" id="monogram">A &amp; J</span>
   </div>
-  <nav>
-    <a href="#programme">Programme</a>
-    <a href="#venues">Venues</a>
-    <a href="#notes" class="last">Notes</a>
-  </nav>
+  <a class="maplink" id="mapLink" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/>
+      <circle cx="12" cy="10" r="2.6"/>
+    </svg>
+    <span id="mapLabel"></span>
+  </a>
 
   <div class="settings" id="settings" hidden>
     <p class="set-title">Instrument</p>
@@ -825,6 +960,14 @@ const WEDDING = {
 /* ── Page content ────────────────────────────
    Everything visible is built from the WEDDING block at the top of this file.
    This runs before anything else so the rest of the script sees a full page. */
+// a Google Maps share link is used exactly as given; anything else (a place
+// name, an address, or "9.4498,76.5407" coordinates) becomes a Maps search
+function mapHref(v){
+  return /^https?:\/\//i.test(v)
+    ? v
+    : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(v);
+}
+
 function renderContent(){
   const W = WEDDING, $ = id => document.getElementById(id);
   const set = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
@@ -838,6 +981,12 @@ function renderContent(){
   set('dateLine', W.date.display);
   set('placeLine', W.place);
   set('hint', W.hint);
+  const ml = $('mapLink');
+  if (ml && W.map){
+    ml.href = mapHref(W.map.query);
+    ml.setAttribute('aria-label', 'Open ' + W.map.label + ' in Google Maps');
+    set('mapLabel', W.map.label);
+  }
   set('verseText', W.verse.text);
   set('verseCite', W.verse.source);
 
@@ -871,7 +1020,7 @@ function renderContent(){
         <span class="tag">${v.tag}</span>
         <h3>${v.name}</h3>
         <address>${v.address.join('<br>')}</address>
-        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.map)}" target="_blank" rel="noopener">Open in maps</a>
+        <a href="${mapHref(v.map)}" target="_blank" rel="noopener">Open in maps</a>
       </div>`).join(''));
 
   set('noteList', W.notes.list.map(n => `
@@ -887,6 +1036,84 @@ function renderContent(){
 renderContent();
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ── The welcome gate ────────────────────────
+   Shown on arrival (a scanned QR code). Maps opens on its own after a few
+   seconds unless the guest chooses to see the invitation instead. */
+let gateOpen = false;
+(function gateSetup(){
+  const W = WEDDING, g = document.getElementById('gate');
+  const secs = W.welcome ? +W.welcome.seconds : -1;
+  if (!g || !W.welcome || secs < 0) return;
+
+  const MAPS = mapHref(W.map.query);
+  function toMaps(){
+    try { location.replace(MAPS); }
+    catch (err) { open(MAPS, '_blank', 'noopener'); }   // sandboxed: open instead
+  }
+  if (secs === 0){ toMaps(); return; }
+  // someone returning to the page mid-visit shouldn't be sent away again
+  try { if (location.hash === '#invitation') return; } catch (err) {}
+
+  const $ = id => document.getElementById(id);
+  $('gateLine').textContent  = W.welcome.line;
+  $('gateOne').textContent   = W.couple.one;
+  $('gateTwo').textContent   = W.couple.two;
+  $('gateDate').textContent  = W.date.display;
+  $('gateVenue').textContent = W.welcome.venue;
+  $('gateArea').textContent  = W.welcome.area;
+  $('gateGo').href = MAPS;
+  $('gateMore').textContent = W.welcome.stay || 'See the invitation';
+  $('gateGo').textContent   = W.welcome.go   || 'Directions now';
+
+  g.hidden = false;
+  document.body.classList.add('gated');
+  gateOpen = true;
+
+  const arc = $('gateArc'), LEN = 289.03;
+  let raf = 0, t0 = null, done = false;
+
+  function halt(msg){
+    if (done) return;
+    done = true;
+    cancelAnimationFrame(raf);
+    arc.style.strokeDashoffset = LEN;
+    $('gateStatus').textContent = msg || '';
+  }
+
+  function dismiss(){
+    halt('');
+    // sandboxed previews block history writes, so this must never be fatal
+    try { history.replaceState(null, '', '#invitation'); } catch (err) { /* sandboxed */ }
+    g.classList.add('out');
+    document.body.classList.remove('gated');
+    setTimeout(() => { g.hidden = true; gateOpen = false; }, 560);
+  }
+
+  function tick(now){
+    if (done) return;
+    if (t0 === null) t0 = now;
+    const p = Math.min(1, (now - t0) / (secs * 1000));
+    arc.style.strokeDashoffset = LEN * (1 - p);
+    $('gateStatus').textContent = 'Opening maps in ' + Math.ceil(secs - (now - t0) / 1000) + '…';
+    if (p >= 1){ done = true; toMaps(); return; }
+    raf = requestAnimationFrame(tick);
+  }
+
+  if (reduced){
+    $('gateStatus').textContent = 'Choose below';
+    arc.style.strokeDashoffset = 0;
+  } else {
+    raf = requestAnimationFrame(tick);
+  }
+
+  $('gateMore').addEventListener('click', dismiss);
+  $('gateGo').addEventListener('click', () => halt(''));
+  $('gateX').addEventListener('click', dismiss);
+  addEventListener('keydown', e => { if (e.key === 'Escape' && gateOpen) dismiss(); });
+})();
+
+
 const mobile  = innerWidth < 700;
 
 /* ── Countdown ───────────────────────────────── */
@@ -2033,7 +2260,7 @@ instEl.addEventListener('keydown', e => {
 // sweeping: find whatever key is under the finger on every move. pointerenter
 // alone isn't enough — touch devices capture the pointer to the first element
 addEventListener('pointermove', e => {
-  if (!chiming) return;
+  if (gateOpen || !chiming) return;
   const el = document.elementFromPoint(e.clientX, e.clientY);
   const k = el && el.closest ? el.closest('.key') : null;
   if (k) ring(k, .22);
@@ -2128,6 +2355,7 @@ addEventListener('pointercancel', releasePress);
 /* ── Interaction ─────────────────────────────── */
 let hinted = false;
 addEventListener('pointerdown', e => {
+  if (gateOpen) return;               // the welcome is up; the page is asleep
   startAudio();                       // first gesture unlocks audio
   // the note pad is an instrument, not a confetti target
   if (e.target.closest && e.target.closest('.notepad, .chimes, .settings, .cog')) return;
