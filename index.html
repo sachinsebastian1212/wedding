@@ -426,7 +426,8 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
    ───────────────────────────────────────────── */
 .gate{
   position:fixed; inset:0; z-index:200;
-  display:grid; place-items:center; padding:1.5rem;
+  display:grid; grid-template-rows:minmax(0,1fr);
+  justify-items:center; align-items:stretch; padding:1.5rem;
   background:var(--ink);
   animation:gatein .5s ease both;
 }
@@ -443,11 +444,29 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 }
 .gate-card{
   position:relative; width:min(30rem,100%); text-align:center;
-  padding:clamp(2rem,7vw,3rem) clamp(1.4rem,6vw,2.6rem);
+  height:min(100%,50rem); align-self:center; overflow:auto;
+  display:flex; flex-direction:column;
+  padding:clamp(1.6rem,6vw,2.4rem) clamp(1.4rem,6vw,2.6rem);
   border:1px solid var(--hair); border-radius:3px;
   background:linear-gradient(160deg, rgba(18,57,61,.55), rgba(5,22,26,.5));
   box-shadow:0 30px 70px -40px #000;
   animation:gaterise .9s cubic-bezier(.2,.8,.3,1) both;
+}
+/* the invitation on the top half, everything to act on below it. No
+   min-height here on purpose: a half never shrinks under its own content,
+   so a short screen scrolls the card rather than overlapping the two. */
+.gate-invite,.gate-foot{
+  flex:1 1 50%;
+  display:flex; flex-direction:column; justify-content:center;
+}
+/* room either side so the close button never sits on the words */
+.gate-invite .eyebrow{padding:0 1.7rem}
+/* the rule sits on the halfway line — the spacing is padding, not margin, so
+   the two halves add up to exactly the card and nothing scrolls */
+.gate-foot{
+  gap:.85rem;
+  padding-top:clamp(1.4rem,5vw,2.2rem);
+  border-top:1px solid var(--hair);
 }
 @keyframes gaterise{from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none}}
 .gate-names{
@@ -459,10 +478,17 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
   font-size:.3em; letter-spacing:.1em; margin:.2em 0;
 }
 .gate-date{margin:1.5rem 0 0; font-size:.72rem; letter-spacing:.26em; text-transform:uppercase}
-.gate-rule{width:1px; height:2.4rem; margin:1.6rem auto; background:linear-gradient(var(--brass), transparent)}
+.gate-rule{width:1px; height:2rem; margin:1.2rem auto; background:linear-gradient(var(--brass), transparent)}
 .gate-venue{margin:0; font-family:var(--display); font-size:clamp(1.1rem,4.2vw,1.3rem); font-style:italic; line-height:1.25; text-wrap:balance}
 .gate-area{margin:.35rem 0 0; color:var(--muted); font-size:.82rem; letter-spacing:.1em}
-.gate-timer{position:relative; width:96px; height:96px; margin:1.9rem auto .4rem}
+/* the ring is a link too — tapping it goes straight to the church */
+.gate-timer{
+  position:relative; display:block; width:96px; height:96px; margin:0 auto;
+  cursor:pointer; border-radius:50%; text-decoration:none;
+  transition:transform .3s cubic-bezier(.2,.9,.3,1.4);
+}
+.gate-timer:hover{transform:scale(1.06)}
+.gate-timer:focus-visible{outline:1px solid var(--brass); outline-offset:6px}
 .gate-timer > svg{width:100%; height:100%; transform:rotate(-90deg)}
 .trk{fill:none; stroke:rgba(244,239,228,.14); stroke-width:2}
 .arc{fill:none; stroke:var(--brass); stroke-width:2; stroke-linecap:round;
@@ -475,10 +501,21 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 }
 @keyframes gatehover{0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)}}
 .gate-status{
-  margin:.5rem 0 0; min-height:1.4em; font-size:.68rem;
+  margin:0; min-height:1.4em; font-size:.68rem;
   letter-spacing:.22em; text-transform:uppercase; color:var(--muted);
 }
-.gate-acts{display:flex; flex-direction:column; gap:.7rem; margin-top:1.9rem}
+/* the two pins, side by side */
+.gate-places{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.gate-places.one{grid-template-columns:1fr}
+.btn-gate.place{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:.45rem; padding:.85rem .5rem;
+  font-size:.6rem; letter-spacing:.16em; line-height:1.3;
+}
+.btn-gate.place svg{
+  width:16px; height:16px; fill:none; stroke:currentColor;
+  stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round;
+}
 .btn-gate{
   display:block; width:100%; cursor:pointer; text-decoration:none; text-align:center;
   padding:1rem 1.5rem; border-radius:2px;
@@ -498,6 +535,51 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 }
 .gate-x:hover{color:var(--jasmine); background:rgba(244,239,228,.07)}
 body.gated{overflow:hidden}
+/* a small phone: the invitation gives up a little room so the pins and the
+   button below it land above the fold. Kept above the short-screen block,
+   which tightens the same things further and must win where both apply. */
+@media (max-width:360px){
+  .gate-card{padding-left:1.1rem; padding-right:1.1rem}
+  .gate-names{font-size:clamp(1.9rem,8.5vw,2.6rem)}
+  .gate-date{margin-top:1.1rem; font-size:.66rem; letter-spacing:.18em}
+  .gate-rule{height:1.6rem; margin:1rem auto}
+  .gate-venue{font-size:1rem}
+  .gate-foot{gap:.6rem}
+}
+/* a wide but shallow screen — a laptop — where the full-size type would
+   push the buttons past the bottom of the card */
+@media (min-width:640px) and (max-height:820px){
+  .gate-card{padding-top:1.8rem; padding-bottom:1.8rem}
+  .gate-names{font-size:clamp(1.9rem,8vw,2.7rem)}
+  .gate-rule{height:1.5rem; margin:1rem auto}
+  .gate-timer{width:80px; height:80px}
+  .gate-foot{gap:.7rem; padding-top:1.4rem}
+}
+/* a short screen — a small phone, or one held sideways — gets tighter still */
+@media (max-height:700px){
+  .gate-card{height:100%; padding-top:1.2rem; padding-bottom:1.2rem}
+  .gate-names{font-size:clamp(1.6rem,6.5vw,2.3rem)}
+  .gate-venue{font-size:clamp(.95rem,3.4vw,1.1rem)}
+  .gate-timer{width:58px; height:58px}
+  .gate-rule{height:1rem; margin:.7rem auto}
+  .gate-date{margin-top:.7rem}
+  .gate-area{font-size:.76rem}
+  .gate-status{font-size:.62rem; letter-spacing:.16em}
+  .gate-foot{gap:.5rem; padding-top:1.1rem}
+  .btn-gate{padding:.7rem 1.2rem}
+  .btn-gate.place{padding:.55rem .5rem; gap:.28rem}
+}
+/* held sideways there is no room to stack: the halves sit side by side */
+@media (orientation:landscape) and (max-height:560px){
+  .gate-card{flex-direction:row; width:min(50rem,100%); gap:clamp(1rem,3vw,1.8rem)}
+  .gate-invite,.gate-foot{flex:1 1 50%; min-width:0}
+  .gate-foot{
+    border-top:0; border-left:1px solid var(--hair);
+    padding-top:0; padding-left:clamp(1rem,3vw,1.8rem);
+  }
+  .gate-names{font-size:clamp(1.7rem,6vh,2.4rem)}
+  .gate-rule{margin:.7rem auto}
+}
 
 /* ─────────────────────────────────────────────
    Note pad — F major pentatonic, so nothing lands wrong
@@ -610,13 +692,21 @@ const WEDDING = {
     venue   : "Basilica of Our Lady of Mount Carmel & St. Joseph",
     seconds : 4,
 
-    /* Wording on the two buttons. Some alternatives for the first:
+    /* The lower half of the welcome: the timer, then the two pins, then the
+       button that opens the invitation. Some alternatives for that button:
        "Take me to the invitation"  ·  "Read the invitation"
        "Explore the invitation"     ·  "The full invitation"
        "Skip for now"               ·  "Have a look around"
        "Show me everything"         ·  "Not now, show the invite"  */
     stay : "Have a look around",
-    go   : "Directions now"
+
+    /* The first pin — the church. This is also where the timer sends
+       everyone when it runs out, and where tapping the timer goes. */
+    go   : "Church",
+
+    /* The second pin — the reception. Leave hallMap empty to show one pin. */
+    hall    : "Parish hall",
+    hallMap : "https://maps.app.goo.gl/3dmsV59z8uDThnCG6"
   },
 
   hint  : "Tap for petals — hold to blow bubbles",
@@ -713,33 +803,51 @@ const WEDDING = {
   <div class="gate-card">
     <button class="gate-x" id="gateX" aria-label="Close and view the invitation">&times;</button>
 
-    <p class="eyebrow" id="gateLine"></p>
-    <h1 class="gate-names"><span id="gateOne"></span><span class="amp">and</span><span id="gateTwo"></span></h1>
-    <p class="gate-date" id="gateDate"></p>
+    <div class="gate-invite">
+      <p class="eyebrow" id="gateLine"></p>
+      <h1 class="gate-names"><span id="gateOne"></span><span class="amp">and</span><span id="gateTwo"></span></h1>
+      <p class="gate-date" id="gateDate"></p>
 
-    <div class="gate-rule"></div>
+      <div class="gate-rule"></div>
 
-    <p class="gate-venue" id="gateVenue"></p>
-    <p class="gate-area" id="gateArea"></p>
-
-    <div class="gate-timer">
-      <svg viewBox="0 0 100 100" aria-hidden="true">
-        <circle class="trk" cx="50" cy="50" r="46"/>
-        <circle class="arc" id="gateArc" cx="50" cy="50" r="46"/>
-      </svg>
-      <span class="gate-pin">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/>
-          <circle cx="12" cy="10" r="2.6"/>
-        </svg>
-      </span>
+      <p class="gate-venue" id="gateVenue"></p>
+      <p class="gate-area" id="gateArea"></p>
     </div>
 
-    <p class="gate-status" id="gateStatus" role="status"></p>
+    <div class="gate-foot">
+      <a class="gate-timer" id="gateTimer" aria-label="Directions to the church">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="trk" cx="50" cy="50" r="46"/>
+          <circle class="arc" id="gateArc" cx="50" cy="50" r="46"/>
+        </svg>
+        <span class="gate-pin">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/>
+            <circle cx="12" cy="10" r="2.6"/>
+          </svg>
+        </span>
+      </a>
 
-    <div class="gate-acts">
+      <p class="gate-status" id="gateStatus" role="status"></p>
+
+      <div class="gate-places" id="gatePlaces">
+        <a class="btn-gate ghost place" id="gateGo">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/>
+            <circle cx="12" cy="10" r="2.6"/>
+          </svg>
+          <span id="gateGoLabel"></span>
+        </a>
+        <a class="btn-gate ghost place" id="gateHall">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/>
+            <circle cx="12" cy="10" r="2.6"/>
+          </svg>
+          <span id="gateHallLabel"></span>
+        </a>
+      </div>
+
       <button class="btn-gate solid" id="gateMore"></button>
-      <a class="btn-gate ghost" id="gateGo"></a>
     </div>
   </div>
 </div>
@@ -1064,9 +1172,26 @@ let gateOpen = false;
   $('gateDate').textContent  = W.date.display;
   $('gateVenue').textContent = W.welcome.venue;
   $('gateArea').textContent  = W.welcome.area;
-  $('gateGo').href = MAPS;
   $('gateMore').textContent = W.welcome.stay || 'See the invitation';
-  $('gateGo').textContent   = W.welcome.go   || 'Directions now';
+
+  // the ring and the first pin both lead to the church
+  $('gateTimer').href = MAPS;
+  $('gateTimer').setAttribute('aria-label', 'Directions to ' + W.welcome.venue);
+  $('gateGo').href = MAPS;
+  $('gateGoLabel').textContent = W.welcome.go || 'Church';
+  $('gateGo').setAttribute('aria-label', 'Directions to ' + W.welcome.venue);
+
+  // the second pin — dropped altogether when no hall map is given
+  const hall = W.welcome.hallMap;
+  if (hall){
+    const hallName = W.welcome.hall || 'Parish hall';
+    $('gateHall').href = mapHref(hall);
+    $('gateHallLabel').textContent = hallName;
+    $('gateHall').setAttribute('aria-label', 'Directions to the ' + hallName.toLowerCase());
+  } else {
+    $('gateHall').remove();
+    $('gatePlaces').classList.add('one');
+  }
 
   g.hidden = false;
   document.body.classList.add('gated');
@@ -1110,8 +1235,13 @@ let gateOpen = false;
   }
 
   $('gateMore').addEventListener('click', dismiss);
-  $('gateGo').addEventListener('click', () => halt(''));
   $('gateX').addEventListener('click', dismiss);
+  // any chosen destination stops the countdown, so nobody bound for the hall
+  // is sent to the church a moment later
+  ['gateTimer', 'gateGo', 'gateHall'].forEach(id => {
+    const el = $(id);
+    if (el) el.addEventListener('click', () => halt(''));
+  });
   addEventListener('keydown', e => { if (e.key === 'Escape' && gateOpen) dismiss(); });
 })();
 
