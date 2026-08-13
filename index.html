@@ -279,8 +279,10 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 }
 .slot-body p{margin:0; color:var(--muted); font-size:.95rem; max-width:44ch}
 .slot-body .venue{
-  display:inline-block; margin-top:.5rem; font-size:.68rem; letter-spacing:.2em;
+  display:inline-block; margin-top:.5rem; max-width:38ch;
+  font-size:.68rem; letter-spacing:.2em; line-height:1.6;
   text-transform:uppercase; color:rgba(244,239,228,.45);
+  text-wrap:pretty; overflow-wrap:break-word;
 }
 @media (max-width:640px){
   .slot{grid-template-columns:4.4rem 1.8rem 1fr}
@@ -291,16 +293,23 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 /* Venues */
 .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr)); gap:1.25rem}
 .card{
+  /* a column, so the map link sits on the baseline of every card no matter
+     how many lines the venue name runs to */
+  display:flex; flex-direction:column;
   border:1px solid var(--hair); border-radius:2px; padding:2.2rem 1.9rem;
   background:linear-gradient(160deg, rgba(18,57,61,.55), rgba(10,42,46,.25));
   transition:transform .5s cubic-bezier(.2,.8,.3,1), border-color .5s, background .5s;
 }
 .card:hover{transform:translateY(-6px); border-color:rgba(217,164,65,.6)}
 .card .tag{font-size:.66rem; letter-spacing:.26em; text-transform:uppercase; color:var(--brass)}
-.card h3{margin:1rem 0 .5rem; font-size:1.5rem}
+.card h3{
+  margin:1rem 0 .5rem; font-size:clamp(1.25rem, 2.4vw, 1.5rem);
+  line-height:1.2; text-wrap:balance; overflow-wrap:break-word;
+}
 .card address{font-style:normal; color:var(--muted); font-size:.92rem}
 .card a{
-  display:inline-block; margin-top:1.3rem; color:var(--jasmine); text-decoration:none;
+  align-self:flex-start; margin-top:auto; padding-top:1.3rem;
+  color:var(--jasmine); text-decoration:none;
   font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
   border-bottom:1px solid var(--brass); padding-bottom:.3rem;
 }
@@ -451,7 +460,7 @@ h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.02
 }
 .gate-date{margin:1.5rem 0 0; font-size:.72rem; letter-spacing:.26em; text-transform:uppercase}
 .gate-rule{width:1px; height:2.4rem; margin:1.6rem auto; background:linear-gradient(var(--brass), transparent)}
-.gate-venue{margin:0; font-family:var(--display); font-size:1.3rem; font-style:italic}
+.gate-venue{margin:0; font-family:var(--display); font-size:clamp(1.1rem,4.2vw,1.3rem); font-style:italic; line-height:1.25; text-wrap:balance}
 .gate-area{margin:.35rem 0 0; color:var(--muted); font-size:.82rem; letter-spacing:.1em}
 .gate-timer{position:relative; width:96px; height:96px; margin:1.9rem auto .4rem}
 .gate-timer > svg{width:100%; height:100%; transform:rotate(-90deg)}
@@ -597,8 +606,8 @@ const WEDDING = {
      straight to Maps, or to -1 to turn the welcome off entirely. */
   welcome : {
     line    : "You're warmly invited",
-    venue   : "Basilica of Our Lady of Mt Carmel & St Joseph",
     area    : "Varapuzha, Ernakulam",
+    venue   : "Basilica of Our Lady of Mount Carmel & St. Joseph",
     seconds : 4,
 
     /* Wording on the two buttons. Some alternatives for the first:
@@ -643,12 +652,12 @@ const WEDDING = {
           { time  : "8:00 am",
             title : "Guests arrive",
             text  : "Tea and coffee under the portico. Ushers will seat you — the bride's family to the left, the groom's to the right.",
-            venue : "Basilica Of our Lady of Mount Carmel & St. Joseph" },
+            venue : "Basilica of Our Lady of Mount Carmel &amp; St. Joseph" },
 
           { time  : "8:45 am",
             title : "Nuptial mass and vows",
             text  : "The ceremony runs about ninety minutes, including the exchange of rings and the tying of the <span class='figure'>minnu</span>.",
-            venue : "Basilica Of our Lady of Mount Carmel & St. Joseph" },
+            venue : "Basilica of Our Lady of Mount Carmel &amp; St. Joseph" },
 
           { time  : "10:30 am",
             title : "Photographs on the steps",
@@ -680,8 +689,8 @@ const WEDDING = {
     title   : "Two places",
     list : [
       { tag     : "Ceremony · 8:45 am",
-        name    : "St Joseph's and Mount Carmel Church",
         address : ["Varapuzha", "Ernakulam district, Kerala 683517"],
+        name    : "Basilica of Our Lady of Mount Carmel &amp; St. Joseph",
         map     : "https://maps.app.goo.gl/oPZoSPRa4kHHEHuN8" },
 
       { tag     : "Reception · 12:00 pm",
