@@ -582,7 +582,34 @@ const WEDDING = {
     iso     : "2026-09-16T08:45:00+05:30"
   },
 
-  place : "Ernakulam, Kerala",
+  place : "Varapuzha, Erankulam district, Kerala",
+
+  // the pin in the top right
+  map : {
+    label : "Varapuzha",
+    // a Google Maps share link, a place name, an address, or "9.4498,76.5407"
+    query : "https://maps.app.goo.gl/oPZoSPRa4kHHEHuN8"
+  },
+
+  /* ── The welcome shown when the QR code is scanned ────────────────
+     Guests land here, and Google Maps opens on its own after a moment
+     unless they tap "See the invitation". Set seconds to 0 to send them
+     straight to Maps, or to -1 to turn the welcome off entirely. */
+  welcome : {
+    line    : "You're warmly invited",
+    venue   : "Basilica of Our Lady of Mt Carmel & St Joseph",
+    area    : "Varapuzha, Ernakulam",
+    seconds : 4,
+
+    /* Wording on the two buttons. Some alternatives for the first:
+       "Take me to the invitation"  ·  "Read the invitation"
+       "Explore the invitation"     ·  "The full invitation"
+       "Skip for now"               ·  "Have a look around"
+       "Show me everything"         ·  "Not now, show the invite"  */
+    stay : "Have a look around",
+    go   : "Directions now"
+  },
+
   hint  : "Tap for petals — hold to blow bubbles",
 
   /* ── The line under the hero ────────────────────────────────────── */
@@ -616,12 +643,12 @@ const WEDDING = {
           { time  : "8:00 am",
             title : "Guests arrive",
             text  : "Tea and coffee under the portico. Ushers will seat you — the bride's family to the left, the groom's to the right.",
-            venue : "St. Mary's Forane Church" },
+            venue : "Basilica Of our Lady of Mount Carmel & St. Joseph" },
 
           { time  : "8:45 am",
             title : "Nuptial mass and vows",
             text  : "The ceremony runs about ninety minutes, including the exchange of rings and the tying of the <span class='figure'>minnu</span>.",
-            venue : "St. Mary's Forane Church" },
+            venue : "Basilica Of our Lady of Mount Carmel & St. Joseph" },
 
           { time  : "10:30 am",
             title : "Photographs on the steps",
@@ -631,17 +658,17 @@ const WEDDING = {
           { time  : "12:00 pm",
             title : "Reception and lunch",
             text  : "A full sadhya on banana leaf, with a separate counter for those who prefer non-vegetarian.",
-            venue : "Parish Hall, Varappuzha" },
+            venue : "Hotel Casino Hall" },
 
           { time  : "1:30 pm",
             title : "Cake, toasts and the first dance",
             text  : "Short speeches from both fathers. If you would like to say something, find Anoop at the head table.",
-            venue : "Parish Hall, Varappuzha" },
+            venue : "Hotel Casino Hall" },
 
           { time  : "3:30 pm",
             title : "Send-off",
             text  : "Flowers and sparklers at the gate. Umbrellas will be handed out — December has its own ideas.",
-            venue : "Parish Hall, Varappuzha" }
+            venue : "Hotel Casino Hall" }
         ]
       }
     ]
@@ -655,12 +682,12 @@ const WEDDING = {
       { tag     : "Ceremony · 8:45 am",
         name    : "St Joseph's and Mount Carmel Church",
         address : ["Varapuzha", "Ernakulam district, Kerala 683517"],
-        map     : "Roman-Latin Catholic Basilica Of our Lady of Mount Carmel & St. Joseph Varapuzha" },
+        map     : "https://maps.app.goo.gl/oPZoSPRa4kHHEHuN8" },
 
       { tag     : "Reception · 12:00 pm",
         name    : "Parish Hall, Varappuzha",
-        address : ["M.C. Road, Changanacherry", "Kottayam district, Kerala 686101"],
-        map     : "Hotel Casino Changanacherry" }
+        address : ["Convent Road, Varapuzha", "Ernakulam district, Kerala "],
+        map     : "https://maps.app.goo.gl/3dmsV59z8uDThnCG6" }
     ]
   },
 
@@ -698,7 +725,7 @@ const WEDDING = {
 
   /* ── Sign-off ───────────────────────────────────────────────────── */
   footer : {
-    line  : "See you in the rain.",
+    line  : "See you there, with love",
     small : "Kesia &amp; Sachin · 16 · 09 · 2026"
   }
 
