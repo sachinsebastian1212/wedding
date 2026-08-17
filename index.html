@@ -718,7 +718,17 @@ const WEDDING = {
 
     /* The second pin — the reception. Leave hallMap empty to show one pin. */
     hall    : "Parish hall",
-    hallMap : "https://maps.app.goo.gl/3dmsV59z8uDThnCG6"
+    hallMap : "https://maps.app.goo.gl/3dmsV59z8uDThnCG6",
+
+    /* During the reception the two pins swap: the hall leads, and the timer
+       sends latecomers there rather than to an empty church. The church keeps
+       the second pin. Same time format as date.iso — remove this block, or
+       either time, to keep the church in front all day. */
+    switchAt : {
+      from  : "2026-09-16T18:30:00+05:30",
+      until : "2026-09-16T22:30:00+05:30",
+      venue : "Parish Hall, Varapuzha"
+    }
   },
 
   hint  : "Tap for petals — hold to blow bubbles",
@@ -1168,7 +1178,27 @@ let gateOpen = false;
   const secs = W.welcome ? +W.welcome.seconds : -1;
   if (!g || !W.welcome || secs < 0) return;
 
-  const MAPS = mapHref(W.map.query);
+  /* Which place leads. The church, except between switchAt.from and
+     switchAt.until — the reception — when the hall takes its place and the
+     church slides to the second pin. The times carry their own offset, so a
+     guest reads the same window whatever their phone's clock says. */
+  const sw    = W.welcome.switchAt;
+  const stamp = t => { const ms = t ? Date.parse(t) : NaN; return isNaN(ms) ? null : ms; };
+  const from  = sw && stamp(sw.from), until = sw && stamp(sw.until);
+
+  const church = { map: W.map.query, label: W.welcome.go || 'Church',
+                   venue: W.welcome.venue };
+  const hall   = W.welcome.hallMap
+    ? { map   : W.welcome.hallMap,
+        label : W.welcome.hall || 'Parish hall',
+        venue : (sw && sw.venue) || W.welcome.hall || 'Parish hall' }
+    : null;
+
+  const during = hall && from && until && Date.now() >= from && Date.now() < until;
+  const first  = during ? hall : church;
+  const second = during ? church : hall;
+
+  const MAPS = mapHref(first.map);
   function toMaps(){
     try { location.replace(MAPS); }
     catch (err) { open(MAPS, '_blank', 'noopener'); }   // sandboxed: open instead
@@ -1182,24 +1212,22 @@ let gateOpen = false;
   $('gateOne').textContent   = W.couple.one;
   $('gateTwo').textContent   = W.couple.two;
   $('gateDate').textContent  = W.date.display;
-  $('gateVenue').textContent = W.welcome.venue;
+  $('gateVenue').textContent = first.venue;
   $('gateArea').textContent  = W.welcome.area;
   $('gateMore').textContent = W.welcome.stay || 'See the invitation';
 
-  // the ring and the first pin both lead to the church
+  // the ring and the first pin both lead to whichever place is leading
   $('gateTimer').href = MAPS;
-  $('gateTimer').setAttribute('aria-label', 'Directions to ' + W.welcome.venue);
+  $('gateTimer').setAttribute('aria-label', 'Directions to ' + first.venue);
   $('gateGo').href = MAPS;
-  $('gateGoLabel').textContent = W.welcome.go || 'Church';
-  $('gateGo').setAttribute('aria-label', 'Directions to ' + W.welcome.venue);
+  $('gateGoLabel').textContent = first.label;
+  $('gateGo').setAttribute('aria-label', 'Directions to ' + first.venue);
 
   // the second pin — dropped altogether when no hall map is given
-  const hall = W.welcome.hallMap;
-  if (hall){
-    const hallName = W.welcome.hall || 'Parish hall';
-    $('gateHall').href = mapHref(hall);
-    $('gateHallLabel').textContent = hallName;
-    $('gateHall').setAttribute('aria-label', 'Directions to the ' + hallName.toLowerCase());
+  if (second){
+    $('gateHall').href = mapHref(second.map);
+    $('gateHallLabel').textContent = second.label;
+    $('gateHall').setAttribute('aria-label', 'Directions to ' + second.venue);
   } else {
     $('gateHall').remove();
     $('gatePlaces').classList.add('one');
