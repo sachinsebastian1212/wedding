@@ -657,6 +657,158 @@ body.gated{overflow:hidden}
 .cell.lit::after{animation:hexlit .6s ease-out}
 @keyframes hexlit{0%{opacity:.92} 100%{opacity:0}}
 
+/* ─────────────────────────────────────────────
+   Choosing an instrument — the row above the pad
+   ───────────────────────────────────────────── */
+.padpick{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:.4rem;
+  margin-top:clamp(1.8rem,4vw,2.6rem);
+}
+.pick-b{
+  cursor:pointer; padding:.62rem 1.15rem;
+  border:1px solid var(--hair); border-radius:2px; background:transparent;
+  color:var(--muted); font-family:var(--sans);
+  font-size:.62rem; letter-spacing:.22em; text-transform:uppercase;
+  transition:color .3s, border-color .3s, background .3s;
+}
+.pick-b:hover{color:var(--jasmine)}
+.pick-b.on{background:rgba(217,164,65,.18); color:var(--jasmine); border-color:var(--brass)}
+.pad-note{
+  margin:1rem auto 0; max-width:34rem; text-align:center;
+  color:var(--muted); font-size:.85rem; min-height:2.4em;
+}
+.pad[hidden]{display:none}
+
+/* ─────────────────────────────────────────────
+   Keyboard — two octaves on a wide screen, one on a phone
+   ───────────────────────────────────────────── */
+.keyboard{
+  --kn:8;   /* white keys in the run — set from script */
+  --kw:clamp(30px, calc((min(100vw, 62rem) - 2 * var(--pad)) / var(--kn)), 76px);
+  display:flex; justify-content:center;
+  margin-top:clamp(2rem,5vw,3.5rem);
+}
+.kb{position:relative; display:flex; touch-action:none}
+.wkey,.bkey{
+  border:0; padding:0; cursor:pointer; touch-action:none;
+  font-family:var(--sans); letter-spacing:.06em;
+  display:flex; align-items:flex-end; justify-content:center;
+  transition:background .25s ease;
+}
+.wkey{
+  width:var(--kw); height:calc(var(--kw) * 4.1);
+  background:linear-gradient(#fbf7ee, #e7dfcd 78%, #c3b79c);
+  border-radius:0 0 4px 4px;
+  box-shadow:inset -1px 0 0 rgba(5,22,26,.3), 0 8px 18px -10px rgba(0,0,0,.9);
+  color:rgba(5,22,26,.38); font-size:calc(var(--kw) * .2);
+  padding-bottom:calc(var(--kw) * .2);
+}
+/* black keys ride above the whites, so they sit outside the flex run */
+.bkey{
+  position:absolute; top:0; z-index:2;
+  width:calc(var(--kw) * .6); height:calc(var(--kw) * 2.55);
+  background:linear-gradient(#123338, #061417 80%, #0b2226);
+  border-radius:0 0 3px 3px;
+  box-shadow:0 6px 12px -4px rgba(0,0,0,.9);
+}
+.wkey.lit{background:linear-gradient(#f7e6bd, #e9cd93 78%, #d9a441); transition:none}
+.bkey.lit{background:linear-gradient(#9c7629, #5d4718); transition:none}
+
+/* ─────────────────────────────────────────────
+   Guitar — chords across, strings along, as a Smart Guitar lays it out.
+   Every crossing is its own note: the chord's shape decides what that
+   string sounds, and the strings that shape leaves out go dead.
+   ───────────────────────────────────────────── */
+.chordpad{
+  display:flex; flex-direction:column;
+  width:100%; max-width:56rem; margin:clamp(2rem,5vw,3.2rem) auto 0;
+}
+
+/* the tabs, pointing down at the column each one owns */
+.ctabs{display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:3px}
+.ctab{
+  cursor:pointer; touch-action:none; border:0;
+  height:clamp(42px,7.4vw,56px); padding:0 0 .5rem;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(.95rem,2.6vw,1.3rem); line-height:1;
+  color:var(--muted);
+  background:linear-gradient(rgba(217,164,65,.16), rgba(217,164,65,.05));
+  clip-path:polygon(0 0, 100% 0, 100% 64%, 50% 100%, 0 64%);
+  transition:color .25s, background .25s;
+}
+@media (hover:hover){ .ctab:hover{color:var(--jasmine)} }
+.ctab.sel{
+  color:var(--ink); font-weight:500;
+  background:linear-gradient(var(--brass), rgba(217,164,65,.72));
+}
+
+/* the board */
+.board{
+  position:relative; overflow:hidden;
+  border:1px solid var(--hair); border-radius:0 0 3px 3px; border-top:0;
+  background:linear-gradient(#0c2a2e, #061a1e 58%, #041114);
+}
+/* the lit column sits under the strings and slides between chords */
+.colhl{
+  position:absolute; top:0; bottom:0; width:calc(100% / 6); left:0;
+  background:linear-gradient(rgba(217,164,65,.26), rgba(217,164,65,.05));
+  transition:left .26s cubic-bezier(.2,.8,.3,1);
+  pointer-events:none;
+}
+.srow{
+  position:relative; display:grid; grid-template-columns:repeat(6, minmax(0,1fr));
+  height:clamp(34px,5.9vw,46px);
+}
+/* The string itself, laid over the whole run of chords. The vertical gradient
+   is what makes it read as round wire rather than a ruled line. */
+.srow::before{
+  content:""; position:absolute; left:0; right:0; top:50%; z-index:2;
+  height:var(--sw); transform:translateY(-50%); border-radius:2px;
+  pointer-events:none;
+  background:linear-gradient(rgba(255,255,255,.62), rgba(244,239,228,.92) 42%,
+                             rgba(158,152,138,.8) 78%, rgba(96,93,84,.6));
+  box-shadow:0 1px 3px rgba(0,0,0,.55);
+}
+/* the three low strings are wound, and catch the light in bands */
+.srow:nth-child(-n+4)::before{
+  background-image:
+    repeating-linear-gradient(90deg, rgba(5,22,26,.34) 0 1px, transparent 1px 3.5px),
+    linear-gradient(rgba(255,255,255,.62), rgba(244,239,228,.92) 42%,
+                    rgba(158,152,138,.8) 78%, rgba(96,93,84,.6));
+}
+.srow:nth-child(2){--sw:4.2px}   /* low E, the fat one */
+.srow:nth-child(3){--sw:3.5px}
+.srow:nth-child(4){--sw:2.8px}
+.srow:nth-child(5){--sw:2.1px}
+.srow:nth-child(6){--sw:1.6px}
+.srow:nth-child(7){--sw:1.2px}
+.fcell{
+  position:relative; border:0; padding:0; background:transparent;
+  cursor:pointer; touch-action:none;
+  border-right:1px solid rgba(217,164,65,.22);      /* the frets */
+}
+.fcell:last-child{border-right:0}
+.fcell.off{background:rgba(4,17,20,.55)}            /* not played in this chord */
+/* and the string goes dim across it, so a dead string looks dead */
+.fcell.off::before{
+  content:""; position:absolute; inset:0; z-index:4; pointer-events:none;
+  background:rgba(4,17,20,.66);
+}
+/* the struck length of string, brightening and settling */
+.fcell::after{
+  content:""; position:absolute; left:0; right:0; top:50%; z-index:3;
+  height:var(--sw); border-radius:2px; background:var(--brass);
+  transform:translateY(-50%); opacity:0;
+}
+.fcell.lit::after{animation:strung .5s ease-out}
+@keyframes strung{
+  0%  {opacity:1; transform:translateY(-50%) scaleY(3.4)}
+  55% {opacity:.7; transform:translateY(-50%) scaleY(1.7)}
+  100%{opacity:0; transform:translateY(-50%) scaleY(1)}
+}
+
+
 /* Backdrop blur is cheap on a Mac and expensive on tablets/phones, where it
    forces the whole page to recomposite over the animating canvases. */
 @media (hover: none){
@@ -984,8 +1136,15 @@ const WEDDING = {
     <div class="band-head reveal" style="text-align:center">
       <p class="eyebrow">Before you go</p>
       <h2>Play us something</h2>
-      <p class="lede" style="margin:1.4rem auto 0">Five notes running up three octaves, tuned to the key this page hums in. Tap them, or drag across — none of them can sound wrong together.</p>
+      <p class="lede" style="margin:1.4rem auto 0">Three instruments, all tuned to the key this page hums in. Tap them, or drag across.</p>
     </div>
+
+    <div class="padpick reveal" id="padPick" role="radiogroup" aria-label="Choose an instrument">
+      <button class="pick-b on" data-pad="hex"    role="radio" aria-checked="true">Hexagons</button>
+      <button class="pick-b"    data-pad="keys"   role="radio" aria-checked="false">Keyboard</button>
+      <button class="pick-b"    data-pad="chords" role="radio" aria-checked="false">Guitar</button>
+    </div>
+    <p class="pad-note reveal" id="padNote"></p>
 
     <svg class="clips" aria-hidden="true" focusable="false">
       <defs>
@@ -995,7 +1154,8 @@ const WEDDING = {
       </defs>
     </svg>
 
-    <div class="notepad reveal" id="notepad">
+    <div class="padwrap reveal">
+      <div class="notepad pad" id="notepad">
       <div class="krow o5">
         <button class="cell hex" data-n="77" aria-label="Play F5"><span>F</span></button>
         <button class="cell hex" data-n="79" aria-label="Play G5"><span>G</span></button>
@@ -1038,6 +1198,10 @@ const WEDDING = {
         <button class="cell hex" data-n="86" aria-label="Play D6"><span>D</span></button>
         <button class="cell hex" data-n="89" aria-label="Play F6"><span>F</span></button>
       </div>
+      </div>
+
+      <div class="keyboard pad" id="keyboard" hidden></div>
+      <div class="chordpad pad" id="chordpad" hidden></div>
     </div>
   </section>
 
@@ -2491,26 +2655,161 @@ mountInstrument('chimes');
 /* ── Note pad ────────────────────────────────
    F major pentatonic, mirrored about the middle row, so anything tapped sits in key with
    the backing music. Drag across the hexes to run a phrase. */
-const hexes = [...document.querySelectorAll('.cell')];
 let sliding = false, lastHex = null;
+
+/* A plucked string, by Karplus-Strong: a burst of noise chased round a delay
+   line the length of one period, losing its high end on every lap. That is
+   what a real string does, so it lands closer to a guitar than stacked
+   oscillators ever do. Buffers are built once per note and kept — the six
+   chords only ever touch a couple of dozen of them. */
+/* How much of the string survives each lap round the loop. Lower dies sooner:
+   at .9965 the low strings were still ringing after six seconds, which read as
+   a synth pad rather than a guitar. .985 leaves about three seconds on the low
+   F and three quarters of a second on the top of the voicings. */
+const RING = .985;
+const PLUCK = new Map();
+function pluckBuf(midi){
+  let e = PLUCK.get(midi);
+  if (e) return e;
+  const sr = actx.sampleRate, f = hz(midi);
+  const N = Math.max(2, Math.round(sr / f));
+  // Long enough to hold the whole decay and no longer. Sized from RING: with a
+  // buffer shorter than the note, the tail fade would chop a string still
+  // ringing at full strength, which is what made the old one hang on.
+  const len = Math.round(sr * Math.min(3.1, Math.max(.9, 230 / f + .45)));
+  const b = actx.createBuffer(1, len, sr);
+  const d = b.getChannelData(0), ring = new Float32Array(N);
+  for (let i = 0; i < N; i++) ring[i] = Math.random() * 2 - 1;
+  let p = 0;                                    // rounds off the pick attack
+  for (let i = 0; i < N; i++){ p = p * .62 + ring[i] * .38; ring[i] = p; }
+  let idx = 0, prev = 0, peak = 0;
+  for (let i = 0; i < len; i++){
+    const cur = ring[idx];
+    ring[idx] = (cur + prev) * .5 * RING;       // the lap that loses the highs
+    prev = cur;
+    d[i] = cur;
+    if (Math.abs(cur) > peak) peak = Math.abs(cur);
+    idx = idx + 1 === N ? 0 : idx + 1;
+  }
+  if (peak > 0) for (let i = 0; i < len; i++) d[i] /= peak;
+  // insurance against ending on a step; the note is already spent by here
+  const fade = Math.min(Math.round(sr * .2), Math.round(len * .25));
+  for (let i = 0; i < fade; i++) d[len - 1 - i] *= i / fade;
+  /* A whole-sample delay line can only ring at sr / (N + .5) — the half is the
+     averaging filter. Left alone that lands up to fifteen cents flat by the
+     top of the chords, which beats against the piano; playing the buffer a
+     shade faster puts every note back on the note. */
+  e = { b: b, rate: f * (N + .5) / sr };
+  PLUCK.set(midi, e);
+  return e;
+}
+
+function pluck(t, midi, vel){
+  const e = pluckBuf(midi);
+  const src = actx.createBufferSource();
+  src.buffer = e.b;
+  src.playbackRate.value = e.rate * (1 + (Math.random() - .5) * .003);  // no two alike
+  const lp = actx.createBiquadFilter();
+  lp.type = 'lowpass'; lp.frequency.value = 3400; lp.Q.value = .4;
+  const g = actx.createGain(); g.gain.value = vel;
+  src.connect(lp); lp.connect(g); g.connect(notes);
+  src.start(t);
+  src.stop(t + e.b.duration / src.playbackRate.value + .05);
+}
+
+/* The six chords of F major, in shapes a guitarist would actually reach for.
+   -1 is a string left out; the numbers are frets above the open tuning. */
+const OPEN = [40, 45, 50, 55, 59, 64];          // E2 A2 D3 G3 B3 E4
+const CHORDS_G = [                            // I ii iii IV V vi of F major
+  { name:'F',        frets:[ 1, 3, 3, 2, 1, 1] },
+  { name:'Gm',       frets:[ 3, 5, 5, 3, 3, 3] },
+  { name:'Am',       frets:[-1, 0, 2, 2, 1, 0] },
+  { name:'B\u266d', frets:[-1, 1, 3, 3, 3, 1] },
+  { name:'C',        frets:[-1, 3, 2, 0, 1, 0] },
+  { name:'Dm',       frets:[-1,-1, 0, 2, 3, 1] }
+];
+
+const STRING_NAME = ['E', 'A', 'D', 'G', 'B', 'E'];
+/* Spelled with flats. CHROMA runs on sharps, which would put an A\u266f on the
+   B\u266d card \u2014 a note the key of F major does not contain. */
+const FLAT = ['C','D\u266d','D','E\u266d','E','F','G\u266d','G','A\u266d','A','B\u266d','B'];
+let curChord = 0;
+
+// a downstroke: the strings sound low to high, a few milliseconds apart
+function strum(i){
+  const c = CHORDS_G[i];
+  const t = actx.currentTime + .01;
+  let n = 0;
+  c.frets.forEach((fr, st) => {
+    if (fr < 0) return;
+    pluck(t + n * (.017 + Math.random() * .009), OPEN[st] + fr, .52 - n * .028);
+    n++;
+  });
+}
+
+// one string of one chord — a crossing on the board, picked rather than strummed
+function pickString(ch, st){
+  const fr = CHORDS_G[ch].frets[st];
+  if (fr < 0) return;
+  pluck(actx.currentTime + .005, OPEN[st] + fr, .5);
+}
+
+/* Naming a chord only moves the light along and remembers which column a bare
+   strum belongs to. Every crossing already knows its own note, so nothing has
+   to be re-fingered. */
+function setChord(i){
+  curChord = i;
+  [...padEls.chords.querySelectorAll('.ctab')].forEach((el, n) =>
+    el.classList.toggle('sel', n === i));
+  const hl = padEls.chords.querySelector('.colhl');
+  if (hl) hl.style.left = (i * 100 / CHORDS_G.length) + '%';
+}
+
+/* ── The three pads ──────────────────────────── */
+const padEls  = { hex   : document.getElementById('notepad'),
+                  keys  : document.getElementById('keyboard'),
+                  chords: document.getElementById('chordpad') };
+const padNote = document.getElementById('padNote');
+const PAD_NOTE = {
+  hex   : 'Five notes running up three octaves, mirrored about the middle row \u2014 none of them can sound wrong together.',
+  // the run is shorter on a phone, so the line has to say which it is
+  keys  : () => (twoOct.matches ? 'Two octaves' : 'An octave') +
+                ' from middle C, sharps and all. Drag along the whites to run a scale.',
+  chords: 'Chords across, strings along. Tap a name to strum the whole shape, or play the strings of any chord where they cross \u2014 drag down a column to strum it at your own speed.'
+};
 
 function strike(h){
   if (h === lastHex && sliding) return;
   lastHex = h;
+  if (h.classList.contains('off')) return;   // a string this chord leaves out
+  // Choosing the chord is a visual matter and must not wait on the audio: on
+  // the very first tap the context is still coming up, and the strings would
+  // be left fingering the chord before.
+  if (h.dataset.chord !== undefined) setChord(+h.dataset.chord);
   startAudio();
   if (actx && actx.state === 'running'){
-    const m = +h.dataset.n;
-    // higher notes carry further, so they're struck softer and held shorter
-    const vel = m > 72 ? .38 : m > 60 ? .46 : m > 48 ? .52 : .56;
-    const dur = m > 72 ? 3 : m > 60 ? 3.6 : 4.4;
-    key(actx.currentTime + .005, m, vel, dur, notes);
+    if (h.dataset.s !== undefined) pickString(+h.dataset.chord, +h.dataset.s);
+    else if (h.dataset.chord !== undefined) strum(+h.dataset.chord);
+    else {
+      const m = +h.dataset.n;
+      // higher notes carry further, so they're struck softer and held shorter
+      const vel = m > 72 ? .38 : m > 60 ? .46 : m > 48 ? .52 : .56;
+      const dur = m > 72 ? 3 : m > 60 ? 3.6 : 4.4;
+      key(actx.currentTime + .005, m, vel, dur, notes);
+    }
   }
   h.classList.remove('lit');
   void h.offsetWidth;                       // restart the animation on rapid taps
   h.classList.add('lit');
+  // the hexes fade themselves out through an animation; the others need telling
+  if (!h.classList.contains('cell')){
+    clearTimeout(h.__lit);
+    h.__lit = setTimeout(() => h.classList.remove('lit'),
+                         h.classList.contains('fcell') ? 500 : 200);
+  }
 }
 
-hexes.forEach(h => {
+function wire(h){
   h.addEventListener('pointerdown', e => {
     e.preventDefault();
     // release implicit capture so dragging onto the next hex still registers
@@ -2522,9 +2821,84 @@ hexes.forEach(h => {
   h.addEventListener('keydown', e => {
     if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); lastHex = null; strike(h); }
   });
-});
+}
+[...document.querySelectorAll('.cell')].forEach(wire);
 addEventListener('pointerup',     () => { sliding = false; lastHex = null; });
 addEventListener('pointercancel', () => { sliding = false; lastHex = null; });
+
+/* Two octaves is a comfortable reach on a laptop and far too fine on a phone,
+   so the run is rebuilt when the screen crosses the width where that changes. */
+const NATURALS = [0, 2, 4, 5, 7, 9, 11];
+const twoOct = matchMedia('(min-width: 760px)');
+function buildKeyboard(){
+  const octaves = twoOct.matches ? 2 : 1, first = 60;      // from middle C
+  const whites = [];
+  for (let o = 0; o < octaves; o++) for (const n of NATURALS) whites.push(first + o * 12 + n);
+  whites.push(first + octaves * 12);                       // the closing C
+  let w = '', b = '';
+  whites.forEach((m, i) => {
+    w += `<button class="wkey" data-n="${m}" aria-label="Play ${chrom(m)}">${CHROMA[m % 12]}</button>`;
+    // a sharp follows C, D, F, G and A — but never past the last white key
+    if ([0, 2, 5, 7, 9].indexOf(m % 12) > -1 && i < whites.length - 1)
+      b += `<button class="bkey" data-n="${m + 1}" aria-label="Play ${chrom(m + 1)}"
+              style="left:calc(var(--kw) * ${(i + 1 - .3).toFixed(3)})"></button>`;
+  });
+  padEls.keys.style.setProperty('--kn', whites.length);
+  padEls.keys.innerHTML = `<div class="kb">${w}${b}</div>`;
+  [...padEls.keys.querySelectorAll('.wkey, .bkey')].forEach(wire);
+}
+
+function buildChords(){
+  const tabs = CHORDS_G.map((c, i) =>
+    `<button class="ctab" data-chord="${i}" aria-label="Strum ${c.name}">${c.name}</button>`
+  ).join('');
+  // one row per string, running the whole way across the chords
+  const rows = STRING_NAME.map((nm, st) =>
+    '<div class="srow">' + CHORDS_G.map((c, i) => {
+      const fr = c.frets[st];
+      return `<button class="fcell${fr < 0 ? ' off' : ''}" data-chord="${i}" data-s="${st}"
+        aria-label="${fr < 0
+          ? nm + ' string, silent in ' + c.name
+          : 'Play ' + FLAT[(OPEN[st] + fr) % 12] + ', the ' + nm + ' string of ' + c.name}"></button>`;
+    }).join('') + '</div>'
+  ).join('');
+  padEls.chords.innerHTML =
+    `<div class="ctabs" role="group" aria-label="Chords">${tabs}</div>
+     <div class="board" role="group" aria-label="Strings across the chords">
+       <span class="colhl"></span>${rows}
+     </div>`;
+  [...padEls.chords.querySelectorAll('.ctab, .fcell')].forEach(wire);
+  setChord(0);
+}
+
+let padKind = 'hex';
+function showPad(kind){
+  padKind = kind;
+  if (kind === 'keys'   && !padEls.keys.firstChild)   buildKeyboard();
+  if (kind === 'chords' && !padEls.chords.firstChild) buildChords();
+  for (const k in padEls) padEls[k].hidden = k !== kind;
+  const n = PAD_NOTE[kind];
+  padNote.textContent = typeof n === 'function' ? n() : n;
+  sliding = false; lastHex = null;
+}
+showPad('hex');                                          // the hexes lead
+
+twoOct.addEventListener('change', () => {
+  if (!padEls.keys.firstChild) return;                   // nothing built to redo
+  buildKeyboard();
+  if (padKind === 'keys') padNote.textContent = PAD_NOTE.keys();
+});
+
+document.getElementById('padPick').addEventListener('click', e => {
+  const b = e.target.closest('.pick-b');
+  if (!b || b.classList.contains('on')) return;
+  [...e.currentTarget.querySelectorAll('.pick-b')].forEach(x => {
+    const on = x === b;
+    x.classList.toggle('on', on);
+    x.setAttribute('aria-checked', String(on));
+  });
+  showPad(b.dataset.pad);
+});
 addEventListener('pointermove', e => {
   if (!down) return;
   hx = e.clientX; hy = e.clientY;
@@ -2546,7 +2920,7 @@ addEventListener('pointerdown', e => {
   if (gateOpen) return;               // the welcome is up; the page is asleep
   startAudio();                       // first gesture unlocks audio
   // the note pad is an instrument, not a confetti target
-  if (e.target.closest && e.target.closest('.notepad, .chimes, .settings, .cog')) return;
+  if (e.target.closest && e.target.closest('.notepad, .keyboard, .chordpad, .padpick, .chimes, .settings, .cog')) return;
 
   // a bubble under the finger takes priority over everything else
   const hit = bubbleAt(e.clientX, e.clientY);
