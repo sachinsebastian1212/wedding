@@ -2717,6 +2717,57 @@ function pluck(t, midi, vel){
   src.stop(t + e.b.duration / src.playbackRate.value + .05);
 }
 
+/* The hexagons are tuned percussion, not a string: struck metal with a mallet.
+   The keyboard keeps the piano — these two shared one voice and so sounded
+   identical, and this is the half that ought to move.
+
+   The partial ratios are the whole of it. A bar rings at four and nine times
+   its fundamental rather than two and three, and those upper partials are
+   gone long before it is — which is why a vibraphone reads as round and a
+   piano reads as bright. Ratios this far apart also stay clean under a drag
+   across the pad, where a truer bell would turn to mud. */
+function mallet(t, midi, vel, dur){
+  const f = hz(midi);
+  const out = actx.createGain();
+  out.gain.setValueAtTime(0, t);
+  // the shimmer stacks on the fundamental, so this sums louder than the piano
+  // does; the trim is what keeps a velocity meaning the same in either voice
+  out.gain.linearRampToValueAtTime(vel * .66, t + .004);
+  out.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  out.connect(notes);
+
+  for (const [mult, amp, hold] of [[1, 1, 1], [4, .24, .34], [9.2, .06, .15]]){
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = 'sine';
+    o.frequency.value = f * mult;
+    g.gain.setValueAtTime(amp, t);
+    g.gain.exponentialRampToValueAtTime(.0001, t + dur * hold);
+    o.connect(g); g.connect(out);
+    o.start(t); o.stop(t + dur + .05);
+  }
+
+  // a second fundamental a few cents off, beating slowly against the first —
+  // the shimmer any struck bar has, and what keeps it from sounding synthetic
+  const sh = actx.createOscillator(), sg = actx.createGain();
+  sh.type = 'sine';
+  sh.frequency.value = f;
+  sh.detune.value = 6;
+  sg.gain.setValueAtTime(.4, t);
+  sg.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  sh.connect(sg); sg.connect(out);
+  sh.start(t); sh.stop(t + dur + .05);
+
+  // the mallet landing: a soft knock, high above the note and gone at once
+  const n = actx.createBufferSource(); n.buffer = whiteBuf; n.loop = true;
+  const bp = actx.createBiquadFilter();
+  bp.type = 'bandpass'; bp.frequency.value = f * 7; bp.Q.value = 1.1;
+  const ng = actx.createGain();
+  ng.gain.setValueAtTime(vel * .045, t);
+  ng.gain.exponentialRampToValueAtTime(.0001, t + .028);
+  n.connect(bp); bp.connect(ng); ng.connect(out);
+  n.start(t); n.stop(t + .05);
+}
+
 /* The six chords of F major, in shapes a guitarist would actually reach for.
    -1 is a string left out; the numbers are frets above the open tuning. */
 const OPEN = [40, 45, 50, 55, 59, 64];          // E2 A2 D3 G3 B3 E4
@@ -2771,7 +2822,7 @@ const padEls  = { hex   : document.getElementById('notepad'),
                   chords: document.getElementById('chordpad') };
 const padNote = document.getElementById('padNote');
 const PAD_NOTE = {
-  hex   : 'Five notes running up three octaves, mirrored about the middle row \u2014 none of them can sound wrong together.',
+  hex   : 'Struck bars over five notes, running up three octaves and mirrored about the middle row \u2014 none of them can sound wrong together.',
   // the run is shorter on a phone, so the line has to say which it is
   keys  : () => (twoOct.matches ? 'Two octaves' : 'An octave') +
                 ' from middle C, sharps and all. Drag along the whites to run a scale.',
@@ -2791,11 +2842,14 @@ function strike(h){
     if (h.dataset.s !== undefined) pickString(+h.dataset.chord, +h.dataset.s);
     else if (h.dataset.chord !== undefined) strum(+h.dataset.chord);
     else {
-      const m = +h.dataset.n;
+      const m = +h.dataset.n, at = actx.currentTime + .005;
       // higher notes carry further, so they're struck softer and held shorter
-      const vel = m > 72 ? .38 : m > 60 ? .46 : m > 48 ? .52 : .56;
-      const dur = m > 72 ? 3 : m > 60 ? 3.6 : 4.4;
-      key(actx.currentTime + .005, m, vel, dur, notes);
+      if (h.classList.contains('cell'))
+        mallet(at, m, m > 72 ? .34 : m > 60 ? .42 : m > 48 ? .48 : .52,
+                   m > 72 ? 2.6 : m > 60 ? 3.4 : 4.2);
+      else
+        key(at, m, m > 72 ? .38 : m > 60 ? .46 : m > 48 ? .52 : .56,
+                m > 72 ? 3 : m > 60 ? 3.6 : 4.4, notes);
     }
   }
   h.classList.remove('lit');
