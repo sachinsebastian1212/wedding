@@ -29,6 +29,11 @@
    Tokens
    ───────────────────────────────────────────── */
 :root{
+  /* The page is dark on purpose. Saying so stops a phone's own dark mode from
+     repainting it: forced dark darkens CSS backgrounds but leaves images
+     alone, which turned the gaps between the card's strips into black bands. */
+  color-scheme: dark;
+
   --ink:      #05161a;   /* wet slate, near-black teal        */
   --deep:     #0a2a2e;   /* backwater at dusk                 */
   --slate:    #12393d;   /* raised surfaces                   */
@@ -822,12 +827,21 @@ body.gated{overflow:hidden}
    ───────────────────────────────────────────── */
 .cardgate{
   position:fixed; inset:0; z-index:210;
+  color-scheme: light;                 /* this one really is a sheet of paper */
   display:grid; grid-template-rows:minmax(0,1fr) auto;
   background:#fdfdfd;                  /* the paper, sampled off the card */
   animation:gatein .5s ease both;
 }
 .cardgate[hidden]{display:none}
 .cardgate.out{animation:gateout .55s cubic-bezier(.4,0,.2,1) both}
+
+/* stretched over the whole gate, behind everything, so the paper survives a
+   forced dark theme; the background colour under it is only a fallback */
+.cardgate .paper{
+  position:absolute; inset:0; z-index:0;
+  width:100%; height:100%; object-fit:cover;
+}
+.cardgate > .sheet, .cardgate-hint{position:relative; z-index:1}
 
 .sheet{
   position:relative; justify-self:center; align-self:stretch;
@@ -871,7 +885,10 @@ body.gated{overflow:hidden}
 
 .cardgate-hint{
   margin:0; padding:0 1rem 1rem; text-align:center; text-wrap:balance;
-  color:rgba(5,22,26,.4); font-family:var(--sans);
+  /* A muted brass, not a grey. A phone forcing dark on the page inverts
+     neutral text to near-white, which on this paper is no text at all; a
+     saturated tone comes through both ways. */
+  color:#8a7048; font-family:var(--sans);
   font-size:.62rem; letter-spacing:.24em; text-transform:uppercase;
 }
 .cardgate-hint b{color:#a8761f; font-weight:400}
@@ -1070,6 +1087,11 @@ const WEDDING = {
 <!-- The card, shown first when the printed code is what brought them here.
      Tapping the code on it opens the welcome behind. -->
 <div class="cardgate" id="cardGate" hidden>
+  <!-- The paper is an image, not a background colour. A phone forcing dark
+       on the page repaints CSS backgrounds but leaves pictures alone, which
+       is what turned the gaps between the strips into black bands. -->
+  <img class="paper" src="paper.jpg" alt="" aria-hidden="true" decoding="async">
+
   <div class="sheet" id="gateCardWrap">
     <img src="card-1.jpg" width="1300" height="500" decoding="async"
          alt="The printed invitation of Sachin and Kesia — 16 September 2026, four in the afternoon, at Mount Carmel and St Josephs Basilica, Varapuzha.">
@@ -1085,11 +1107,6 @@ const WEDDING = {
       <a class="qrhit" href="#"><span>Continue to the welcome</span></a>
       <span class="qrpulse" aria-hidden="true"></span>
     </div>
-    <canvas aria-hidden="true"></canvas>
-  </div>
-  <p class="cardgate-hint" id="cardGateHint">Tap the <b>code</b> to go on · draw anywhere else</p>
-</div>
-
     <canvas aria-hidden="true"></canvas>
   </div>
   <p class="cardgate-hint" id="cardGateHint">Tap the <b>code</b> to go on · draw anywhere else</p>
