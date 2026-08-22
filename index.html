@@ -820,11 +820,13 @@ body.gated{overflow:hidden}
   box-shadow:0 30px 60px -35px rgba(0,0,0,.95);
   overflow:hidden;
 }
-#cardImg{
+/* by class, not by id — the card appears twice: in the page, and as the door
+   a guest comes in by when the code is what brought them */
+.cardwrap img{
   display:block; width:auto; height:auto;
   max-width:100%; max-height:min(58vh, 620px);
 }
-#scribble{
+.cardwrap canvas{
   position:absolute; inset:0; width:100%; height:100%; z-index:3;
   touch-action:none;                   /* a drag here draws, it does not scroll */
   cursor:crosshair;
@@ -850,6 +852,37 @@ body.gated{overflow:hidden}
   12% {opacity:.85}
   100%{transform:scale(1.8);  opacity:0}
 }
+
+/* The card as the first thing seen, when the printed code is what brought
+   them here. Tapping the code on it is the way through — so it carries the
+   same pulse the one in the page does, and a line saying as much. */
+.cardgate{
+  position:fixed; inset:0; z-index:210;
+  display:grid; grid-template-rows:minmax(0,1fr) auto;
+  justify-items:center; align-items:center;
+  gap:clamp(.9rem,2.5vw,1.4rem); padding:clamp(1rem,4vw,2.4rem);
+  background:var(--ink);
+  animation:gatein .5s ease both;
+}
+.cardgate[hidden]{display:none}
+.cardgate.out{animation:gateout .55s cubic-bezier(.4,0,.2,1) both}
+.cardgate::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(60vw 50vh at 78% 8%,  rgba(217,164,65,.16), transparent 62%),
+    radial-gradient(50vw 45vh at 12% 32%, rgba(46,124,110,.20), transparent 66%),
+    radial-gradient(70vw 60vh at 50% 108%,rgba(229,166,160,.10), transparent 60%);
+}
+.cardgate .cardwrap{margin:0; z-index:1; max-height:100%}
+/* both caps matter: height alone lets a tall card drive its own width past
+   the side of the screen, which is exactly what a portrait card will do */
+.cardgate .cardwrap img{max-height:min(72vh, 860px); max-width:min(86vw, 560px)}
+.cardgate-hint{
+  margin:0; z-index:1; text-align:center; text-wrap:balance;
+  color:var(--muted); font-family:var(--sans);
+  font-size:.66rem; letter-spacing:.24em; text-transform:uppercase;
+}
+.cardgate-hint b{color:var(--brass); font-weight:400}
 
 /* Backdrop blur is cheap on a Mac and expensive on tablets/phones, where it
    forces the whole page to recomposite over the animating canvases. */
@@ -907,7 +940,18 @@ const WEDDING = {
   /* ── The welcome shown when the QR code is scanned ────────────────
      Guests land here, and Google Maps opens on its own after a moment
      unless they tap "See the invitation". Set seconds to 0 to send them
-     straight to Maps, or to -1 to turn the welcome off entirely. */
+     straight to Maps, or to -1 to turn the welcome off entirely.
+
+     Which door a guest comes in by is set on the address itself, so one
+     page can serve every printing without being rebuilt:
+
+       (no parameter)   the welcome, then the invitation
+       ?start=card      the printed card first, tapped through to the welcome
+       ?start=site      straight to the invitation, no welcome at all
+
+     The countdown does not begin until the welcome is actually on screen,
+     so a guest held at the card first is not already half way to the maps
+     by the time they get there. */
   welcome : {
     line    : "You're warmly invited",
     area    : "Varapuzha, Ernakulam",
@@ -1030,6 +1074,19 @@ const WEDDING = {
 </script>
 <!-- ═══════════════ END OF THE EDITABLE BLOCK ═══════════════ -->
 
+
+<!-- The card, shown first when the printed code is what brought them here.
+     Tapping the code on it opens the welcome behind. -->
+<div class="cardgate" id="cardGate" hidden>
+  <figure class="cardwrap" id="gateCardWrap">
+    <img src="preview.jpg" width="788" height="1200" decoding="async"
+         alt="The printed invitation of Sachin and Kesia — 16 September 2026, four in the afternoon, at Mount Carmel and St Josephs Basilica, Varapuzha.">
+    <canvas aria-hidden="true"></canvas>
+    <a class="qrhit" href="#"><span>Continue to the welcome</span></a>
+    <span class="qrpulse" aria-hidden="true"></span>
+  </figure>
+  <p class="cardgate-hint" id="cardGateHint">Tap the <b>code</b> to go on · draw anywhere else</p>
+</div>
 
 <div class="gate" id="gate" hidden>
   <div class="gate-card">
@@ -1182,13 +1239,13 @@ const WEDDING = {
     </div>
 
     <figure class="cardwrap reveal" id="cardWrap">
-      <img id="cardImg" src="preview.jpg" width="788" height="1200" loading="lazy" decoding="async"
+      <img src="preview.jpg" width="788" height="1200" loading="lazy" decoding="async"
            alt="The printed invitation of Sachin and Kesia — 16 September 2026, four in the afternoon, at Mount Carmel and St Josephs Basilica, Varapuzha.">
       <!-- the drawing surface sits over the card and takes every pointer -->
-      <canvas id="scribble" aria-hidden="true"></canvas>
+      <canvas aria-hidden="true"></canvas>
       <!-- a real link over the code, for keyboards and readers; the canvas
            above it handles the pointer, and taps are passed along -->
-      <a id="qrHit" class="qrhit" href="#"><span>Open this page</span></a>
+      <a class="qrhit" href="#"><span>Open the welcome</span></a>
       <span class="qrpulse" aria-hidden="true"></span>
     </figure>
   </section>
@@ -1414,7 +1471,9 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* ── The welcome gate ────────────────────────
    Shown on arrival (a scanned QR code). Maps opens on its own after a few
    seconds unless the guest chooses to see the invitation instead. */
-let gateOpen = false;
+/* openGate stays null when there is no welcome to show — the routes below
+   fall through to the invitation itself in that case. */
+let gateOpen = false, openGate = null;
 (function gateSetup(){
   const W = WEDDING, g = document.getElementById('gate');
   const secs = W.welcome ? +W.welcome.seconds : -1;
@@ -1445,10 +1504,6 @@ let gateOpen = false;
     try { location.replace(MAPS); }
     catch (err) { open(MAPS, '_blank', 'noopener'); }   // sandboxed: open instead
   }
-  if (secs === 0){ toMaps(); return; }
-  // someone returning to the page mid-visit shouldn't be sent away again
-  try { if (location.hash === '#invitation') return; } catch (err) {}
-
   const $ = id => document.getElementById(id);
   $('gateLine').textContent  = W.welcome.line;
   $('gateOne').textContent   = W.couple.one;
@@ -1474,10 +1529,6 @@ let gateOpen = false;
     $('gateHall').remove();
     $('gatePlaces').classList.add('one');
   }
-
-  g.hidden = false;
-  document.body.classList.add('gated');
-  gateOpen = true;
 
   const arc = $('gateArc'), LEN = 289.03;
   let raf = 0, t0 = null, done = false;
@@ -1509,12 +1560,23 @@ let gateOpen = false;
     raf = requestAnimationFrame(tick);
   }
 
-  if (reduced){
-    $('gateStatus').textContent = 'Choose below';
-    arc.style.strokeDashoffset = 0;
-  } else {
-    raf = requestAnimationFrame(tick);
-  }
+  /* Everything above only builds it. This is what puts it on screen, and the
+     countdown starts here rather than on load — so a guest held at the card
+     first is not already half way to the maps by the time they arrive. */
+  openGate = function(){
+    if (gateOpen) return;
+    if (secs === 0){ toMaps(); return; }      // no welcome wanted, just the way there
+    g.hidden = false;
+    document.body.classList.add('gated');
+    gateOpen = true;
+    if (reduced){
+      $('gateStatus').textContent = 'Choose below';
+      arc.style.strokeDashoffset = 0;
+    } else {
+      t0 = null;
+      raf = requestAnimationFrame(tick);
+    }
+  };
 
   $('gateMore').addEventListener('click', dismiss);
   $('gateX').addEventListener('click', dismiss);
@@ -3024,15 +3086,15 @@ document.getElementById('padPick').addEventListener('click', e => {
 
    The code is pointed at whatever address is serving this page rather than
    the one that was printed on the card, which may well outlive its host. */
-(function cardSetup(){
-  const wrap = document.getElementById('cardWrap');
+function makeCard(wrap, onCode){
   if (!wrap) return;
-  const img = document.getElementById('cardImg');
-  const cv  = document.getElementById('scribble');
-  const hit = document.getElementById('qrHit');
+  const img = wrap.querySelector('img');
+  const cv  = wrap.querySelector('canvas');
+  const hit = wrap.querySelector('.qrhit');
   const ctx = cv.getContext('2d');
 
   hit.href = location.href;
+  hit.addEventListener('click', e => { e.preventDefault(); onCode(); });
 
   // where the code sits on the printed card, as a fraction of it
   const QR = { x:.4404, y:.8133, w:.132, h:.0867 };
@@ -3119,9 +3181,49 @@ document.getElementById('padPick').addEventListener('click', e => {
     if (moved < 8 && performance.now() - downAt < 500 &&
         x > QR.x * W && x < (QR.x + QR.w) * W &&
         y > QR.y * H && y < (QR.y + QR.h) * H)
-      location.href = hit.href;
+      onCode();
   });
   cv.addEventListener('pointercancel', () => { drawing = false; });
+}
+
+/* ── Which door the guest comes in by ─────────
+   Three ways in, chosen by the address the code carries:
+
+     (no parameter)   the welcome, then the invitation — as it always was
+     ?start=card      the printed card first, tapped through to the welcome
+     ?start=site      straight to the invitation, no welcome at all
+
+   #invitation does what ?start=site does; it is what the welcome writes when
+   it is dismissed, so a refresh mid-visit does not start the whole way over. */
+const cardGate = document.getElementById('cardGate');
+
+function openCardGate(next){
+  if (!cardGate) return next();
+  cardGate.hidden = false;
+  document.body.classList.add('gated');
+  makeCard(document.getElementById('gateCardWrap'), () => {
+    cardGate.classList.add('out');
+    document.body.classList.remove('gated');
+    setTimeout(() => { cardGate.hidden = true; next(); }, 560);
+  });
+}
+
+// tapping the code on the card in the page behaves the same as scanning it
+makeCard(document.getElementById('cardWrap'),
+         () => { if (openGate) openGate(); });
+
+(function route(){
+  let start = '';
+  try { start = (new URLSearchParams(location.search).get('start') || '').toLowerCase(); }
+  catch (err) { /* no URLSearchParams to speak of */ }
+
+  let returning = false;
+  try { returning = location.hash === '#invitation'; } catch (err) {}
+
+  if (start === 'site' || returning) return;             // the invitation, bare
+  const welcome = () => { if (openGate) openGate(); };
+  if (start === 'card'){ openCardGate(welcome); return; }
+  welcome();
 })();
 
 addEventListener('pointermove', e => {
